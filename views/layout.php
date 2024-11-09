@@ -45,7 +45,7 @@
                                 <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/altas"><i class="bi bi-person-fill-add"></i> Altas</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/bajas"><i class="bi bi-person-dash-fill"></i></i> Bajas</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/bajas"><i class="bi bi-person-fill-dash"></i> Bajas</a>
                             </li>
                         </ul>
                     </div>
@@ -60,10 +60,10 @@
                     </div>
                     
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-gear"></i> Traslados </a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-people-fill"></i> Traslados </a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/traslados"><i class="bi bi-shuffle"></i> Cambios</a>
                             </li>
                         </ul>
                     </div>

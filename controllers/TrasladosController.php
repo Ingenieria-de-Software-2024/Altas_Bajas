@@ -5,12 +5,12 @@ namespace Controllers;
 use Exception;
 use MVC\Router;
 use Model\ActiveRecord;
-use Model\Correcciones;
+use Model\Traslados;
 
-class CorreccionesController
+class TrasladosController
 {
     public static function index(Router $router){
-        $router->render('correcciones/index', []);
+        $router->render('traslados/index', []);
     }
 
     public static function buscarTropa()
@@ -28,7 +28,7 @@ class CorreccionesController
             // INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
             // WHERE PER_CATALOGO = 6531396 AND PER_SITUACION IN ('11', 'TH', 'T0');";
             
-            $tropa = Correcciones::buscarTropa();
+            $tropa = Traslados::buscarTropa();
             http_response_code(200);
             echo json_encode($tropa);
         } catch (Exception $e) {

@@ -8,6 +8,7 @@ module.exports = {
     'js/altas/index' : './src/js/altas/index.js',
     'js/bajas/index' : './src/js/bajas/index.js',
     'js/correcciones/index' : './src/js/correcciones/index.js',
+    'js/traslados/index' : './src/js/traslados/index.js',
   },
   output: {
     filename: '[name].js',

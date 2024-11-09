@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col text-center">
-    <h1 class="App">Altas y Bajas (Tropa)</h1>
+    <h1 class="App">Módulo Altas y Bajas (Tropa)</h1>
     <hr>
     <h4 class="text-muted"><b><u>Bienvenido:</u></b> <?= $user['gra_desc_ct'] . " " . $user['per_nom1'] . " " . $user['per_nom2'] . " " . $user['per_ape1'] . " " . $user['per_ape2'] ?> </h4>
   </div>
