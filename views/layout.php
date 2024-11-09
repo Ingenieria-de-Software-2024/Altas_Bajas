@@ -54,11 +54,20 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-lines-fill"></i> Correcciones</a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/correcciones"><i class="bi bi-person-vcard-fill"></i> Modificar Datos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-gear"></i> Traslados </a>
+                        <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
+                            <li>
                                 <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
                             </li>
                         </ul>
                     </div>
-
+                    
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-down"></i> Vacantes</a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
@@ -68,14 +77,6 @@
                         </ul>
                     </div>
 
-                    <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-gear"></i> Traslados </a>
-                        <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
-                            </li>
-                        </ul>
-                    </div>
 
                 </ul>
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
