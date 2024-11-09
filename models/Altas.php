@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class AltasBajas extends ActiveRecord
+class Altas extends ActiveRecord
 {
     protected static $tabla = 'mper';
     protected static $idTabla = 'per_catalogo';

@@ -10,7 +10,7 @@ TablaTropa.classList.add('d-none');
 
 
 const buscar = async () => {
-    const url = '/Altas_Bajas/API/altasbajas/buscarTropa';
+    const url = '/Altas_Bajas/API/altas/buscarTropa';
     const config = {
         method: 'GET'
     }

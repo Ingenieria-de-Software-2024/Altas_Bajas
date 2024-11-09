@@ -5,12 +5,12 @@ namespace Controllers;
 use Exception;
 use MVC\Router;
 use Model\ActiveRecord;
-use Model\AltasBajas;
+use Model\Altas;
 
-class AltasBajasController
+class AltasController
 {
     public static function index(Router $router){
-        $router->render('altasbajas/index', []);
+        $router->render('altas/index', []);
     }
 
     public static function buscarTropa()
@@ -28,7 +28,7 @@ class AltasBajasController
             // INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
             // WHERE PER_CATALOGO = 6531396 AND PER_SITUACION IN ('11', 'TH', 'T0');";
             
-            $tropa = AltasBajas::buscarTropa();
+            $tropa = Altas::buscarTropa();
             http_response_code(200);
             echo json_encode($tropa);
         } catch (Exception $e) {

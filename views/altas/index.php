@@ -10,4 +10,4 @@
 
 <!-- <?php var_dump($_SESSION['dep_llave']) ?> -->
 
-<script src="<?= asset('./build/js/altasbajas/index.js') ?>"></script>
+<script src="<?= asset('./build/js/altas/index.js') ?>"></script>

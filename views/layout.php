@@ -42,10 +42,10 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-up"></i> Altas y Bajas </a>
                         <ul class="dropdown-menu dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/altasbajas"><i class="bi bi-person-fill-add"></i> Altas</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/altas"><i class="bi bi-person-fill-add"></i> Altas</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/altasbajas"><i class="bi bi-person-dash-fill"></i></i> Bajas</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/bajas"><i class="bi bi-person-dash-fill"></i></i> Bajas</a>
                             </li>
                         </ul>
                     </div>
