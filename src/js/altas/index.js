@@ -1,4 +1,4 @@
-import { Dropdown, Tab } from "bootstrap";
+import { Dropdown, Tab, Modal } from "bootstrap";
 import { Toast, validarFormulario } from "../funciones";
 import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
@@ -17,9 +17,6 @@ const buscar = async () => {
 
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
-
-    // console.log(data)
-    // return;
 
     datatable.clear().draw();
     if(data && data.length > 0){
@@ -72,7 +69,9 @@ const datatable = new DataTable('#TablaTropa', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-per_catalogo="${data}" data-grado="${row.grado}" data-nombre_completo="${row.nombre_completo}" data-plaza="${row.plaza}" data-empleo="${row.empleo}" data-ceom="${row.ceom}"><i class="bi bi-person-fill-add"></i></button>
+                <button class='btn btn-warning alta' data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+
+                <button class='btn btn-secondary pdf'><i class="bi bi-file-pdf-fill"></i></button>
 
                 `
                 return html;
