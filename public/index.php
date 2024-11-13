@@ -17,6 +17,9 @@ $router->get('/', [AppController::class,'index']);
 //ALTAS
 $router->get('/altas', [AltasController::class,'index']);
 $router->get('/API/altas/buscarTropa', [AltasController::class,'buscarTropa']);
+$router->get('/API/altas/buscarMunicipio', [AltasController::class,'buscarMunicipios']);
+$router->get('/API/altas/buscarMunicipio2', [AltasController::class,'buscarMunicipios']);
+$router->get('/API/altas/buscarMunicipio3', [AltasController::class,'buscarMunicipios']);
 
 //BAJAS
 $router->get('/bajas', [BajasController::class,'index']);

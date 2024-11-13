@@ -10,24 +10,38 @@ use Model\Altas;
 class AltasController
 {
     public static function index(Router $router){
-        $router->render('altas/index', []);
+
+        $departamentos = Altas::buscarDepartamentos();
+
+        $router->render('altas/index', [
+            'departamentos' => $departamentos 
+        ]);
+    }
+
+    public static function buscarMunicipios()
+    {
+        $codigo_municipio = $_GET['municipio'];
+        $dep_mun = substr($codigo_municipio, 0, 2);
+        
+        try {          
+            $municipios = Altas::buscarMunicipios($dep_mun);
+            http_response_code(200);
+            echo json_encode($municipios);
+
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al buscar',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
     }
 
     public static function buscarTropa()
     {
-        try {
-            // $sql = "SELECT PER_CATALOGO AS CATALOGO, 
-            // GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, 
-            // PER_PLAZA AS PLAZA, 
-            // PER_DESC_EMPLEO AS EMPLEO, 
-            // ORG_CEOM AS CEOM, 
-            // DEP_DESC_LG AS DEPENDENCIA
-            // FROM MPER 
-            // INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO 
-            // INNER JOIN MORG ON PER_PLAZA = ORG_PLAZA
-            // INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
-            // WHERE PER_CATALOGO = 6531396 AND PER_SITUACION IN ('11', 'TH', 'T0');";
-            
+        try {          
             $tropa = Altas::buscarTropa();
             http_response_code(200);
             echo json_encode($tropa);

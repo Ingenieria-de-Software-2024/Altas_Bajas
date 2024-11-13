@@ -1,4 +1,4 @@
-import { Dropdown, Tab } from "bootstrap";
+import { Dropdown, Tab, Modal } from "bootstrap";
 import { Toast, validarFormulario } from "../funciones";
 import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
@@ -72,8 +72,9 @@ const datatable = new DataTable('#TablaTropa', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-danger modificar' data-per_catalogo="${data}" data-grado="${row.grado}" data-nombre_completo="${row.nombre_completo}" data-plaza="${row.plaza}" data-empleo="${row.empleo}" data-ceom="${row.ceom}"><i class="bi bi-person-fill-dash"></i>
+                <button class='btn btn-danger Baja' data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
 
+                <button class='btn btn-secondary pdf'><i class="bi bi-file-pdf-fill"></i></button>
                 `
                 return html;
             }

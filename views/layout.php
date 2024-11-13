@@ -69,14 +69,37 @@
                     </div>
                     
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-down"></i> Vacantes</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill-exclamation"></i> Vacantes</a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i> Subitem</a>
                             </li>
                         </ul>
                     </div>
 
+                    <div class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-text-fill"></i> Reportes</a>
+                        <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="bi bi-houses-fill"></i> Ejercito</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="bi bi-house-fill"></i> Brigadas</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-bar-chart-line-fill"></i> Gráficas</a>
+                        <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="bi bi-houses-fill"></i> Ejercito</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="bi bi-house-fill"></i> Brigadas</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </ul>
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
