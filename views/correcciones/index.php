@@ -1,9 +1,9 @@
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
-        <i class="bi bi-person-vcard-fill" style="font-size: 75px;"></i>
-        <h1 class="App">Corrección de Datos</h1>
-        <hr>
         <div class="col table-responsive col-lg-11 table-wrapper border shadow bg-light rounded p-5">
+            <i class="bi bi-person-vcard-fill" style="font-size: 75px;"></i>
+            <h1 class="App">Corrección de Datos</h1>
+            <hr>
             <table class="table table-bordered table-hover w-100 text-center shadow" id="TablaTropa"></table>
         </div>
     </div>
@@ -12,12 +12,12 @@
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
 
-        <div class="modal fade" id="modalBajas" tabindex="-1" data-bs-keyboard="false" role="dialog"
+        <div class="modal fade" id="modalCorrecciones" tabindex="-1" data-bs-keyboard="false" role="dialog"
             aria-labelledby="modalTitleId" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content bg-light">
                     <div class="modal-header bg-primary bg-gradient">
-                        <h5 class="modal-title" id="modalTitleId">Formulario para causar <b><u>Baja</u></b>, personal de
+                        <h5 class="modal-title" id="modalTitleId">Formulario para hacer <b><u>Correcciones</u></b>, personal de
                             Tropa </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_departamento"><b>Depto. de extensión</b></label>
-                                <select name="per_departamento" id="per_departamento" class="form-control" require>
+                                <select class="form-select" name="per_departamento" id="per_departamento" class="form-control" require>
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -83,7 +83,9 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_ext_ced_lugar"><b>Municipio de extensión</b></label>
-                                <input type="text" name="per_ext_ced_lugar" id="per_ext_ced_lugar" class="form-control" require>
+                                <select class="form-select" name="per_ext_ced_lugar" id="per_ext_ced_lugar" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                         </div>
 
@@ -143,11 +145,18 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-4 justify-content-center">
                                 <label for="per_dir_lugar"><b>Depto. de Residencia</b></label>
-                                <input type="date" name="per_dir_lugar" id="per_dir_lugar" class="form-control" require>
+                                <select class="form-select" name="per_departamento2" id="per_departamento2" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                    <?php foreach ($departamentos as $opciones) : ?>
+                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                             <div class="col-4 justify-content-center">
                                 <label for="per_dir_lugar"><b>Municipio de Residencia</b></label>
-                                <input type="text" name="per_dir_lugar" id="per_dir_lugar" class="form-control" require>
+                                <select class="form-select" name="per_dir_lugar" id="per_dir_lugar" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_telefono"><b>Telefono</b></label>
@@ -166,15 +175,22 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-2 justify-content-center">
                                 <label for="per_fec_nac"><b>Fecha de Nacimiento</b></label>
-                                <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" disabled>
+                                <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" require>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_nac_lugar"><b>Depto. de Nacimiento</b></label>
-                                <input type="text" name="per_nac_lugar" id="per_nac_lugar" class="form-control" disabled>
+                                <label for="per_departamento4"><b>Depto. de Nacimiento</b></label>
+                                <select class="form-select" name="per_departamento4" id="per_departamento4" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                    <?php foreach ($departamentos as $opciones) : ?>
+                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                <input type="text" name="per_nac_lugar" id="per_nac_lugar" class="form-control" disabled>
+                                <select class="form-select" name="per_nac_lugar" id="per_nac_lugar" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                         </div>
 
@@ -268,11 +284,18 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="ben_nac_lugar"><b>Depto. de Nacimiento</b></label>
-                                <input type="text" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" require>
+                                <select class="form-select" name="per_departamento3" id="per_departamento3" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                    <?php foreach ($departamentos as $opciones) : ?>
+                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="ben_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                <input type="text" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" require>
+                                <select class="form-select" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                         </div>
 

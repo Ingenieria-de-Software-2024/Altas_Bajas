@@ -9,8 +9,6 @@
     </div>
 </div>
 
-<!-- FORMULARIO ALTAS -->
-
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center bg">
 
@@ -180,12 +178,19 @@
                                 <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" require>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_nac_lugar"><b>Depto. de Nacimiento</b></label>
-                                <input type="text" name="per_nac_lugar" id="per_nac_lugar" class="form-control" require>
+                                <label for="per_departamento4"><b>Depto. de Nacimiento</b></label>
+                                <select class="form-select" name="per_departamento4" id="per_departamento4" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                    <?php foreach ($departamentos as $opciones) : ?>
+                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                <input type="text" name="per_nac_lugar" id="per_nac_lugar" class="form-control" require>
+                                <select class="form-select" name="per_nac_lugar" id="per_nac_lugar" class="form-control" require>
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                         </div>
 

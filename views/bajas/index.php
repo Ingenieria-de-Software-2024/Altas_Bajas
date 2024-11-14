@@ -15,7 +15,7 @@
         <div class="modal fade" id="modalBajas" tabindex="-1" data-bs-keyboard="false" role="dialog"
             aria-labelledby="modalTitleId" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content bg-light">
                     <div class="modal-header bg-danger bg-gradient">
                         <h5 class="modal-title" id="modalTitleId">Formulario para causar <b><u>Baja</u></b>, personal de
                             Tropa </h5>

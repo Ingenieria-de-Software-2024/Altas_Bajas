@@ -7,10 +7,12 @@ import { lenguaje } from "../lenguaje";
 const TablaTropa = document.getElementById('TablaTropa');
 const selectDepartamento = document.getElementById('per_departamento');
 const selectDepartamento2 = document.getElementById('per_departamento2');
-const selectDepartamento3 = document.getElementById('per_departamento2');
+const selectDepartamento3 = document.getElementById('per_departamento3');
+const selectDepartamento4 = document.getElementById('per_departamento4');
 const selectMunicipio = document.getElementById('per_ext_ced_lugar');
 const selectMunicipio2 = document.getElementById('per_dir_lugar');
 const selectMunicipio3 = document.getElementById('ben_nac_lugar');
+const selectMunicipio4 = document.getElementById('per_nac_lugar');
 
 TablaTropa.classList.add('d-none');
 
@@ -184,6 +186,40 @@ const buscarMunicipio3 = async () => {
     }
 };
 
+const buscarMunicipio4 = async () => {
+    const departamento4 = selectDepartamento4.value.trim();
+
+    try {
+        const url = `/Altas_Bajas/API/altas/buscarMunicipio4?municipio=${departamento4}`;
+        const config = {
+            method: 'GET'
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+
+        selectMunicipio4.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        selectMunicipio4.appendChild(defaultOption);
+
+        if (data) {
+            data.slice(1).forEach(municipio4 => {
+                const option = document.createElement('option');
+                option.value = municipio4.dm_codigo;
+                option.textContent = municipio4.dm_desc_lg.trim();
+                selectMunicipio4.appendChild(option);
+            });
+            
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+selectDepartamento.addEventListener ('change' , buscarMunicipio4);
 selectDepartamento.addEventListener ('change' , buscarMunicipio3);
 selectDepartamento.addEventListener ('change' , buscarMunicipio2);
 selectDepartamento.addEventListener ('change' , buscarMunicipio);

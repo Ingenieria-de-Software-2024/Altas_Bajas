@@ -93,6 +93,21 @@ class Correcciones extends ActiveRecord
                 INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
                 WHERE DEP_LLAVE = '$dependencia' AND PER_SITUACION IN ('TH', 'T0');";
 
-        return self::fetchArray($sql);}
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarDepartamentos()
+    {
+        $sql = "SELECT DM_CODIGO, TRIM(SUBSTRING(DM_MUN_DEP FROM INSTR(DM_MUN_DEP, ',') + 2)) AS DEPARTAMENTOS FROM DEPMUN WHERE DM_CODIGO LIKE '%01'";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarMunicipios($dep_mun)
+    {
+        $sql = 'SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE \'' . $dep_mun . '%\'';
+
+        return self::fetchArray($sql);
+    }
 
 }

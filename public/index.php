@@ -20,6 +20,8 @@ $router->get('/API/altas/buscarTropa', [AltasController::class,'buscarTropa']);
 $router->get('/API/altas/buscarMunicipio', [AltasController::class,'buscarMunicipios']);
 $router->get('/API/altas/buscarMunicipio2', [AltasController::class,'buscarMunicipios']);
 $router->get('/API/altas/buscarMunicipio3', [AltasController::class,'buscarMunicipios']);
+$router->get('/API/altas/buscarMunicipio4', [AltasController::class,'buscarMunicipios']);
+
 
 //BAJAS
 $router->get('/bajas', [BajasController::class,'index']);
@@ -28,6 +30,10 @@ $router->get('/API/bajas/buscarTropa', [BajasController::class,'buscarTropa']);
 //MODIFICACIONES
 $router->get('/correcciones', [CorreccionesController::class,'index']);
 $router->get('/API/correcciones/buscarTropa', [CorreccionesController::class,'buscarTropa']);
+$router->get('/API/correcciones/buscarMunicipio', [CorreccionesController::class,'buscarMunicipios']);
+$router->get('/API/correcciones/buscarMunicipio2', [CorreccionesController::class,'buscarMunicipios']);
+$router->get('/API/correcciones/buscarMunicipio3', [CorreccionesController::class,'buscarMunicipios']);
+$router->get('/API/correcciones/buscarMunicipio4', [CorreccionesController::class,'buscarMunicipios']);
 
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);
