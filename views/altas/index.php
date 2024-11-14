@@ -102,7 +102,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_fec_nomb"><b>Fecha de nombramiento</b></label>
-                                <input type="text" name="per_fec_nomb" id="per_fec_nomb" class="form-control" readonly>
+                                <input type="date" name="per_fec_nomb" id="per_fec_nomb" class="form-control" readonly>
                             </div>
                         </div>
 
@@ -190,10 +190,6 @@
                         </div>
 
                         <div class="row justify-content-center mb-3">
-                            <div class="col justify-content-center">
-                                <label for="oper_nit"><b>Nit</b></label>
-                                <input type="text" name="oper_nit" id="oper_nit" class="form-control" readonly>
-                            </div>
                             <div class="col justify-content-center">
                                 <label for="oper_correo_personal"><b>Correo Personal</b></label>
                                 <input type="text" name="oper_correo_personal" id="oper_correo_personal" class="form-control" readonly>

@@ -93,6 +93,14 @@ class Bajas extends ActiveRecord
                 INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
                 WHERE DEP_LLAVE = '$dependencia' AND PER_SITUACION IN ('TH', 'T0');";
 
-        return self::fetchArray($sql);}
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarMotivos()
+    {
+        $sql = "SELECT SIT_CODIGO, SIT_DESC_LG FROM SITUACIONES WHERE SIT_CODIGO IN ('TV', 'TS', 'TM', 'TF', 'TB', 'TX', 'TA', 'TP', 'TR', '1C', '1A', '1E', '14', '17', '17', 'TC', '21', '1V', '22', '23', '25', 'OD')";
+
+        return self::fetchArray($sql);
+    }
 
 }
