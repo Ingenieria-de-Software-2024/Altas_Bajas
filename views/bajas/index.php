@@ -22,7 +22,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form class="modal-body" id="formAlta" enctype="multipart/form-data">
-                        <input type="hidden" name="ase_id" id="ase_id">
+                        <input type="hidden" name="baja_id" id="baja_id">
 
                         <div class="row justify-content-center mb-3">
                             <div class="row justify-content-center mb-3">

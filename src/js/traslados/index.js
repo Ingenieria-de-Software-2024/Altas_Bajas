@@ -1,4 +1,4 @@
-import { Dropdown, Tab } from "bootstrap";
+import { Dropdown, Tab, Modal } from "bootstrap";
 import { Toast, validarFormulario } from "../funciones";
 import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
@@ -66,13 +66,14 @@ const datatable = new DataTable('#TablaTropa', {
             data: 'ceom'
         },
         {
-            title: 'Cambios',
+            title: 'Traslados',
             data: 'per_catalogo',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-success modificar' data-per_catalogo="${data}" data-grado="${row.grado}" data-nombre_completo="${row.nombre_completo}" data-plaza="${row.plaza}" data-empleo="${row.empleo}" data-ceom="${row.ceom}"><i class="bi bi-people-fill"></i>
+
+                <button class='btn btn-success traslados' data-bs-toggle="modal" data-bs-target="#modalTraslados"><i class="bi bi-people-fill"></i></button>
 
                 `
                 return html;

@@ -72,7 +72,7 @@ const datatable = new DataTable('#TablaTropa', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-danger Baja' data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
+                <button class='btn btn-danger baja' data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
 
                 <button class='btn btn-secondary pdf'><i class="bi bi-file-pdf-fill"></i></button>
                 `

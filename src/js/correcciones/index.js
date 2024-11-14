@@ -80,7 +80,7 @@ const datatable = new DataTable('#TablaTropa', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-primary Correcciones' data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-fill-exclamation"></i></button>
+                <button class='btn btn-primary correcciones' data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-fill-exclamation"></i></button>
 
                 `
                 return html;
