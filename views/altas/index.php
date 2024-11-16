@@ -315,8 +315,9 @@
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
-                                <button type="button" class="btn btn-danger btn-lg" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
+                                <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
+                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelar" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiar" name="btnLimpiar"> Limpiar</button>
                             </div>
                         </div>
                     </div>

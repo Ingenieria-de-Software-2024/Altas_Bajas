@@ -17,10 +17,12 @@ const selectMunicipio4 = document.getElementById('per_nac_lugar');
 const inputDpi = document.getElementById('per_dpi');
 const BtnSearch = document.getElementById('search');
 const BtnAlta = document.getElementById('btnDarAlta');
+const BtnLimpiar = document.getElementById('btnLimpiar');
 const BtnCancelar = document.getElementById('btnCancelar');
 
 TablaTropa.classList.add('d-none');
 BtnAlta.classList.add('d-none');
+BtnLimpiar.classList.add('d-none');
 
 document.getElementById('formAlta').style.display = 'none';
 
@@ -131,6 +133,7 @@ const mostrarFormulario = async () => {
                     timerProgressBar: false
                 });
 
+                BtnLimpiar.classList.remove('d-none'); 
                 ocultarFormulario();
 
             } else {
@@ -144,11 +147,15 @@ const mostrarFormulario = async () => {
                 document.getElementById('formAlta').style.display = 'block';
                 document.getElementById('dpi').style.display = 'none';
                 BtnAlta.classList.remove('d-none');
+                             
             }
 
         } catch (error) {
+
             console.log(error)
+
         }
+
     } else {
 
         Swal.fire({
@@ -167,8 +174,6 @@ const ocultarFormulario = async () => {
     document.getElementById('dpi').style.display = 'none';
 
 };
-
-
 
 const buscarMunicipio = async () => {
     const departamento = selectDepartamento.value.trim();
@@ -190,6 +195,7 @@ const buscarMunicipio = async () => {
         selectMunicipio.appendChild(defaultOption);
 
         if (data) {
+
             data.slice(1).forEach(municipio => {
                 const option = document.createElement('option');
                 option.value = municipio.dm_codigo;
@@ -199,7 +205,9 @@ const buscarMunicipio = async () => {
 
         }
     } catch (error) {
+
         console.log(error);
+
     }
 };
 
@@ -223,6 +231,7 @@ const buscarMunicipio2 = async () => {
         selectMunicipio2.appendChild(defaultOption);
 
         if (data) {
+
             data.slice(1).forEach(municipio2 => {
                 const option = document.createElement('option');
                 option.value = municipio2.dm_codigo;
@@ -232,7 +241,9 @@ const buscarMunicipio2 = async () => {
 
         }
     } catch (error) {
+
         console.log(error);
+
     }
 };
 
@@ -256,6 +267,7 @@ const buscarMunicipio3 = async () => {
         selectMunicipio3.appendChild(defaultOption);
 
         if (data) {
+
             data.slice(1).forEach(municipio3 => {
                 const option = document.createElement('option');
                 option.value = municipio3.dm_codigo;
@@ -265,7 +277,9 @@ const buscarMunicipio3 = async () => {
 
         }
     } catch (error) {
+
         console.log(error);
+
     }
 };
 
@@ -289,6 +303,7 @@ const buscarMunicipio4 = async () => {
         selectMunicipio4.appendChild(defaultOption);
 
         if (data) {
+
             data.slice(1).forEach(municipio4 => {
                 const option = document.createElement('option');
                 option.value = municipio4.dm_codigo;
@@ -298,15 +313,17 @@ const buscarMunicipio4 = async () => {
 
         }
     } catch (error) {
+
         console.log(error);
+
     }
 };
 
 dpi.addEventListener('change', mostrarFormulario);
-selectDepartamento2.addEventListener('change', buscarMunicipio4);
-selectDepartamento3.addEventListener('change', buscarMunicipio3);
-selectDepartamento.addEventListener('change', buscarMunicipio2);
-selectDepartamento.addEventListener('change', buscarMunicipio);
+selectDepartamento.addEventListener('change', buscarMunicipio4);
+selectDepartamento2.addEventListener('change', buscarMunicipio3);
+selectDepartamento3.addEventListener('change', buscarMunicipio2);
+selectDepartamento4.addEventListener('change', buscarMunicipio);
 
 BtnSearch.addEventListener('click', mostrarFormulario)
 buscar();
