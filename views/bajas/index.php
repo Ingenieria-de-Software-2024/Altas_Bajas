@@ -27,9 +27,8 @@
                         <div class="row justify-content-center mb-3">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-3 justify-content-center">
-                                    <label for="per_catalogo"><b>Cátalogo</b></label>
-                                    <input type="number" name="per_catalogo" id="per_catalogo" class="form-control"
-                                        disabled="">
+                                    <label for="catalogo"><b>Cátalogo</b></label>
+                                    <input type="number" name="catalogo" id="catalogo" class="form-control" readonly="">
                                 </div>
                                 <div class="col justify-content-center">
                                     <label for="nombre_completo"><b>Nombre Completo</b></label>
@@ -41,12 +40,12 @@
 
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
-                                <label for="per_plaza"><b>Plaza</b></label>
-                                <input type="text" name="per_plaza" id="per_plaza" class="form-control" disabled>
+                                <label for="plaza"><b>Plaza</b></label>
+                                <input type="text" name="plaza" id="plaza" class="form-control" disabled>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_desc_empleo"><b>Empleo</b></label>
-                                <input type="text" name="per_desc_empleo" id="per_desc_empleo" class="form-control"
+                                <label for="empleo"><b>Empleo</b></label>
+                                <input type="text" name="empleo" id="empleo" class="form-control"
                                     disabled>
                             </div>
                             <div class="col justify-content-center">
@@ -57,10 +56,11 @@
 
                         <div class="col justify-content-center">
                             <label for="per_situacion"><b>Motivo</b></label>
-                            <select class="form-select" name="per_situacion" id="per_situacion" class="form-control" required>
+                            <select class="form-select" name="per_situacion" id="per_situacion" class="form-control"
+                                required>
                                 <option value="">Seleccione...</option>
                                 <?php foreach ($motivos as $opcion) : ?>
-                                    <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
+                                <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -69,8 +69,8 @@
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-danger btn-lg" name="btnDarAlta"><i
-                                        class="bi bi-person-fill-x"></i> Dar Baja</button>
+                                <button type="button" class="btn btn-danger btn-lg" id="btnDarBaja" name="btnDarBaja"><i class="bi bi-person-fill-x"></i> Dar Baja</button>
+                                <button type="button" class="btn btn-success btn-lg" id="btnCancelar" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

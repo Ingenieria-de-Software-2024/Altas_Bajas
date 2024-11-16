@@ -26,6 +26,7 @@ $router->get('/API/altas/verificarDpi', [AltasController::class,'verificarDpi'])
 //BAJAS
 $router->get('/bajas', [BajasController::class,'index']);
 $router->get('/API/bajas/buscarTropa', [BajasController::class,'buscarTropa']);
+$router->get('/API/bajas/obtenerDatos', [BajasController::class,'obtenerDatos']);
 
 //MODIFICACIONES
 $router->get('/correcciones', [CorreccionesController::class,'index']);

@@ -103,7 +103,7 @@
 
                 </ul>
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
-                    <a href="/Altas_Bajas/" class="btn btn-danger"><i class="bi bi-door-open-fill"></i> Salir</a>
+                    <a href="/menu/" class="btn btn-danger"><i class="bi bi-door-open-fill"></i> Salir</a>
                 </div>
 
             </div>
