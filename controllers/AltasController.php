@@ -9,12 +9,13 @@ use Model\Altas;
 
 class AltasController
 {
-    public static function index(Router $router){
+    public static function index(Router $router)
+    {
 
         $departamentos = Altas::buscarDepartamentos();
 
         $router->render('altas/index', [
-            'departamentos' => $departamentos 
+            'departamentos' => $departamentos
         ]);
     }
 
@@ -22,12 +23,11 @@ class AltasController
     {
         $codigo_municipio = $_GET['municipio'];
         $dep_mun = substr($codigo_municipio, 0, 2);
-        
-        try {          
+
+        try {
             $municipios = Altas::buscarMunicipios($dep_mun);
             http_response_code(200);
             echo json_encode($municipios);
-
         } catch (Exception $e) {
 
             http_response_code(500);
@@ -41,7 +41,7 @@ class AltasController
 
     public static function buscarTropa()
     {
-        try {          
+        try {
             $tropa = Altas::buscarTropa();
             http_response_code(200);
             echo json_encode($tropa);
@@ -55,6 +55,31 @@ class AltasController
         }
     }
 
+    public static function verificarDpi()
+    {
+        try {
+            $dpi = filter_var( $_GET['dpi'], FILTER_VALIDATE_INT);
 
-
+            if (!$dpi) {
+                http_response_code(400);
+                echo json_encode([
+                    'existe' => false,
+                    'mensaje' => 'No se proporcionó un DPI válido'
+                ]);
+                return;
+            }
+            $existe = Altas::verificarDpi($dpi);
+            http_response_code(200);
+            echo json_encode([
+                'existe' => $existe
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al verificar el DPI',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
 }

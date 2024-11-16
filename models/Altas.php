@@ -105,9 +105,17 @@ class Altas extends ActiveRecord
 
     public static function buscarMunicipios($dep_mun)
     {
-        $sql = 'SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE \'' . $dep_mun . '%\'';
+        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE \' . $dep_mun . '%\'";
 
         return self::fetchArray($sql);
+    }
+
+    public static function verificarDpi($dpi)
+    {
+        $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2  AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION 
+        FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE PER_DPI =  '$dpi'";
+
+        return self::fetchFirst($sql);
     }
 
 }

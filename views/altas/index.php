@@ -13,7 +13,7 @@
     <div class="row justify-content-center bg">
 
         <div class="modal fade" id="modalAltas" tabindex="-1" data-bs-keyboard="false" role="dialog"
-            aria-labelledby="modalTitleId" aria-hidden="true">
+            aria-labelledby="modalTitleId">
             <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered " role="document">
                 <div class="modal-content bg-light">
                     <div class="modal-header bg-warning bg-gradient">
@@ -21,23 +21,38 @@
                             Tropa </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="modal-body" id="formAlta" enctype="multipart/form-data">
-                        <input type="hidden" name="alta-id" id="alta-id">
 
-                        <div class="row justify-content-center mb-3">
-                            <div class="col-3 justify-content-center">
-                                <label for="per_catalogo"><b>Cátalogo</b></label>
-                                <input type="number" name="per_catalogo" id="per_catalogo" class="form-control" readonly="">
+                    <div class="row justify-content-center mt-5" id="dpi">
+                        <div class="col-3 justify-content-center">
+                            <label for="per_dpi"><b>Ingrese su DPI</b></label>
+                            <div class="input-group justify-content-center mb-4">
+                                <input type="number" class="form-control text-center" id="per_dpi" name="per_dpi">
+                                <button class="btn btn-primary" type="button" id="search" name="search" readonly><i class="bi bi-search"></i></button>
                             </div>
                         </div>
-                        <div class="row justify-content mb-3 text-start">
+                    </div>
+
+                    <form class="modal-body" id="formAlta" enctype="multipart/form-data" style="display: none;">
+                        <input type="hidden" name="alta-id" id="alta-id">
+
+                        <div class="row justify-content-center">
+                            <div class="col-3 justify-content-center">
+                                <label for="per_catalogo"><b>Cátalogo</b></label>
+                                <div class="input-group justify-content-center mb-4">
+                                    <button class="btn btn-success" type="button" id="search" name="search" readonly><i class="bi bi-arrow-clockwise"></i></button>
+                                    <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content text-start">
                             <div class="col justify-content text-start">
                                 <h3><u><b>DATOS GENERALES</b></u></h3>
                             </div>
                         </div>
                         <hr>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_nom1"><b>Primer Nombre</b></label>
                                 <input type="text" name="per_nom1" id="per_nom1" class="form-control" require>
@@ -52,7 +67,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_ape1"><b>Primer Apellido</b></label>
                                 <input type="text" name="per_ape1" id="per_ape1" class="form-control" require>
@@ -67,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col-3 justify-content-center">
                                 <label for="per_fec_ext_ced"><b>Fecha extensión DPI</b></label>
                                 <input type="date" name="per_fec_ext_ced" id="per_fec_ext_ced" class="form-control" require>
@@ -89,7 +104,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_plaza"><b>Plaza</b></label>
                                 <input type="text" name="per_plaza" id="per_plaza" class="form-control" readonly>
@@ -104,14 +119,14 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content mb-3 text-start">
+                        <div class="row justify-content text-start">
                             <div class="col justify-content text-start">
                                 <h3><u><b>DATOS PERSONALES</b></u></h3>
                             </div>
                         </div>
                         <hr>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col-2 justify-content-center">
                                 <label for="per_est_civil"><b>Estado Civil</b></label>
                                 <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control" require>
@@ -142,7 +157,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col-4 justify-content-center">
                                 <label for="per_departamento2"><b>Depto. de Residencia</b></label>
                                 <select class="form-select" name="per_departamento2" id="per_departamento2" class="form-control" require>
@@ -172,7 +187,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col-2 justify-content-center">
                                 <label for="per_fec_nac"><b>Fecha de Nacimiento</b></label>
                                 <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" require>
@@ -194,21 +209,21 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="oper_correo_personal"><b>Correo Personal</b></label>
                                 <input type="text" name="oper_correo_personal" id="oper_correo_personal" class="form-control" readonly>
                             </div>
                         </div>
 
-                        <div class="row justify-content mb-3 text-start">
+                        <div class="row justify-content text-start">
                             <div class="col justify-content text-start">
                                 <h3><u><b>DATOS BENEFICIARIO</b></u></h3>
                             </div>
                         </div>
                         <hr>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="ben_nombre"><b>Primer Nombre</b></label>
                                 <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
@@ -223,7 +238,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="ben_nombre"><b>Primer Apellido</b></label>
                                 <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
@@ -238,7 +253,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_sexo"><b>Sexo</b></label>
                                 <select class="form-select" name="per_sexo" id="per_sexo" class="form-control" require>
@@ -273,7 +288,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mb-3">
+                        <div class="row justify-content-center">
                             <div class="col-2 justify-content-center">
                                 <label for="ben_fec_nac"><b>Fecha de Nacimiento</b></label>
                                 <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control" require>
@@ -296,10 +311,12 @@
                         </div>
 
                     </form>
+
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-warning btn-lg" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
+                                <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
+                                <button type="button" class="btn btn-danger btn-lg" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

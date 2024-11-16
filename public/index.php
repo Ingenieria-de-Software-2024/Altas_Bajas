@@ -21,7 +21,7 @@ $router->get('/API/altas/buscarMunicipio', [AltasController::class,'buscarMunici
 $router->get('/API/altas/buscarMunicipio2', [AltasController::class,'buscarMunicipios']);
 $router->get('/API/altas/buscarMunicipio3', [AltasController::class,'buscarMunicipios']);
 $router->get('/API/altas/buscarMunicipio4', [AltasController::class,'buscarMunicipios']);
-
+$router->get('/API/altas/verificarDpi', [AltasController::class,'verificarDpi']);
 
 //BAJAS
 $router->get('/bajas', [BajasController::class,'index']);

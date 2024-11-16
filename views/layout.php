@@ -63,7 +63,7 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-people-fill"></i> Traslados </a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/traslados"><i class="bi bi-shuffle"></i> Cambios</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/traslados"><i class="bi bi-arrow-repeat"></i> Cambios</a>
                             </li>
                         </ul>
                     </div>
