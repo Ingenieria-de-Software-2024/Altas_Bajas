@@ -22,17 +22,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <div class="row justify-content-center mt-5" id="dpi">
-                        <div class="col-3 justify-content-center">
-                            <label for="per_dpi"><b>Ingrese su DPI</b></label>
-                            <div class="input-group justify-content-center mb-4">
-                                <input type="number" class="form-control text-center" id="per_dpi" name="per_dpi">
-                                <button class="btn btn-primary" type="button" id="search" name="search" readonly><i class="bi bi-search"></i></button>
+                    <form class="modal-body" id="formVerificar" enctype="multipart/form-data">
+                        <input type="hidden" name="verificar-id" id="verificar-id">
+
+                        <div class="row justify-content-center mt-5" id="dpi">
+                            <div class="col-3 justify-content-center">
+                                <label for="per_dpi"><b>Ingrese su DPI</b></label>
+                                <div class="input-group justify-content-center mb-4">
+                                    <input type="number" class="form-control text-center" id="per_dpi" name="per_dpi">
+                                    <button class="btn btn-primary" type="button" id="search" name="search"><i class="bi bi-search"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        
+                    </form>
 
-                    <form class="modal-body" id="formAlta" enctype="multipart/form-data" style="display: none;">
+                    <form class="modal-body" id="formAlta" enctype="multipart/form-data">
                         <input type="hidden" name="alta-id" id="alta-id">
 
                         <div class="row justify-content-center">
@@ -316,8 +321,8 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
-                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelar" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
-                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiar" name="btnLimpiar"> Limpiar</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiar" name="btnLimpiar"><i class="bi bi-stars"></i> Limpiar</button>
+                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelar" name="btnCancelar" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

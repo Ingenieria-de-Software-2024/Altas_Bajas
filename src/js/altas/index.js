@@ -6,6 +6,12 @@ import { lenguaje } from "../lenguaje";
 import { config } from "fullcalendar";
 
 const TablaTropa = document.getElementById('TablaTropa');
+
+const modalAltas = document.getElementById('modalAltas');
+
+const formAlta = document.getElementById('formAlta');
+const formVerificar = document.getElementById('formVerificar');
+
 const selectDepartamento = document.getElementById('per_departamento');
 const selectDepartamento2 = document.getElementById('per_departamento2');
 const selectDepartamento3 = document.getElementById('per_departamento3');
@@ -14,18 +20,22 @@ const selectMunicipio = document.getElementById('per_ext_ced_lugar');
 const selectMunicipio2 = document.getElementById('per_dir_lugar');
 const selectMunicipio3 = document.getElementById('ben_nac_lugar');
 const selectMunicipio4 = document.getElementById('per_nac_lugar');
+
 const inputDpi = document.getElementById('per_dpi');
+
 const BtnSearch = document.getElementById('search');
 const BtnAlta = document.getElementById('btnDarAlta');
 const BtnLimpiar = document.getElementById('btnLimpiar');
 const BtnCancelar = document.getElementById('btnCancelar');
 
 TablaTropa.classList.add('d-none');
+
 BtnAlta.classList.add('d-none');
 BtnLimpiar.classList.add('d-none');
+BtnCancelar.classList.add('none');
 
-document.getElementById('formAlta').style.display = 'none';
-
+formAlta.classList.add('d-none');
+formVerificar.classList.add('none');
 
 const buscar = async () => {
     const url = '/Altas_Bajas/API/altas/buscarTropa';
@@ -127,14 +137,14 @@ const mostrarFormulario = async () => {
 
                 Swal.fire({
                     title: 'Alerta',
-                    html: `<strong>${data.existe.nombre_completo}</strong> el usuario registrado tiene la situación: <strong>${data.existe.situacion}</strong>.`,
+                    html: `La situación de <strong>${data.existe.nombre_completo}</strong> es: <strong>${data.existe.situacion}</strong>, por lo tando no puede causar alta.`,
                     icon: 'error',
                     showConfirmButton: true,
                     timerProgressBar: false
                 });
 
-                BtnLimpiar.classList.remove('d-none'); 
-                ocultarFormulario();
+                formVerificar.classList.add('none');
+                formVerificar.reset();
 
             } else {
                 Swal.fire({
@@ -144,10 +154,12 @@ const mostrarFormulario = async () => {
                     showConfirmButton: true
                 });
 
-                document.getElementById('formAlta').style.display = 'block';
-                document.getElementById('dpi').style.display = 'none';
+                formVerificar.classList.add('d-none');
+                formAlta.classList.remove('d-none');
                 BtnAlta.classList.remove('d-none');
-                             
+                BtnLimpiar.classList.remove('d-none'); 
+                BtnCancelar.classList.add('d-none')                
+
             }
 
         } catch (error) {
@@ -166,12 +178,6 @@ const mostrarFormulario = async () => {
         });
 
     }
-
-};
-
-const ocultarFormulario = async () => {
-
-    document.getElementById('dpi').style.display = 'none';
 
 };
 
@@ -319,11 +325,35 @@ const buscarMunicipio4 = async () => {
     }
 };
 
-dpi.addEventListener('change', mostrarFormulario);
+inputDpi.addEventListener('change', mostrarFormulario);
+
 selectDepartamento.addEventListener('change', buscarMunicipio4);
 selectDepartamento2.addEventListener('change', buscarMunicipio3);
 selectDepartamento3.addEventListener('change', buscarMunicipio2);
 selectDepartamento4.addEventListener('change', buscarMunicipio);
 
 BtnSearch.addEventListener('click', mostrarFormulario)
+BtnLimpiar.addEventListener('click', function () {
+
+    formVerificar.reset();
+    formAlta.reset(); 
+    formVerificar.classList.add('d-none');
+    BtnAlta.classList.remove('d-none');
+    BtnLimpiar.classList.remove('d-none');
+    BtnCancelar.classList.add('d-none');
+
+});
+
+modalAltas.addEventListener('hidden.bs.modal', function () {
+
+    formVerificar.reset();
+    formAlta.reset(); 
+    formVerificar.classList.remove('d-none');
+    formAlta.classList.add('d-none');
+    BtnAlta.classList.add('d-none');
+    BtnLimpiar.classList.add('d-none');
+    BtnCancelar.classList.remove('d-none');
+
+});
+
 buscar();
