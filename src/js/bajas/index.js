@@ -6,8 +6,6 @@ import { lenguaje } from "../lenguaje";
 import { error } from "jquery";
 
 const TablaTropa = document.getElementById('TablaTropa');
-const inputbaja = document.getElementById('baja_id');
-const BtnBaja = document.getElementById('btnDarBaja');
 const inputCatalogo = document.getElementById('catalogo')
 const inputNombreCompleto = document.getElementById('nombre_completo')
 const inputPlaza = document.getElementById('plaza')

@@ -93,6 +93,14 @@ class Traslados extends ActiveRecord
                 INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
                 WHERE DEP_LLAVE = '$dependencia' AND PER_SITUACION IN ('TH', 'T0');";
 
-        return self::fetchArray($sql);}
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarDatos($catalogo)
+    {
+        $sql = "SELECT PER_CATALOGO AS CATALOGO, GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA,PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_CATALOGO = $catalogo";
+
+        return self::fetchFirst($sql);
+    }
 
 }

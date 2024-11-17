@@ -38,7 +38,10 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
                                             <label for="per_catalogo"><b>Cátalogo</b></label>
-                                            <input type="number" name="per_catalogo" id="per_catalogo" class="form-control">
+                                            <div class="input-group justify-content-center mb-4">
+                                                <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo">
+                                                <button class="btn btn-primary" type="button" id="BtnSearch" name="BtnSearch" require><i class="bi bi-search"></i></button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -48,10 +51,16 @@
                                             <input type="text" name="nombre_completo" id="nombre_completo" class="form-control" disabled>
                                         </div>
                                     </div>
+
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="per_grado"><b>Grado</b></label>
                                             <input type="text" name="per_grado" id="per_grado" class="form-control" disabled>
+                                        </div>
+
+                                        <div class="col justify-content-center">
+                                            <label for="per_plaza"><b>Plaza</b></label>
+                                            <input type="text" name="per_plaza" id="per_plaza" class="form-control" readonly>
                                         </div>
                                     </div>
 
@@ -61,13 +70,6 @@
                                             <input type="text" name="per_desc_empleo" id="per_desc_empleo" class="form-control" disabled>
                                         </div>
                                     </div>
-
-                                    <div class="row justify-content-center mb-3">
-                                        <div class="col justify-content-center">
-                                            <label for="per_plaza"><b>Plaza</b></label>
-                                            <input type="text" name="per_plaza" id="per_plaza" class="form-control" disabled>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-2 justify-content-center mt-5">
@@ -75,11 +77,6 @@
                                         <div class="col justify-content-center">
                                         </div>
                                     </div>
-                                    
-                                    <div class="row justify-content-center mt-5">
-                                        <div class="col justify-content-center">
-                                        </div>
-                                    </div>
 
                                     <div class="row justify-content-center mt-5">
                                         <div class="col justify-content-center">
@@ -88,7 +85,12 @@
 
                                     <div class="row justify-content-center mt-5">
                                         <div class="col justify-content-center">
-                                            <button type="button" class="btn btn-success btn-lg" name="btnDarAlta"><i class="bi bi-arrow-left-right"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center mt-5">
+                                        <div class="col justify-content-center">
+                                            <button type="button" class="btn btn-success btn-lg p-3" name="btnTrasladar"><i class="bi bi-arrow-left-right"></i>
                                                 <p>Trasladar</p>
                                             </button>
                                         </div>
@@ -105,7 +107,10 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
                                             <label for="per_catalogo"><b>Cátalogo</b></label>
-                                            <input type="number" name="per_catalogo" id="per_catalogo" class="form-control">
+                                            <div class="input-group justify-content-center mb-4">
+                                                <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo">
+                                                <button class="btn btn-primary" type="button" id="BtnSearch1" name="BtnSearch1" require><i class="bi bi-search"></i></button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -115,10 +120,16 @@
                                             <input type="text" name="nombre_completo" id="nombre_completo" class="form-control" disabled>
                                         </div>
                                     </div>
+
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="per_grado"><b>Grado</b></label>
                                             <input type="text" name="per_grado" id="per_grado" class="form-control" disabled>
+                                        </div>
+
+                                        <div class="col justify-content-center">
+                                            <label for="per_plaza"><b>Plaza</b></label>
+                                            <input type="text" name="per_plaza" id="per_plaza" class="form-control" readonly>
                                         </div>
                                     </div>
 
@@ -130,10 +141,6 @@
                                     </div>
 
                                     <div class="row justify-content-center mb-3">
-                                        <div class="col justify-content-center">
-                                            <label for="per_plaza"><b>Plaza</b></label>
-                                            <input type="text" name="per_plaza" id="per_plaza" class="form-control" disabled>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +151,7 @@
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-warning btn-lg" name="btnGuardar"><i class="bi bi-floppy-fill"></i> Guardar</button>
                                 <button type="button" class="btn btn-danger btn-lg" name="btnCancelar"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>

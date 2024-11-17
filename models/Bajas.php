@@ -103,9 +103,9 @@ class Bajas extends ActiveRecord
         return self::fetchArray($sql);
     }
 
-    public static function buscarDatos($btnBaja)
+    public static function buscarDatos($plaza)
     {
-        $sql = "SELECT PER_CATALOGO AS CATALOGO, GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO,PER_PLAZA AS PLAZA,PER_DESC_EMPLEO AS EMPLEOFROM MPERINNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_CATALOGO = $btnBaja";
+        $sql = "SELECT PER_CATALOGO AS CATALOGO, TRIM(GRA_DESC_CT) AS GRADO, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA, PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
 
         return self::fetchFirst($sql);
     }

@@ -31,7 +31,7 @@
                                     <input type="number" name="catalogo" id="catalogo" class="form-control" readonly="">
                                 </div>
                                 <div class="col justify-content-center">
-                                    <label for="nombre_completo"><b>Nombre Completo</b></label>
+                                    <label for="nombre_completo"><b>Grado y Nombre</b></label>
                                     <input type="text" name="nombre_completo" id="nombre_completo" class="form-control"
                                         disabled>
                                 </div>
