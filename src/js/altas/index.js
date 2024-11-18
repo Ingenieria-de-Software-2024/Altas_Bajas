@@ -13,17 +13,11 @@ const formAlta = document.getElementById('formAlta');
 const formVerificar = document.getElementById('formVerificar');
 
 const selectDepartamento = document.getElementById('per_departamento');
-const selectDepartamento2 = document.getElementById('per_departamento2');
-const selectDepartamento3 = document.getElementById('per_departamento3');
-const selectDepartamento4 = document.getElementById('per_departamento4');
 const selectMunicipio = document.getElementById('per_ext_ced_lugar');
-const selectMunicipio2 = document.getElementById('per_dir_lugar');
-const selectMunicipio3 = document.getElementById('ben_nac_lugar');
-const selectMunicipio4 = document.getElementById('per_nac_lugar');
 
-const inputDpi = document.getElementById('per_dpi');
+const inputDpi = document.getElementById('ver_dpi');
 
-const BtnSearch = document.getElementById('search');
+const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnAlta = document.getElementById('btnDarAlta');
 const BtnLimpiar = document.getElementById('btnLimpiar');
 const BtnCancelar = document.getElementById('btnCancelar');
@@ -68,43 +62,60 @@ const datatable = new DataTable('#TablaTropa', {
         },
         {
             title: 'Catalogo',
-            data: 'catalogo'
+            data: 'catalogo',
         },
         {
             title: 'Grado',
-            data: 'grado'
+            data: 'grado',
         },
         {
             title: 'Nombre Completo',
-            data: 'nombre_completo'
+            data: 'nombre_completo',
         },
         {
             title: 'Plaza',
-            data: 'plaza'
+            data: 'plaza',
         },
         {
             title: 'Empleo',
-            data: 'empleo'
+            data: 'empleo',
         },
         {
             title: 'Ceom',
-            data: 'ceom'
+            data: 'ceom',
         },
         {
-            title: 'Alta',
+            title: 'Acciones',
             data: 'per_catalogo',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
-                let html = `
-                <button class='btn btn-warning alta' data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                let html = '';
                 
-                `
+                if (row.situacion === 'T0'){
+
+                    html = 
+                    `
+                    <button class='btn btn-danger baja' data-plaza=${row.plaza} data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
+                    
+                    <button class='btn btn-primary correcciones' data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-fill-exclamation"></i></button>
+                    `;
+
+                }else{
+                    html = 
+                    
+                    `
+                    <button class='btn btn-warning alta' data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+
+                    `;
+                }
+
                 return html;
             }
         }
     ]
 });
+
 
 const mostrarFormulario = async () => {
 
@@ -181,6 +192,77 @@ const mostrarFormulario = async () => {
 
 };
 
+// const darAlta = async (e) => {
+    
+//     e.preventDefault();
+
+//     BtnAlta.disabled = true;
+
+//     if (!validarFormulario(formulario, ['emp_id'])) {
+//         Swal.fire({
+//             title: "Campos vacios",
+//             text: "Debe llenar todos los campos",
+//             icon: "question"
+//         })
+//         BtnAlta.disabled = false;
+//         return
+//     }
+
+//     try {
+//         const body = new FormData(formulario)
+//         const url = '/hotel/API/empleado/guardar';
+
+//         const config = {
+//             method: 'POST',
+//             body
+//         }
+
+//         const respuesta = await fetch(url, config);
+//         const data = await respuesta.json();
+//         const { codigo, mensaje, detalle } = data
+
+//         if (codigo == 1) {
+
+//             Swal.fire({
+//                 title: '¡Éxito!',
+//                 text: mensaje,
+//                 icon: 'success',
+//                 showConfirmButton: false,
+//                 timer: 1500,
+//                 timerProgressBar: true,
+//                 background: '#e0f7fa',
+//                 customClass: {
+//                     title: 'custom-title-class',
+//                     text: 'custom-text-class'
+//                 }
+
+//             });
+//             formulario.reset();
+//             Buscar();
+//         } else {
+//             Swal.fire({
+//                 title: '¡Error!',
+//                 text: mensaje,
+//                 icon: 'error',
+//                 showConfirmButton: false,
+//                 timer: 1500,
+//                 timerProgressBar: true,
+//                 background: '#e0f7fa',
+//                 customClass: {
+//                     title: 'custom-title-class',
+//                     text: 'custom-text-class'
+//                 }
+
+//             });
+//         }
+
+//     } catch (error) {
+//         console.log(error)
+//     }
+//     BtnGuardar.disabled = false;
+
+// }
+
 const buscarMunicipio = async () => {
     const departamento = selectDepartamento.value.trim();
 
@@ -217,122 +299,11 @@ const buscarMunicipio = async () => {
     }
 };
 
-const buscarMunicipio2 = async () => {
-    const departamento2 = selectDepartamento2.value.trim();
-
-    try {
-        const url = `/Altas_Bajas/API/altas/buscarMunicipio2?municipio=${departamento2}`;
-        const config = {
-            method: 'GET'
-        };
-
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-
-        selectMunicipio2.innerHTML = '';
-
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = 'Seleccione...';
-        selectMunicipio2.appendChild(defaultOption);
-
-        if (data) {
-
-            data.slice(1).forEach(municipio2 => {
-                const option = document.createElement('option');
-                option.value = municipio2.dm_codigo;
-                option.textContent = municipio2.dm_desc_lg.trim();
-                selectMunicipio2.appendChild(option);
-            });
-
-        }
-    } catch (error) {
-
-        console.log(error);
-
-    }
-};
-
-const buscarMunicipio3 = async () => {
-    const departamento3 = selectDepartamento3.value.trim();
-
-    try {
-        const url = `/Altas_Bajas/API/altas/buscarMunicipio3?municipio=${departamento3}`;
-        const config = {
-            method: 'GET'
-        };
-
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-
-        selectMunicipio3.innerHTML = '';
-
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = 'Seleccione...';
-        selectMunicipio3.appendChild(defaultOption);
-
-        if (data) {
-
-            data.slice(1).forEach(municipio3 => {
-                const option = document.createElement('option');
-                option.value = municipio3.dm_codigo;
-                option.textContent = municipio3.dm_desc_lg.trim();
-                selectMunicipio3.appendChild(option);
-            });
-
-        }
-    } catch (error) {
-
-        console.log(error);
-
-    }
-};
-
-const buscarMunicipio4 = async () => {
-    const departamento4 = selectDepartamento4.value.trim();
-
-    try {
-        const url = `/Altas_Bajas/API/altas/buscarMunicipio4?municipio=${departamento4}`;
-        const config = {
-            method: 'GET'
-        };
-
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-
-        selectMunicipio4.innerHTML = '';
-
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = 'Seleccione...';
-        selectMunicipio4.appendChild(defaultOption);
-
-        if (data) {
-
-            data.slice(1).forEach(municipio4 => {
-                const option = document.createElement('option');
-                option.value = municipio4.dm_codigo;
-                option.textContent = municipio4.dm_desc_lg.trim();
-                selectMunicipio4.appendChild(option);
-            });
-
-        }
-    } catch (error) {
-
-        console.log(error);
-
-    }
-};
-
 inputDpi.addEventListener('change', mostrarFormulario);
 
-selectDepartamento.addEventListener('change', buscarMunicipio4);
-selectDepartamento2.addEventListener('change', buscarMunicipio3);
-selectDepartamento3.addEventListener('change', buscarMunicipio2);
-selectDepartamento4.addEventListener('change', buscarMunicipio);
+selectDepartamento.addEventListener('change', buscarMunicipio);
 
-BtnSearch.addEventListener('click', mostrarFormulario)
+BtnSearchVerificar.addEventListener('click', mostrarFormulario)
 BtnLimpiar.addEventListener('click', function () {
 
     formVerificar.reset();

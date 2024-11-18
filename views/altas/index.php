@@ -27,14 +27,13 @@
 
                         <div class="row justify-content-center mt-5" id="dpi">
                             <div class="col-3 justify-content-center">
-                                <label for="per_dpi"><b>Ingrese su DPI</b></label>
+                                <label for="ver_dpi"><b>Ingrese su DPI</b></label>
                                 <div class="input-group justify-content-center mb-4">
-                                    <input type="number" class="form-control text-center" id="per_dpi" name="per_dpi">
-                                    <button class="btn btn-primary" type="button" id="search" name="search"><i class="bi bi-search"></i></button>
+                                    <input type="number" class="form-control text-center" id="ver_dpi" name="ver_dpi">
+                                    <button class="btn btn-primary" type="button" id="searchVerificar" name="searchVerificar"><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
                         </div>
-                        
                     </form>
 
                     <form class="modal-body" id="formAlta" enctype="multipart/form-data">
@@ -42,9 +41,10 @@
 
                         <div class="row justify-content-center">
                             <div class="col-3 justify-content-center">
+                                
                                 <label for="per_catalogo"><b>Cátalogo</b></label>
                                 <div class="input-group justify-content-center mb-4">
-                                    <button class="btn btn-success" type="button" id="search" name="search" readonly><i class="bi bi-arrow-clockwise"></i></button>
+                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo" readonly><i class="bi bi-arrow-clockwise"></i></button>
                                     <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo">
                                 </div>
                             </div>

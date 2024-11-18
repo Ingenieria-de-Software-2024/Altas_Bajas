@@ -81,17 +81,7 @@ class Altas extends ActiveRecord
     {
         $dependencia = $_SESSION['dep_llave'];
 
-        $sql = "SELECT PER_CATALOGO AS CATALOGO, 
-                GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, 
-                PER_PLAZA AS PLAZA, 
-                PER_DESC_EMPLEO AS EMPLEO, 
-                ORG_CEOM AS CEOM, 
-                DEP_DESC_LG AS DEPENDENCIA
-                FROM MPER 
-                INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO 
-                INNER JOIN MORG ON PER_PLAZA = ORG_PLAZA
-                INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
-                WHERE DEP_LLAVE = '$dependencia' AND PER_SITUACION IN ('TH', 'T0');";
+        $sql = "SELECT PER_CATALOGO AS CATALOGO, GRA_DESC_CT AS GRADO, TRIM(NVL(PER_NOM1, '')) || ' ' || TRIM(NVL(PER_NOM2, '')) || ' ' || TRIM(NVL(PER_APE1, '')) || ' ' || TRIM(NVL(PER_APE2, '')) || ' ' || TRIM(NVL(PER_APE3, '')) AS NOMBRE_COMPLETO, ORG_PLAZA AS PLAZA, PER_DESC_EMPLEO AS EMPLEO, ORG_CEOM AS CEOM, PER_SITUACION AS SITUACION FROM MORG INNER JOIN GRADOS ON ORG_GRADO = GRA_CODIGO LEFT JOIN MPER ON ORG_PLAZA = PER_PLAZA LEFT JOIN MDEP ON DEP_LLAVE = ORG_DEPENDENCIA WHERE GRA_CLASE = 6 AND ORG_CEOM NOT IN ('TITULO') AND DEP_LLAVE = '$dependencia'";
 
         return self::fetchArray($sql);
     }
