@@ -16,6 +16,10 @@ const selectDepartamento = document.getElementById('per_departamento');
 const selectMunicipio = document.getElementById('per_ext_ced_lugar');
 
 const inputDpi = document.getElementById('ver_dpi');
+const inputCatalogoBajas = document.getElementById('catalogo')
+const inputNombreCompletoBajas = document.getElementById('nombre_completo')
+const inputPlazaBajas = document.getElementById('plaza')
+const inputEmpleoBajas = document.getElementById('empleo')
 
 const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnAlta = document.getElementById('btnDarAlta');
@@ -32,7 +36,7 @@ formAlta.classList.add('d-none');
 formVerificar.classList.add('none');
 
 const buscar = async () => {
-    const url = '/Altas_Bajas/API/altas/buscarTropa';
+    const url = '/Altas_Bajas/API/tropa/buscarTropa';
     const config = {
         method: 'GET'
     }
@@ -51,6 +55,8 @@ let contador = 1;
 const datatable = new DataTable('#TablaTropa', {
     data: null,
     language: lenguaje,
+    pageLength: 20,
+    lengthMenu: [30, 40, 50, 100],
     columns: [
         {
             title: 'No.',
@@ -98,7 +104,7 @@ const datatable = new DataTable('#TablaTropa', {
                     `
                     <button class='btn btn-danger baja' data-plaza=${row.plaza} data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
                     
-                    <button class='btn btn-primary correcciones' data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-fill-exclamation"></i></button>
+                    <button class='btn btn-primary correcciones' data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-vcard-fill"></i></button>
                     `;
 
                 }else{
@@ -117,7 +123,7 @@ const datatable = new DataTable('#TablaTropa', {
 });
 
 
-const mostrarFormulario = async () => {
+const mostrarFormularioAltas = async () => {
 
     const dpi = inputDpi.value;
 
@@ -133,7 +139,7 @@ const mostrarFormulario = async () => {
                 }
             });
 
-            const url = `/Altas_Bajas/API/altas/verificarDpi?dpi=${dpi}`;
+            const url = `/Altas_Bajas/API/tropa/verificarDpi?dpi=${dpi}`;
             const config = {
                 method: 'GET'
             };
@@ -267,7 +273,7 @@ const buscarMunicipio = async () => {
     const departamento = selectDepartamento.value.trim();
 
     try {
-        const url = `/Altas_Bajas/API/altas/buscarMunicipio?municipio=${departamento}`;
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipio?municipio=${departamento}`;
         const config = {
             method: 'GET'
         };
@@ -299,11 +305,74 @@ const buscarMunicipio = async () => {
     }
 };
 
-inputDpi.addEventListener('change', mostrarFormulario);
+const ObtenerDatosBajas = async (e) => {
+    const plaza = e.currentTarget.dataset.plaza;
+
+    Swal.fire({
+        title: 'Cargando',
+        text: 'Buscando...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    try {
+        const url = `/Altas_Bajas/API/bajas/obtenerDatos?plaza=${plaza}`;
+        const headers = new Headers();
+        headers.append('X-Requested-With', 'fetch');
+        const config = {
+            method: 'GET',
+            headers,
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { mensaje, codigo, datos } = data;
+
+        Swal.close();
+
+        if (codigo == '1') {
+            inputCatalogoBajas.value = `${datos.catalogo}`;
+            inputNombreCompletoBajas.value = `${datos.grado} ${datos.nombre_completo}`;
+            inputEmpleoBajas.value = `${datos.empleo}`;
+            inputPlazaBajas.value = `${datos.plaza}`;
+        } else {
+            console.log('Código inválido');
+
+            inputCatalogoBajas.value = '';
+            inputNombreCompletoBajas.value = '';
+            inputPlazaBajas.value = '';
+            inputEmpleoBajas.value = '';
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
+            });
+        }
+    } catch (error) {
+
+        Swal.close();
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un problema al obtener los datos. Por favor, intenta nuevamente.',
+        });
+
+        console.log(error);
+    }
+};
+
+
+
+inputDpi.addEventListener('change', mostrarFormularioAltas);
 
 selectDepartamento.addEventListener('change', buscarMunicipio);
 
-BtnSearchVerificar.addEventListener('click', mostrarFormulario)
+datatable.on('click', '.baja', ObtenerDatosBajas)
+BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
 BtnLimpiar.addEventListener('click', function () {
 
     formVerificar.reset();

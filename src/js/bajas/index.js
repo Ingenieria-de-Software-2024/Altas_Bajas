@@ -7,9 +7,9 @@ import { error } from "jquery";
 
 const TablaTropa = document.getElementById('TablaTropa');
 const inputCatalogo = document.getElementById('catalogo')
-const inputNombreCompleto = document.getElementById('nombre_completo')
-const inputPlaza = document.getElementById('plaza')
-const inputEmpleo = document.getElementById('empleo')
+const inputNombreCompletoBajas = document.getElementById('nombre_completo')
+const inputPlazaBajas = document.getElementById('plaza')
+const inputEmpleoBajas = document.getElementById('empleo')
 
 TablaTropa.classList.add('d-none');
 
@@ -88,7 +88,7 @@ const datatable = new DataTable('#TablaTropa', {
 });
 
 
-const ObtenerDatos = async (e) => {
+const ObtenerDatosBajas = async (e) => {
     const plaza = e.currentTarget.dataset.plaza;
 
     Swal.fire({
@@ -117,16 +117,16 @@ const ObtenerDatos = async (e) => {
 
         if (codigo == '1') {
             inputCatalogo.value = `${datos.catalogo}`;
-            inputNombreCompleto.value = `${datos.grado} ${datos.nombre_completo}`;
-            inputEmpleo.value = `${datos.empleo}`;
-            inputPlaza.value = `${datos.plaza}`;
+            inputNombreCompletoBajas.value = `${datos.grado} ${datos.nombre_completo}`;
+            inputEmpleoBajas.value = `${datos.empleo}`;
+            inputPlazaBajas.value = `${datos.plaza}`;
         } else {
             console.log('Código inválido');
 
             inputCatalogo.value = '';
-            inputNombreCompleto.value = '';
-            inputPlaza.value = '';
-            inputEmpleo.value = '';
+            inputNombreCompletoBajas.value = '';
+            inputPlazaBajas.value = '';
+            inputEmpleoBajas.value = '';
 
             Swal.fire({
                 icon: 'error',
@@ -149,6 +149,6 @@ const ObtenerDatos = async (e) => {
 };
 
 
-datatable.on('click', '.baja', ObtenerDatos)
+datatable.on('click', '.baja', ObtenerDatosBajas)
 
 buscar();

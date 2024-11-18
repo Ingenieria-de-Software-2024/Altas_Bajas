@@ -5,16 +5,16 @@ namespace Controllers;
 use Exception;
 use MVC\Router;
 use Model\ActiveRecord;
-use Model\Altas;
+use Model\Tropa;
 
-class AltasController
+class TropaController
 {
     public static function index(Router $router)
     {
 
-        $departamentos = Altas::buscarDepartamentos();
+        $departamentos = Tropa::buscarDepartamentos();
 
-        $router->render('altas/index', [
+        $router->render('tropa/index', [
             'departamentos' => $departamentos
         ]);
     }
@@ -25,7 +25,7 @@ class AltasController
         $dep_mun = substr($codigo_municipio, 0, 2);
 
         try {
-            $municipios = Altas::buscarMunicipios($dep_mun);
+            $municipios = Tropa::buscarMunicipios($dep_mun);
             http_response_code(200);
             echo json_encode($municipios);
         } catch (Exception $e) {
@@ -42,7 +42,7 @@ class AltasController
     public static function buscarTropa()
     {
         try {
-            $tropa = Altas::buscarTropa();
+            $tropa = Tropa::buscarTropa();
             http_response_code(200);
             echo json_encode($tropa);
         } catch (Exception $e) {
@@ -68,7 +68,7 @@ class AltasController
                 ]);
                 return;
             }
-            $existe = Altas::verificarDpi($dpi);
+            $existe = Tropa::verificarDpi($dpi);
             http_response_code(200);
             echo json_encode([
                 'existe' => $existe

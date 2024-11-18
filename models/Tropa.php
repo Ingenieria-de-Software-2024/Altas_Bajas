@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Altas extends ActiveRecord
+class Tropa extends ActiveRecord
 {
     protected static $tabla = 'mper';
     protected static $idTabla = 'per_catalogo';

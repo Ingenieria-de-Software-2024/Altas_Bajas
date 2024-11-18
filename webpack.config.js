@@ -5,9 +5,9 @@ module.exports = {
   entry: {
     'js/app' : './src/js/app.js',
     'js/inicio' : './src/js/inicio.js',
-    'js/altas/index' : './src/js/altas/index.js',
-    'js/bajas/index' : './src/js/bajas/index.js',
-    'js/correcciones/index' : './src/js/correcciones/index.js',
+    'js/tropa/index' : './src/js/tropa/index.js',
+    'js/bajas/index' : './src/js/tropa/index.js',
+    'js/correcciones/index' : './src/js/tropa/index.js',
     'js/traslados/index' : './src/js/traslados/index.js',
   },
   output: {

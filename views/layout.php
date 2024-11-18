@@ -39,13 +39,10 @@
                     </li>
 
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-up"></i> Altas y Bajas </a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-up"></i> Moviminetos </a>
                         <ul class="dropdown-menu dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/altas"><i class="bi bi-person-fill-add"></i> Altas</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/bajas"><i class="bi bi-person-fill-dash"></i> Bajas</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/tropa"><i class="bi bi-person-fill-add"></i> Tropa</a>
                             </li>
                         </ul>
                     </div>
@@ -54,7 +51,7 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-lines-fill"></i> Correcciones</a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/correcciones"><i class="bi bi-person-vcard-fill"></i> Modificar Datos</a>
+                                <a class="dropdown-item nav-link text-white " href="/Altas_Bajas/tropa"><i class="bi bi-person-vcard-fill"></i> Modificar Datos</a>
                             </li>
                         </ul>
                     </div>
