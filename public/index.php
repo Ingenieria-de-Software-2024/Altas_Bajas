@@ -8,6 +8,7 @@ use Controllers\TropaController;
 use Controllers\BajasController;
 use Controllers\CorreccionesController;
 use Controllers\TrasladosController;
+use Model\Tropa;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -19,18 +20,8 @@ $router->get('/tropa', [TropaController::class,'index']);
 $router->get('/API/tropa/buscarTropa', [TropaController::class,'buscarTropa']);
 $router->get('/API/tropa/buscarMunicipio', [TropaController::class,'buscarMunicipios']);
 $router->get('/API/tropa/verificarDpi', [TropaController::class,'verificarDpi']);
+$router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
 
-
-//BAJAS
-$router->get('/bajas', [BajasController::class,'index']);
-$router->get('/API/bajas/buscarTropa', [BajasController::class,'buscarTropa']);
-$router->get('/API/bajas/obtenerDatos', [BajasController::class,'obtenerDatos']);
-$router->get('/API/tropa/obtenerDatos', [BajasController::class,'obtenerDatos']);
-
-//MODIFICACIONES
-$router->get('/correcciones', [CorreccionesController::class,'index']);
-$router->get('/API/correcciones/buscarTropa', [CorreccionesController::class,'buscarTropa']);
-$router->get('/API/correcciones/buscarMunicipio', [CorreccionesController::class,'buscarMunicipios']);
 
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);

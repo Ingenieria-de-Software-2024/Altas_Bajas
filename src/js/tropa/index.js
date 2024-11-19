@@ -8,12 +8,15 @@ import { config } from "fullcalendar";
 const TablaTropa = document.getElementById('TablaTropa');
 
 const modalAltas = document.getElementById('modalAltas');
+const modalBajas = document.getElementById('modalBajas');
+const modalCorrecciones = document.getElementById('modalCorrecciones');
 
 const formAlta = document.getElementById('formAlta');
 const formVerificar = document.getElementById('formVerificar');
+const formCorrrecciones = document.getElementById('formCorrecciones');
 
-const selectDepartamento = document.getElementById('per_departamento');
-const selectMunicipio = document.getElementById('per_ext_ced_lugar');
+const selectDepartamentoAltas = document.getElementById('per_departamento');
+const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 
 const inputDpi = document.getElementById('ver_dpi');
 const inputCatalogoBajas = document.getElementById('catalogo')
@@ -175,7 +178,7 @@ const mostrarFormularioAltas = async () => {
                 formAlta.classList.remove('d-none');
                 BtnAlta.classList.remove('d-none');
                 BtnLimpiar.classList.remove('d-none'); 
-                BtnCancelar.classList.add('d-none')                
+                BtnCancelar.classList.remove('d-none')                
 
             }
 
@@ -270,7 +273,7 @@ const mostrarFormularioAltas = async () => {
 // }
 
 const buscarMunicipio = async () => {
-    const departamento = selectDepartamento.value.trim();
+    const departamento = selectDepartamentoAltas.value.trim();
 
     try {
         const url = `/Altas_Bajas/API/tropa/buscarMunicipio?municipio=${departamento}`;
@@ -281,12 +284,12 @@ const buscarMunicipio = async () => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        selectMunicipio.innerHTML = '';
+        selectMunicipioAltas.innerHTML = '';
 
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
         defaultOption.textContent = 'Seleccione...';
-        selectMunicipio.appendChild(defaultOption);
+        selectMunicipioAltas.appendChild(defaultOption);
 
         if (data) {
 
@@ -294,7 +297,7 @@ const buscarMunicipio = async () => {
                 const option = document.createElement('option');
                 option.value = municipio.dm_codigo;
                 option.textContent = municipio.dm_desc_lg.trim();
-                selectMunicipio.appendChild(option);
+                selectMunicipioAltas.appendChild(option);
             });
 
         }
@@ -318,7 +321,7 @@ const ObtenerDatosBajas = async (e) => {
     });
 
     try {
-        const url = `/Altas_Bajas/API/bajas/obtenerDatos?plaza=${plaza}`;
+        const url = `/Altas_Bajas/API/tropa/obtenerDatosBajas?plaza=${plaza}`;
         const headers = new Headers();
         headers.append('X-Requested-With', 'fetch');
         const config = {
@@ -365,13 +368,12 @@ const ObtenerDatosBajas = async (e) => {
     }
 };
 
-
-
 inputDpi.addEventListener('change', mostrarFormularioAltas);
 
-selectDepartamento.addEventListener('change', buscarMunicipio);
+selectDepartamentoAltas.addEventListener('change', buscarMunicipio);
 
 datatable.on('click', '.baja', ObtenerDatosBajas)
+
 BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
 BtnLimpiar.addEventListener('click', function () {
 

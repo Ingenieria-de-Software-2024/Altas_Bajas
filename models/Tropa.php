@@ -86,6 +86,8 @@ class Tropa extends ActiveRecord
         return self::fetchArray($sql);
     }
 
+    // FUNCIONES ALTAS
+
     public static function buscarDepartamentos()
     {
         $sql = "SELECT DM_CODIGO, TRIM(SUBSTRING(DM_MUN_DEP FROM INSTR(DM_MUN_DEP, ',') + 2)) AS DEPARTAMENTOS FROM DEPMUN WHERE DM_CODIGO LIKE '%01'";
@@ -104,6 +106,22 @@ class Tropa extends ActiveRecord
     {
         $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2  AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION 
         FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE PER_DPI =  '$dpi'";
+
+        return self::fetchFirst($sql);
+    }
+
+    // FUNCIONES BAJAS
+
+    public static function buscarMotivos()
+    {
+        $sql = "SELECT SIT_CODIGO, SIT_DESC_LG FROM SITUACIONES WHERE SIT_CODIGO IN ('TV', 'TS', 'TM', 'TF', 'TB', 'TX', 'TA', 'TP', 'TR', '1C', '1A', '1E', '14', '17', '17', 'TC', '21', '1V', '22', '23', '25', 'OD')";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarDatosBajas($plaza)
+    {
+        $sql = "SELECT PER_CATALOGO AS CATALOGO, TRIM(GRA_DESC_CT) AS GRADO, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA, PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
 
         return self::fetchFirst($sql);
     }

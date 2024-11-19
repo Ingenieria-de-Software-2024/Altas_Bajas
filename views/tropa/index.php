@@ -1,5 +1,3 @@
-//ALTAS//
-
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
         <h1 class="App">Tropa</h1>
@@ -24,6 +22,8 @@
         </div>
     </div>
 </div>
+
+<!-- FORMULARIO PARA CAUSAR ALTA -->
 
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center bg">
@@ -175,6 +175,10 @@
                             <div class="col justify-content-center">
                                 <label for="per_direccion"><b>Dirección</b></label>
                                 <input type="text" name="per_direccion" id="per_direccion" class="form-control" require>
+                            </div>
+                            <div class="col-1 justify-content-center">
+                                <label for="per_zona"><b>zona</b></label>
+                                <input type="number" name="per_zona" id="per_zona" class="form-control">
                             </div>
                         </div>
 
@@ -348,6 +352,7 @@
     </div>
 </div>
 
+<!-- FORMULARIO PARA CAUSAR BAJA -->
 
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
@@ -419,6 +424,7 @@
     </div>
 </div>
 
+<!-- FORMULARIO PARA CORREGIR DATOS -->
 
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
@@ -432,7 +438,8 @@
                             Tropa </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="modal-body" id="formAlta" enctype="multipart/form-data">
+
+                    <form class="modal-body" id="formCorrecciones" enctype="multipart/form-data">
                         <input type="hidden" name="correcciones_id" id="correcciones_id">
 
                         <div class="row justify-content-center mb-3">
@@ -550,6 +557,10 @@
                             <div class="col justify-content-center">
                                 <label for="per_direccion"><b>Dirección</b></label>
                                 <input type="text" name="per_direccion" id="per_direccion" class="form-control" require>
+                            </div>
+                            <div class="col-1 justify-content-center">
+                                <label for="per_zona"><b>Zona</b></label>
+                                <input type="number" name="per_zona" id="per_zona" class="form-control">
                             </div>
                         </div>
 
