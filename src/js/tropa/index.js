@@ -303,6 +303,11 @@ const ObtenerDatosBajas = async (e) => {
 };
 
 
+//CORRECCIONES
+
+
+
+
 inputDpi.addEventListener('change', mostrarFormularioAltas);
 
 selectDepartamentoAltas.addEventListener('change', buscarMunicipio);

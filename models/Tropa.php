@@ -86,7 +86,7 @@ class Tropa extends ActiveRecord
         return self::fetchArray($sql);
     }
 
-    // FUNCIONES ALTAS
+//ALTAS
 
     public static function buscarDepartamentos()
     {
@@ -111,14 +111,12 @@ class Tropa extends ActiveRecord
     }
 
     
-    // FUNCIONES BAJAS
+//BAJAS
 
     public static function buscarMotivoBaja()
     {
         $sql = "SELECT SIT_CODIGO, SIT_DESC_LG FROM SITUACIONES WHERE SIT_CODIGO IN ('TV', 'TS', 'TM', 'TF', 'TB', 'TX', 'TA', 'TP', 'TR', '1C', '1A', '1E', '14', '17', '17', 'TC', '21', '1V', '22', '23', '25', 'OD')";
         
-        // echo json_encode($sql);
-        // exit;
 
         return self::fetchArray($sql);
 

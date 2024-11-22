@@ -13,13 +13,15 @@ class TropaController
     {
 
         $departamentos = Tropa::buscarDepartamentos();
-
+        $motivos = Tropa::buscarMotivoBaja();
+        
         $router->render('tropa/index', [
+            'motivos' => $motivos,
             'departamentos' => $departamentos
         ]);
     }
     
-    // ALTAS
+// ALTAS
 
     public static function buscarMunicipios()
     {
@@ -85,10 +87,10 @@ class TropaController
         }
     }
 
-    // BAJAS
+// BAJAS
+
     public static function obtenerDatosBajas()
     {
-
         try {
             $plaza = filter_var($_GET['plaza'], FILTER_SANITIZE_NUMBER_INT);
 
