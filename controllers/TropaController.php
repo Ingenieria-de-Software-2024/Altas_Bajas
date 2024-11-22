@@ -18,6 +18,8 @@ class TropaController
             'departamentos' => $departamentos
         ]);
     }
+    
+    // ALTAS
 
     public static function buscarMunicipios()
     {
@@ -55,9 +57,6 @@ class TropaController
         }
     }
 
-
-    // ALTAS
-
     public static function verificarDpi()
     {
         try {
@@ -93,7 +92,7 @@ class TropaController
         try {
             $plaza = filter_var($_GET['plaza'], FILTER_SANITIZE_NUMBER_INT);
 
-            $sql = "SELECT PER_CATALOGO AS CATALOGO, TRIM(GRA_DESC_CT) AS GRADO, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA, PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
+            $sql = "SELECT PER_CATALOGO AS CATALOGO_BAJA, TRIM(GRA_DESC_CT) AS GRADO_BAJA, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_BAJA, PER_PLAZA AS PLAZA_BAJA, PER_DESC_EMPLEO AS EMPLEO_BAJA FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
 
             $data = ActiveRecord::fetchFirst($sql);
             echo json_encode([

@@ -341,8 +341,8 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
-                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiar" name="btnLimpiar"><i class="bi bi-stars"></i> Limpiar</button>
-                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelar" name="btnCancelar" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiarAlta" name="btnLimpiarAlta"><i class="bi bi-stars"></i> Limpiar</button>
+                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelarAlta" name="btnCancelarAlta" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -372,11 +372,11 @@
                         <div class="row justify-content-center mb-3">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-3 justify-content-center">
-                                    <label for="catalogo"><b>Cátalogo</b></label>
+                                    <label for="catalogo_baja"><b>Cátalogo</b></label>
                                     <input type="number" name="catalogo" id="catalogo" class="form-control" readonly="">
                                 </div>
                                 <div class="col justify-content-center">
-                                    <label for="nombre_completo"><b>Grado y Nombre</b></label>
+                                    <label for="nombre_completo_baja"><b>Grado y Nombre</b></label>
                                     <input type="text" name="nombre_completo" id="nombre_completo" class="form-control"
                                         disabled>
                                 </div>
@@ -385,11 +385,11 @@
 
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
-                                <label for="plaza"><b>Plaza</b></label>
+                                <label for="plaza_baja"><b>Plaza</b></label>
                                 <input type="text" name="plaza" id="plaza" class="form-control" disabled>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="empleo"><b>Empleo</b></label>
+                                <label for="empleo_baja"><b>Empleo</b></label>
                                 <input type="text" name="empleo" id="empleo" class="form-control"
                                     disabled>
                             </div>
@@ -400,8 +400,8 @@
                         </div>
 
                         <div class="col justify-content-center">
-                            <label for="per_situacion"><b>Motivo</b></label>
-                            <select class="form-select" name="per_situacion" id="per_situacion" class="form-control"
+                            <label for="motivo_baja"><b>Motivo</b></label>
+                            <select class="form-select form-control" name="motivo_baja" id="motivo_baja"
                                 required>
                                 <option value="">Seleccione...</option>
                                 <?php foreach ($motivos as $opcion) : ?>
@@ -415,6 +415,8 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-danger btn-lg" id="btnDarBaja" name="btnDarBaja"><i class="bi bi-person-fill-x"></i> Dar Baja</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiarBaja" name="btnLimpiarBaja"><i class="bi bi-stars"></i> Limpiar</button>
+                                <button type="button" class="btn btn-success btn-lg" id="btnCancelarBaja" name="btnCancelarBaja" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

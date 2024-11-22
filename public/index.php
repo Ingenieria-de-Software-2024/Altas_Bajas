@@ -5,8 +5,6 @@ require_once __DIR__ . '/../includes/app.php';
 use MVC\Router;
 use Controllers\AppController;
 use Controllers\TropaController;
-use Controllers\BajasController;
-use Controllers\CorreccionesController;
 use Controllers\TrasladosController;
 use Model\Tropa;
 
@@ -18,10 +16,13 @@ $router->get('/', [AppController::class,'index']);
 //TROPA
 $router->get('/tropa', [TropaController::class,'index']);
 $router->get('/API/tropa/buscarTropa', [TropaController::class,'buscarTropa']);
+
+//ALTAS
 $router->get('/API/tropa/buscarMunicipio', [TropaController::class,'buscarMunicipios']);
 $router->get('/API/tropa/verificarDpi', [TropaController::class,'verificarDpi']);
-$router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
 
+//BAJAS
+$router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
 
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);

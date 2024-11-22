@@ -105,23 +105,28 @@ class Tropa extends ActiveRecord
     public static function verificarDpi($dpi)
     {
         $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2  AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION 
-        FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE PER_DPI =  '$dpi'";
+        FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE REPLACE(PER_DPI, ' ', '') = '$dpi'";
 
         return self::fetchFirst($sql);
     }
 
+    
     // FUNCIONES BAJAS
 
-    public static function buscarMotivos()
+    public static function buscarMotivoBaja()
     {
         $sql = "SELECT SIT_CODIGO, SIT_DESC_LG FROM SITUACIONES WHERE SIT_CODIGO IN ('TV', 'TS', 'TM', 'TF', 'TB', 'TX', 'TA', 'TP', 'TR', '1C', '1A', '1E', '14', '17', '17', 'TC', '21', '1V', '22', '23', '25', 'OD')";
+        
+        // echo json_encode($sql);
+        // exit;
 
         return self::fetchArray($sql);
+
     }
 
     public static function buscarDatosBajas($plaza)
     {
-        $sql = "SELECT PER_CATALOGO AS CATALOGO, TRIM(GRA_DESC_CT) AS GRADO, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA, PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
+        $sql = "SELECT PER_CATALOGO AS CATALOGO_BAJA, TRIM(GRA_DESC_CT) AS GRADO_BAJA, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_BAJA, PER_PLAZA AS PLAZA_BAJA, PER_DESC_EMPLEO AS EMPLEO_BAJA FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_PLAZA = '$plaza'";
 
         return self::fetchFirst($sql);
     }
