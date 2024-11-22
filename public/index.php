@@ -24,6 +24,9 @@ $router->get('/API/tropa/verificarDpi', [TropaController::class,'verificarDpi'])
 //BAJAS
 $router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
 
+//CORRECCIONES
+$router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obtenerDatosCorrecciones']);
+
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);
 $router->get('/API/traslados/buscarTropa', [TrasladosController::class,'buscarTropa']);
