@@ -4,8 +4,7 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formTraslados_1 = document.getElementById('formTraslados_1');
-const formTraslados_2 = document.getElementById('formTraslados_2');
+const formTraslados = document.getElementById('formTraslados');
 
 const inputCatalogo_1 = document.getElementById('catalogo_1');
 const inputNombreCompleto_1 = document.getElementById('nombre_completo_1');
@@ -21,8 +20,7 @@ const inputEmpleo_2 = document.getElementById('empleo_2');
 const BtnSearch1 = document.getElementById('BtnSearch_1');
 const BtnSearch2 = document.getElementById('BtnSearch_2');
 
-formTraslados_1.classList.add('none');
-formTraslados_2.classList.add('none');
+formTraslados.classList.add('none');
 
 const ObtenerDatosTraslados_1 = async () => {
 
@@ -71,7 +69,7 @@ const ObtenerDatosTraslados_1 = async () => {
 
             // console.log(datos.situacion_1)
 
-            if (datos.situacion_1 == '11' || datos.situacion_1 == 'T0' ) {
+            if (datos.situacion_1 == '11' || datos.situacion_1 == 'T0') {
 
                 inputNombreCompleto_1.value = `${datos.nombre_completo_1}`;
                 inputGrado_1.value = `${datos.grado_1}`;
@@ -87,7 +85,7 @@ const ObtenerDatosTraslados_1 = async () => {
                 
                 return;
             }
-            formTraslados_1.reset();
+            formTraslados.reset();
 
         } else {
             console.log('Código inválido');

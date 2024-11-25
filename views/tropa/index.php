@@ -366,7 +366,7 @@
                             Tropa </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="modal-body" id="formAlta" enctype="multipart/form-data">
+                    <form class="modal-body" id="formBaja" enctype="multipart/form-data">
                         <input type="hidden" name="baja_id" id="baja_id">
 
                         <div class="row justify-content-center mb-3">
@@ -415,7 +415,6 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-danger btn-lg" id="btnDarBaja" name="btnDarBaja"><i class="bi bi-person-fill-x"></i> Dar Baja</button>
-                                <button type="button" class="btn btn-primary btn-lg" id="btnLimpiarBaja" name="btnLimpiarBaja"><i class="bi bi-stars"></i> Limpiar</button>
                                 <button type="button" class="btn btn-success btn-lg" id="btnCancelarBaja" name="btnCancelarBaja" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
@@ -712,7 +711,8 @@
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" name="btnDarAlta"><i class="bi bi-pencil-square"></i> Modificar</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="btnCorregir" name="btnCorregir"><i class="bi bi-pencil-square"></i> Modificar</button>
+                                <button type="button" class="btn btn-danger btn-lg" id="btnCancelarCorrecciones" name="btnCancelarCorrecciones" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -721,7 +721,5 @@
         </div>
     </div>
 </div>
-
-<!-- <?php var_dump($_SESSION['dep_llave']) ?> -->
 
 <script src="<?= asset('./build/js/tropa/index.js') ?>"></script>

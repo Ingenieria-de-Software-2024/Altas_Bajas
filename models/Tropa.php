@@ -104,8 +104,8 @@ class Tropa extends ActiveRecord
 
     public static function verificarDpi($dpi)
     {
-        $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2  AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION 
-        FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE REPLACE(PER_DPI, ' ', '') = '$dpi'";
+        $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2 AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION, PER_SITUACION FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE REPLACE(PER_DPI, ' ', '') = '$dpi' AND PER_SITUACION IN (11, 'T0');
+";
 
         return self::fetchFirst($sql);
     }

@@ -13,6 +13,7 @@ const modalCorrecciones = document.getElementById('modalCorrecciones');
 
 const formAlta = document.getElementById('formAlta');
 const formVerificar = document.getElementById('formVerificar');
+const formBaja = document.getElementById('formBaja');
 const formCorrrecciones = document.getElementById('formCorrecciones');
 
 const selectDepartamentoAltas = document.getElementById('per_departamento');
@@ -77,18 +78,32 @@ const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_c
 
 const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnAlta = document.getElementById('btnDarAlta');
-const BtnLimpiar = document.getElementById('btnLimpiarAlta');
-const BtnCancelar = document.getElementById('btnCancelarAlta');
+const BtnLimpiarAlta = document.getElementById('btnLimpiarAlta');
+const BtnCancelarAlta = document.getElementById('btnCancelarAlta');
+
+const BtnBaja = document.getElementById('btnDarBaja');
+const BtnCancelarBaja = document.getElementById('btnCancelarBaja');
+
+const BtnModificar = document.getElementById('btnCorregir');
+const BtnCancelarCorrecciones = document.getElementById('btnCancelarCorrecciones');
+
 
 TablaTropa.classList.add('d-none');
 
 BtnAlta.classList.add('d-none');
-BtnLimpiar.classList.add('d-none');
-BtnCancelar.classList.add('none');
+BtnLimpiarAlta.classList.add('d-none');
+BtnCancelarAlta.classList.add('none');
 
-formAlta.classList.add('d-none');
+BtnBaja.classList.add('d-none');
+BtnCancelarBaja.classList.add('none');
+
+BtnModificar.classList.add('d-none');
+BtnCancelarCorrecciones.classList.add('none');
+
 formVerificar.classList.add('none');
-formCorrrecciones.classList.add('none');
+formAlta.classList.add('d-none');
+formBaja.classList.add('d-none');
+formCorrrecciones.classList.add('d-none');
 
 const buscar = async () => {
     const url = '/Altas_Bajas/API/tropa/buscarTropa';
@@ -124,14 +139,14 @@ const datatable = new DataTable('#TablaTropa', {
         {
             title: 'Catalogo',
             data: 'catalogo',
-            render: function(data, type, row) {
+            render: function (data, type, row) {
                 if (data == '') {
                     return '"VACANTE"';
                 } else {
                     return data;
                 }
             }
-        },                
+        },
         {
             title: 'Grado',
             data: 'grado',
@@ -139,7 +154,7 @@ const datatable = new DataTable('#TablaTropa', {
         {
             title: 'Nombre Completo',
             data: 'nombre_completo',
-            render: function(data, type, row) {
+            render: function (data, type, row) {
                 if (data == '') {
                     return '"VACANTE"';
                 } else {
@@ -154,7 +169,7 @@ const datatable = new DataTable('#TablaTropa', {
         {
             title: 'Empleo',
             data: 'empleo',
-            render: function(data, type, row) {
+            render: function (data, type, row) {
                 if (data == '') {
                     return '"VACANTE"';
                 } else {
@@ -187,7 +202,7 @@ const datatable = new DataTable('#TablaTropa', {
                     html =
 
                         `
-                    <button class='btn btn-warning alta' data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                    <button class='btn btn-warning alta' data-plaza=${row.plaza} data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
 
                     `;
                 }
@@ -251,8 +266,7 @@ const mostrarFormularioAltas = async () => {
                 formVerificar.classList.add('d-none');
                 formAlta.classList.remove('d-none');
                 BtnAlta.classList.remove('d-none');
-                BtnLimpiar.classList.remove('d-none');
-                BtnCancelar.classList.remove('d-none')
+                BtnLimpiarAlta.classList.remove('d-none');
 
             }
 
@@ -348,8 +362,10 @@ const ObtenerDatosBajas = async (e) => {
             inputEmpleoBajas.value = `${datos.empleo_baja}`;
             inputPlazaBajas.value = `${datos.plaza_baja}`;
 
+            formBaja.classList.remove('d-none');
+
         } else {
-            
+
             console.log('Código inválido');
 
             inputCatalogoBajas.value = '';
@@ -363,6 +379,9 @@ const ObtenerDatosBajas = async (e) => {
                 text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
             });
         }
+
+        BtnBaja.classList.remove('d-none');
+
     } catch (error) {
 
         Swal.close();
@@ -405,12 +424,12 @@ const obtenerDatosCorrecciones = async (e) => {
         const data = await respuesta.json();
         const { mensaje, codigo, datos } = data;
 
-        console.log(data);
+        // console.log(data);
 
         Swal.close();
 
         if (codigo === 1) {
-            
+
             //DATOS PERSONALES
             inputcatalogo_correcciones.value = `${datos.catalogo_correcciones}`;
             inputprimer_nombre_correcciones.value = `${datos.primer_nombre_correcciones}`;
@@ -427,7 +446,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputgrado_correcciones.value = `${datos.grado_correcciones}`;
             inputempleo_correcciones.value = `${datos.empleo_correcciones}`;
             inputfech_alta_correcciones.value = `${datos.fech_alta_correcciones}`;
-            
+
             //DATOS GENERALES
             inputestado_civil_correcciones.value = `${datos.estado_civil_correcciones}`;
             inputtipo_sangre_correcciones.value = `${datos.tipo_sangre_correcciones}`;
@@ -453,11 +472,13 @@ const obtenerDatosCorrecciones = async (e) => {
             inputben_fech_nacimiento_correcciones.value = `${datos.ben_fech_nacimiento_correcciones}`;
             inputben_depto_nacimiento_correcciones.value = `${datos.ben_depto_nacimiento_correcciones}`;
             inputben_mun_nacimiento_correcciones.value = `${datos.ben_mun_nacimiento_correcciones}`;
-            inputdirecc_ben_correcciones.value = `${datos.direcc_ben_correcciones}`;            
-            
+            inputdirecc_ben_correcciones.value = `${datos.direcc_ben_correcciones}`;
+
             //SITUACIONES
             inputsituacion_correcciones.value = `${datos.situacion_correcciones}`;
             inputsituacion_ben_correcciones.value = `${datos.situacion_ben_correcciones}`;
+
+            formCorrrecciones.classList.remove('d-none');
 
         } else {
             console.log('Código inválido');
@@ -493,7 +514,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputmunicipio_nacimiento_correcciones
             inputnit_correcciones.value = '';
             inputcorreo_correcciones.value = '';
-            
+
             //DATOS BENEFICIARIO
             inputben_nombre_correcciones.value = '';
             inputdpi_ben_correcciones.value = '';
@@ -509,13 +530,14 @@ const obtenerDatosCorrecciones = async (e) => {
             //SITUAICONES
             inputsituacion_correcciones.value = '';
             inputsituacion_ben_correcciones.value = '';
-            
+
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
             });
         }
+        
     } catch (error) {
 
         Swal.close();
@@ -540,14 +562,14 @@ datatable.on('click', '.baja', ObtenerDatosBajas)
 datatable.on('click', '.correcciones', obtenerDatosCorrecciones)
 
 BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
-BtnLimpiar.addEventListener('click', function () {
+BtnLimpiarAlta.addEventListener('click', function () {
 
     formVerificar.reset();
     formAlta.reset();
     formVerificar.classList.add('d-none');
     BtnAlta.classList.remove('d-none');
-    BtnLimpiar.classList.remove('d-none');
-    BtnCancelar.classList.add('d-none');
+    BtnLimpiarAlta.classList.remove('d-none');
+    BtnCancelarAlta.classList.add('none');
 
 });
 
@@ -558,8 +580,25 @@ modalAltas.addEventListener('hidden.bs.modal', function () {
     formVerificar.classList.remove('d-none');
     formAlta.classList.add('d-none');
     BtnAlta.classList.add('d-none');
-    BtnLimpiar.classList.add('d-none');
-    BtnCancelar.classList.remove('d-none');
+    BtnLimpiarAlta.classList.add('d-none');
+    BtnCancelarBaja.classList.remove('d-none');
+
+});
+
+
+modalBajas.addEventListener('hidden.bs.modal', function () {
+
+    formBaja.reset();
+    BtnBaja.classList.add('d-none');
+    BtnCancelarBaja.classList.remove('d-none');
+
+});
+
+modalCorrecciones.addEventListener('hidden.bs.modal', function () {
+
+    formCorrrecciones.reset();
+    BtnModificar.classList.add('d-none');
+    BtnCancelarCorrecciones.classList.remove('d-none');
 
 });
 
