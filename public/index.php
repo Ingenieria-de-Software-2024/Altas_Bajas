@@ -29,7 +29,7 @@ $router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obt
 
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);
-$router->get('/API/traslados/buscarTropa', [TrasladosController::class,'buscarTropa']);
+$router->get('/API/traslados/ObtenerDatosTraslados_1', [TrasladosController::class,'ObtenerDatosTraslados_1']);
+$router->get('/API/traslados/ObtenerDatosTraslados_2', [TrasladosController::class,'ObtenerDatosTraslados_2']);
 
-// Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

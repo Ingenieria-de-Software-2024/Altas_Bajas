@@ -77,28 +77,16 @@ class Traslados extends ActiveRecord
         $this->per_observaciones = $data['per_observaciones'] ?? '';
     }
 
-    public static function buscarTropa()
+    public static function ObtenerDatosTraslados_1 ($catalogo)
     {
-        $dependencia = $_SESSION['dep_llave'];
+        $sql = "SELECT PER_CATALOGO AS CATALOGO_1, TRIM(GRA_DESC_CT) AS GRADO_1, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_1, PER_PLAZA AS PLAZA_1, PER_DESC_EMPLEO AS EMPLEO_1, PER_SITUACION AS  SITUACION_1, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
 
-        $sql = "SELECT PER_CATALOGO AS CATALOGO, 
-                GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, 
-                PER_PLAZA AS PLAZA, 
-                PER_DESC_EMPLEO AS EMPLEO, 
-                ORG_CEOM AS CEOM, 
-                DEP_DESC_LG AS DEPENDENCIA
-                FROM MPER 
-                INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO 
-                INNER JOIN MORG ON PER_PLAZA = ORG_PLAZA
-                INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
-                WHERE DEP_LLAVE = '$dependencia' AND PER_SITUACION IN ('TH', 'T0');";
-
-        return self::fetchArray($sql);
+        return self::fetchFirst($sql);
     }
 
-    public static function buscarDatos($catalogo)
+    public static function ObtenerDatosTraslados_2 ($catalogo)
     {
-        $sql = "SELECT PER_CATALOGO AS CATALOGO, GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, PER_PLAZA AS PLAZA,PER_DESC_EMPLEO AS EMPLEO FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO WHERE PER_CATALOGO = $catalogo";
+        $sql = "SELECT PER_CATALOGO AS CATALOGO_2, TRIM(GRA_DESC_CT) AS GRADO_2, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_2, PER_PLAZA AS PLAZA_2, PER_DESC_EMPLEO AS EMPLEO_2, PER_SITUACION AS  SITUACION_2, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
 
         return self::fetchFirst($sql);
     }

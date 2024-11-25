@@ -342,11 +342,14 @@ const ObtenerDatosBajas = async (e) => {
         Swal.close();
 
         if (codigo == '1') {
+
             inputCatalogoBajas.value = `${datos.catalogo_baja}`;
             inputNombreCompletoBajas.value = `${datos.grado_baja} ${datos.nombre_completo_baja}`;
             inputEmpleoBajas.value = `${datos.empleo_baja}`;
             inputPlazaBajas.value = `${datos.plaza_baja}`;
+
         } else {
+            
             console.log('Código inválido');
 
             inputCatalogoBajas.value = '';
@@ -526,8 +529,6 @@ const obtenerDatosCorrecciones = async (e) => {
         console.log(error);
     }
 };
-
-
 
 
 

@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Exception;
 use MVC\Router;
-use Model\ActiveRecord;
 use Model\Traslados;
 
 class TrasladosController
@@ -13,34 +12,54 @@ class TrasladosController
         $router->render('traslados/index', []);
     }
 
-    public static function buscarTropa()
+
+    public static function ObtenerDatosTraslados_1()
     {
         try {
-            // $sql = "SELECT PER_CATALOGO AS CATALOGO, 
-            // GRA_DESC_CT AS GRADO, PER_APE1 || ' ' || PER_APE2 || ' ' || PER_NOM1 || ' ' || PER_NOM2 AS NOMBRE_COMPLETO, 
-            // PER_PLAZA AS PLAZA, 
-            // PER_DESC_EMPLEO AS EMPLEO, 
-            // ORG_CEOM AS CEOM, 
-            // DEP_DESC_LG AS DEPENDENCIA
-            // FROM MPER 
-            // INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO 
-            // INNER JOIN MORG ON PER_PLAZA = ORG_PLAZA
-            // INNER JOIN MDEP ON ORG_DEPENDENCIA = DEP_LLAVE
-            // WHERE PER_CATALOGO = 6531396 AND PER_SITUACION IN ('11', 'TH', 'T0');";
-            
-            $tropa = Traslados::buscarTropa();
-            http_response_code(200);
-            echo json_encode($tropa);
-        } catch (Exception $e) {
-            http_response_code(500);
+            $catalogo = filter_var($_GET['catalogo'], FILTER_SANITIZE_NUMBER_INT);
+
+            $sql = "SELECT PER_CATALOGO AS CATALOGO_1, TRIM(GRA_DESC_CT) AS GRADO_1, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_1, PER_PLAZA AS PLAZA_1, PER_DESC_EMPLEO AS EMPLEO_1, PER_SITUACION AS  SITUACION_1, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
+
+            $data = Traslados::fetchFirst($sql);
             echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al buscar',
-                'detalle' => $e->getMessage(),
+                "mensaje" => "Exito",
+                "codigo" => 1,
+                'datos' => $data
+            ]);
+
+        } catch (Exception $e) {
+
+            echo json_encode([
+                "detalle" => $e->getMessage(),
+                "mensaje" => "Error en la Base de Datos",
+                "codigo" => 0,
             ]);
         }
     }
 
+    public static function ObtenerDatosTraslados_2()
+    {
+        try {
+            $catalogo = filter_var($_GET['catalogo'], FILTER_SANITIZE_NUMBER_INT);
+
+            $sql = "SELECT PER_CATALOGO AS CATALOGO_2, TRIM(GRA_DESC_CT) AS GRADO_2, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_2, PER_PLAZA AS PLAZA_2, PER_DESC_EMPLEO AS EMPLEO_2, PER_SITUACION AS  SITUACION_2, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
+
+            $data = Traslados::fetchFirst($sql);
+            echo json_encode([
+                "mensaje" => "Exito",
+                "codigo" => 1,
+                'datos' => $data
+            ]);
+
+        } catch (Exception $e) {
+
+            echo json_encode([
+                "detalle" => $e->getMessage(),
+                "mensaje" => "Error en la Base de Datos",
+                "codigo" => 0,
+            ]);
+        }
+    }
 
 
 }
