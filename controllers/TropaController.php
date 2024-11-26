@@ -89,6 +89,29 @@ class TropaController
         }
     }
 
+    public static function generarCatalogo()
+    {
+        try {
+
+            $sql = "SELECT ASC_CATALOGO + 7 AS NUEVO_CATALOGO FROM ASIG_CAT WHERE ASC_TIPO = 'T'";
+
+            $data = ActiveRecord::fetchFirst($sql);
+            echo json_encode([
+                "mensaje" => "Exito",
+                "codigo" => 1,
+                'datos' => $data
+            ]);
+
+        } catch (Exception $e) {
+
+            echo json_encode([
+                "detalle" => $e->getMessage(),
+                "mensaje" => "Error en la Base de Datos",
+                "codigo" => 0,
+            ]);
+        }
+    }
+
 
 // BAJAS
 

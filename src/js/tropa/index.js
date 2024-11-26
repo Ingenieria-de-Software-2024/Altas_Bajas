@@ -19,6 +19,8 @@ const formCorrrecciones = document.getElementById('formCorrecciones');
 const selectDepartamentoAltas = document.getElementById('per_departamento');
 const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 
+const inputCatalogo = document.getElementById('per_catalogo');
+
 //VERIFICACIÓN DPI
 const inputDpi = document.getElementById('ver_dpi');
 
@@ -77,6 +79,7 @@ const inputsituacion_correcciones = document.getElementById('situacion_correccio
 const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_correcciones')
 
 const BtnSearchVerificar = document.getElementById('searchVerificar');
+const BtnSearchCatalogo = document.getElementById('searchCatalogo');
 const BtnAlta = document.getElementById('btnDarAlta');
 const BtnLimpiarAlta = document.getElementById('btnLimpiarAlta');
 const BtnCancelarAlta = document.getElementById('btnCancelarAlta');
@@ -325,10 +328,73 @@ const buscarMunicipio = async () => {
     }
 };
 
+const generarCatalogo = async () => {
+
+    const catalogo = inputCatalogo.value;
+
+    Swal.fire({
+        title: 'Cargando',
+        text: 'Buscando...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    try {
+        const url = `/Altas_Bajas/API/tropa/generarCatalogo?catalogo=${catalogo}`;
+        const headers = new Headers();
+        headers.append('X-Requested-With', 'fetch');
+        const config = {
+            method: 'GET',
+            headers,
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+
+        Swal.close();
+
+        const { codigo, mensaje } = data;
+
+        if (data.codigo === 1 && data.datos && data.datos.nuevo_catalogo) {
+
+            inputCatalogo.value = data.datos.nuevo_catalogo;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'El catálogo se generó correctamente.',
+            });
+        } else {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: mensaje || 'No se pudo generar el catálogo. Intenta nuevamente.',
+            });
+        }
+
+    } catch (error) {
+
+        Swal.close();
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un problema al realizar la consulta. Por favor, intenta nuevamente.',
+        });
+
+        console.error(error);
+    }
+};
+
+
 
 // BAJAS //
 
 const ObtenerDatosBajas = async (e) => {
+
     const plaza = e.currentTarget.dataset.plaza;
 
     Swal.fire({
@@ -400,6 +466,7 @@ const ObtenerDatosBajas = async (e) => {
 //CORRECCIONES
 
 const obtenerDatosCorrecciones = async (e) => {
+
     const correcciones = e.currentTarget.dataset.catalogo;
 
     Swal.fire({
@@ -562,6 +629,7 @@ datatable.on('click', '.baja', ObtenerDatosBajas)
 datatable.on('click', '.correcciones', obtenerDatosCorrecciones)
 
 BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
+BtnSearchCatalogo.addEventListener('click', generarCatalogo)
 BtnLimpiarAlta.addEventListener('click', function () {
 
     formVerificar.reset();

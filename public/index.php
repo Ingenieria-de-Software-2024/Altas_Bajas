@@ -20,6 +20,7 @@ $router->get('/API/tropa/buscarTropa', [TropaController::class,'buscarTropa']);
 //ALTAS
 $router->get('/API/tropa/buscarMunicipio', [TropaController::class,'buscarMunicipios']);
 $router->get('/API/tropa/verificarDpi', [TropaController::class,'verificarDpi']);
+$router->get('/API/tropa/generarCatalogo', [TropaController::class,'generarCatalogo']);
 
 //BAJAS
 $router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);

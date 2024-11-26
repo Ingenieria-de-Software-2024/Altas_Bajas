@@ -35,7 +35,6 @@
                     <div class="modal-header bg-warning bg-gradient">
                         <h5 class="modal-title" id="modalTitleId">Formulario para causar <b><u>Alta</u></b>, personal de
                             Tropa </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <form class="modal-body" id="formVerificar" enctype="multipart/form-data">
@@ -60,8 +59,8 @@
 
                                 <label for="per_catalogo"><b>Cátalogo</b></label>
                                 <div class="input-group justify-content-center mb-4">
-                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo" readonly><i class="bi bi-arrow-clockwise"></i></button>
-                                    <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo">
+                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise"></i></button>
+                                    <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo" readonly>
                                 </div>
                             </div>
                         </div>
