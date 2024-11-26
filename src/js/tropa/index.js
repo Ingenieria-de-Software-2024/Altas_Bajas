@@ -19,7 +19,10 @@ const formCorrrecciones = document.getElementById('formCorrecciones');
 const selectDepartamentoAltas = document.getElementById('per_departamento');
 const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 
+//MODAL ALTA
 const inputCatalogo = document.getElementById('per_catalogo');
+const dpiTropa = document.getElementById('per_dpi');
+const dpiBeneficiario = document.getElementById('ben_dpi');
 
 //VERIFICACIÓN DPI
 const inputDpi = document.getElementById('ver_dpi');
@@ -389,14 +392,48 @@ const generarCatalogo = async () => {
     }
 };
 
+function cuiIsValid(cui) {
+    if (!cui) {
+        return false;
+    }
+
+    var cuiRegExp = /^[0-9]{4}\s?[0-9]{5}\s?[0-9]{4}$/;
+
+    if (!cuiRegExp.test(cui)) {
+        return false;
+    }
+
+    cui = cui.replace(/\s/g, '');
+    var depto = parseInt(cui.substring(9, 11), 10);
+    var muni = parseInt(cui.substring(11, 13));
+    var numero = cui.substring(0, 8);
+    var verificador = parseInt(cui.substring(8, 9));
+
+    var munisPorDepto = [
+        17, 8, 16, 16, 13, 14, 19, 8, 24, 21, 9, 30, 32, 21, 8, 17, 14, 5, 11, 11, 7, 17
+    ];
+
+    if (depto === 0 || muni === 0 || depto > munisPorDepto.length || muni > munisPorDepto[depto - 1]) {
+        return false;
+    }
+
+    var total = 0;
+    for (var i = 0; i < numero.length; i++) {
+        total += numero[i] * (i + 2);
+    }
+
+    var modulo = (total % 11);
+
+    return modulo === verificador;
+}
 
 
 // BAJAS //
 
 const ObtenerDatosBajas = async (e) => {
-
+    
     const plaza = e.currentTarget.dataset.plaza;
-
+    
     Swal.fire({
         title: 'Cargando',
         text: 'Buscando...',
@@ -405,7 +442,7 @@ const ObtenerDatosBajas = async (e) => {
             Swal.showLoading();
         }
     });
-
+    
     try {
         const url = `/Altas_Bajas/API/tropa/obtenerDatosBajas?plaza=${plaza}`;
         const headers = new Headers();
@@ -414,50 +451,50 @@ const ObtenerDatosBajas = async (e) => {
             method: 'GET',
             headers,
         };
-
+        
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { mensaje, codigo, datos } = data;
-
+        
         Swal.close();
-
+        
         if (codigo == '1') {
-
+            
             inputCatalogoBajas.value = `${datos.catalogo_baja}`;
             inputNombreCompletoBajas.value = `${datos.grado_baja} ${datos.nombre_completo_baja}`;
             inputEmpleoBajas.value = `${datos.empleo_baja}`;
             inputPlazaBajas.value = `${datos.plaza_baja}`;
-
+            
             formBaja.classList.remove('d-none');
-
+            
         } else {
 
             console.log('Código inválido');
-
+            
             inputCatalogoBajas.value = '';
             inputNombreCompletoBajas.value = '';
             inputPlazaBajas.value = '';
             inputEmpleoBajas.value = '';
-
+            
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
             });
         }
-
+        
         BtnBaja.classList.remove('d-none');
-
+        
     } catch (error) {
-
+        
         Swal.close();
-
+        
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'Ocurrió un problema al obtener los datos. Por favor, intenta nuevamente.',
         });
-
+        
         console.log(error);
     }
 };
@@ -466,9 +503,9 @@ const ObtenerDatosBajas = async (e) => {
 //CORRECCIONES
 
 const obtenerDatosCorrecciones = async (e) => {
-
+    
     const correcciones = e.currentTarget.dataset.catalogo;
-
+    
     Swal.fire({
         title: 'Cargando',
         text: 'Buscando...',
@@ -477,7 +514,7 @@ const obtenerDatosCorrecciones = async (e) => {
             Swal.showLoading();
         }
     });
-
+    
     try {
         const url = `/Altas_Bajas/API/tropa/obtenerDatosCorrecciones?catalogo=${correcciones}`;
         const headers = new Headers();
@@ -486,17 +523,17 @@ const obtenerDatosCorrecciones = async (e) => {
             method: 'GET',
             headers,
         };
-
+        
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { mensaje, codigo, datos } = data;
-
+        
         // console.log(data);
-
+        
         Swal.close();
-
+        
         if (codigo === 1) {
-
+            
             //DATOS PERSONALES
             inputcatalogo_correcciones.value = `${datos.catalogo_correcciones}`;
             inputprimer_nombre_correcciones.value = `${datos.primer_nombre_correcciones}`;
@@ -513,7 +550,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputgrado_correcciones.value = `${datos.grado_correcciones}`;
             inputempleo_correcciones.value = `${datos.empleo_correcciones}`;
             inputfech_alta_correcciones.value = `${datos.fech_alta_correcciones}`;
-
+            
             //DATOS GENERALES
             inputestado_civil_correcciones.value = `${datos.estado_civil_correcciones}`;
             inputtipo_sangre_correcciones.value = `${datos.tipo_sangre_correcciones}`;
@@ -528,7 +565,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputmunicipio_nacimiento_correcciones.value = `${datos.municipio_nacimiento_correcciones}`;
             inputnit_correcciones.value = `${datos.nit_correcciones}`;
             inputcorreo_correcciones.value = `${datos.correo_correcciones}`;
-
+            
             //DATOS BENEFICIARIO
             inputben_nombre_correcciones.value = `${datos.ben_nombre_correcciones}`;
             inputdpi_ben_correcciones.value = `${datos.dpi_ben_correcciones}`;
@@ -540,16 +577,16 @@ const obtenerDatosCorrecciones = async (e) => {
             inputben_depto_nacimiento_correcciones.value = `${datos.ben_depto_nacimiento_correcciones}`;
             inputben_mun_nacimiento_correcciones.value = `${datos.ben_mun_nacimiento_correcciones}`;
             inputdirecc_ben_correcciones.value = `${datos.direcc_ben_correcciones}`;
-
+            
             //SITUACIONES
             inputsituacion_correcciones.value = `${datos.situacion_correcciones}`;
             inputsituacion_ben_correcciones.value = `${datos.situacion_ben_correcciones}`;
-
+            
             formCorrrecciones.classList.remove('d-none');
-
+            
         } else {
             console.log('Código inválido');
-
+            
             //DATOS PERSONALES
             inputcatalogo_correcciones.value = '';
             inputprimer_nombre_correcciones.value = '';
@@ -566,7 +603,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputgrado_correcciones.value = '';
             inputempleo_correcciones.value = '';
             inputfech_alta_correcciones.value = '';
-
+            
             //DATOS GENERALES
             inputestado_civil_correcciones.value = '';
             inputtipo_sangre_correcciones.value = '';
@@ -581,7 +618,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputmunicipio_nacimiento_correcciones
             inputnit_correcciones.value = '';
             inputcorreo_correcciones.value = '';
-
+            
             //DATOS BENEFICIARIO
             inputben_nombre_correcciones.value = '';
             inputdpi_ben_correcciones.value = '';
@@ -593,11 +630,11 @@ const obtenerDatosCorrecciones = async (e) => {
             inputben_depto_nacimiento_correcciones.value = '';
             inputben_mun_nacimiento_correcciones.value = '';
             inputdirecc_ben_correcciones.value = '';
-
+            
             //SITUAICONES
             inputsituacion_correcciones.value = '';
             inputsituacion_ben_correcciones.value = '';
-
+            
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -606,15 +643,15 @@ const obtenerDatosCorrecciones = async (e) => {
         }
         
     } catch (error) {
-
+        
         Swal.close();
-
+        
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'Ocurrió un problema al obtener los datos. Por favor, intenta nuevamente.',
         });
-
+        
         console.log(error);
     }
 };
@@ -622,6 +659,59 @@ const obtenerDatosCorrecciones = async (e) => {
 
 
 inputDpi.addEventListener('change', mostrarFormularioAltas);
+dpiTropa.addEventListener('change', function () {
+    const inputValue = this.value;
+
+    // Limpiar el valor eliminando caracteres no permitidos
+    const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
+
+    // Actualizar el valor del input con el valor limpio
+    this.value = cleanedValue;
+
+    if (cuiIsValid(cleanedValue)) {
+        // Mostrar SweetAlert indicando que el DPI es válido
+        Swal.fire({
+            icon: 'success',
+            title: 'DPI válido',
+            text: 'El DPI ingresado es válido.',
+        });
+    } else {
+        // Mostrar SweetAlert indicando que el DPI no es válido
+        Swal.fire({
+            icon: 'error',
+            title: 'DPI no válido',
+            text: 'El DPI ingresado no cumple con los requisitos.',
+        });
+        this.value = ''; // Limpiar el campo si no es válido
+    }
+});
+
+dpiBeneficiario.addEventListener('change', function () {
+    const inputValue = this.value;
+
+    // Limpiar el valor eliminando caracteres no permitidos
+    const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
+
+    // Actualizar el valor del input con el valor limpio
+    this.value = cleanedValue;
+
+    if (cuiIsValid(cleanedValue)) {
+        // Mostrar SweetAlert indicando que el DPI es válido
+        Swal.fire({
+            icon: 'success',
+            title: 'DPI válido',
+            text: 'El DPI ingresado es válido.',
+        });
+    } else {
+        // Mostrar SweetAlert indicando que el DPI no es válido
+        Swal.fire({
+            icon: 'error',
+            title: 'DPI no válido',
+            text: 'El DPI ingresado no cumple con los requisitos.',
+        });
+        this.value = ''; // Limpiar el campo si no es válido
+    }
+});
 
 selectDepartamentoAltas.addEventListener('change', buscarMunicipio);
 
@@ -631,7 +721,7 @@ datatable.on('click', '.correcciones', obtenerDatosCorrecciones)
 BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
 BtnSearchCatalogo.addEventListener('click', generarCatalogo)
 BtnLimpiarAlta.addEventListener('click', function () {
-
+    
     formVerificar.reset();
     formAlta.reset();
     formVerificar.classList.add('d-none');
