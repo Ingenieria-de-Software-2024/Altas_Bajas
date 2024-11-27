@@ -97,7 +97,28 @@ class Tropa extends ActiveRecord
 
     public static function buscarMunicipios($dep_mun)
     {
-        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE \' . $dep_mun . '%\'";
+        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE '" . $dep_mun . "%'";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarMunicipiosResidencia($dep_mun)
+    {
+        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE '" . $dep_mun . "%'";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarMunicipiosNacimiento($dep_mun)
+    {
+        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE '" . $dep_mun . "%'";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function buscarMunicipiosBen($dep_mun)
+    {
+        $sql = "SELECT * FROM DEPMUN WHERE DM_CODIGO LIKE '" . $dep_mun . "%'";
 
         return self::fetchArray($sql);
     }

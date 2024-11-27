@@ -25,8 +25,15 @@ const nitTropa = document.getElementById('oper_nit');
 const teltropa = document.getElementById('per_telefono');
 const telBeneficiario = document.getElementById('ben_celular');
 
-const selectDepartamentoAltas = document.getElementById('per_departamento');
-const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
+//DEPARTAMENTOS Y MUNICIPIOS
+const selectDepartamentoTropa = document.getElementById('per_departamento');
+const selectMunicipioTropa = document.getElementById('per_ext_ced_lugar');
+const selectDepartamentoResidencia = document.getElementById('per_departamento_resi');
+const selectMunicipioResidencia = document.getElementById('per_dir_lugar');
+const selectDepartamentoNacimiento = document.getElementById('per_departamento_nac');
+const selectMunicipioNacimiento = document.getElementById('per_nac_lugar');
+const selectDepartamentoBen = document.getElementById('per_departamento_nac_ben');
+const selectMunicipioBen = document.getElementById('ben_nac_lugar');
 
 //VERIFICACIÓN DPI
 const inputDpi = document.getElementById('ver_dpi');
@@ -300,38 +307,225 @@ const mostrarFormularioAltas = async () => {
 };
 
 const buscarMunicipio = async () => {
-    const departamento = selectDepartamentoAltas.value.trim();
+    const departamento = selectDepartamentoTropa.value.trim();
 
     try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         const url = `/Altas_Bajas/API/tropa/buscarMunicipio?municipio=${departamento}`;
         const config = {
-            method: 'GET'
+            method: 'GET',
         };
 
-        const respuesta = await fetch(url, config);
+        const respuesta = await fetch(url);
+
         const data = await respuesta.json();
 
-        selectMunicipioAltas.innerHTML = '';
+        selectMunicipioTropa.innerHTML = '';
 
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
         defaultOption.textContent = 'Seleccione...';
-        selectMunicipioAltas.appendChild(defaultOption);
+        selectMunicipioTropa.appendChild(defaultOption);
 
-        if (data) {
-
-            data.slice(1).forEach(municipio => {
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
                 const option = document.createElement('option');
                 option.value = municipio.dm_codigo;
                 option.textContent = municipio.dm_desc_lg.trim();
-                selectMunicipioAltas.appendChild(option);
+                selectMunicipioTropa.appendChild(option);
             });
-
+        } else {
+            console.error('La respuesta no es válida:', data);
         }
+
+        Swal.close();
+
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
+    }
+};
+
+const buscarMunicipioResidencia = async () => {
+
+    const DepartamentoResidencia = selectDepartamentoResidencia.value.trim();
+
+    try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipioResidencia?municipio=${DepartamentoResidencia}`;
+        const config = {
+            method: 'GET',
+        };
+
+        const respuesta = await fetch(url);
+
+        const data = await respuesta.json();
+
+        selectMunicipioResidencia.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        selectMunicipioResidencia.appendChild(defaultOption);
+
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
+                const option = document.createElement('option');
+                option.value = municipio.dm_codigo;
+                option.textContent = municipio.dm_desc_lg.trim();
+                selectMunicipioResidencia.appendChild(option);
+            });
+        } else {
+            console.error('La respuesta no es válida:', data);
+        }
+
+        Swal.close();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
+    }
+};
+
+const buscarMunicipioNacimiento= async () => {
+
+    const DepartamentoNacimiento = selectDepartamentoNacimiento.value.trim();
+
+    try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipioNacimiento?municipio=${DepartamentoNacimiento}`;
+        const config = {
+            method: 'GET',
+        };
+
+        const respuesta = await fetch(url);
+
+        const data = await respuesta.json();
+
+        selectMunicipioNacimiento.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        selectMunicipioNacimiento.appendChild(defaultOption);
+
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
+                const option = document.createElement('option');
+                option.value = municipio.dm_codigo;
+                option.textContent = municipio.dm_desc_lg.trim();
+                selectMunicipioNacimiento.appendChild(option);
+            });
+        } else {
+            console.error('La respuesta no es válida:', data);
+        }
+
+        Swal.close();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
+    }
+};
+
+const buscarMunicipioBen= async () => {
+
+    const DepartamentoBen = selectDepartamentoBen.value.trim();
+
+    try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipioBen?municipio=${DepartamentoBen}`;
+        const config = {
+            method: 'GET',
+        };
+
+        const respuesta = await fetch(url);
+
+        const data = await respuesta.json();
+
+        selectMunicipioBen.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        selectMunicipioBen.appendChild(defaultOption);
+
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
+                const option = document.createElement('option');
+                option.value = municipio.dm_codigo;
+                option.textContent = municipio.dm_desc_lg.trim();
+                selectMunicipioBen.appendChild(option);
+            });
+        } else {
+            console.error('La respuesta no es válida:', data);
+        }
+
+        Swal.close();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
     }
 };
 
@@ -891,12 +1085,16 @@ telBeneficiario.addEventListener('change', function () {
     }
 });
 
-selectDepartamentoAltas.addEventListener('change', buscarMunicipio);
-datatable.on('click', '.baja', ObtenerDatosBajas)
-datatable.on('click', '.correcciones', obtenerDatosCorrecciones)
+selectDepartamentoTropa.addEventListener('change', buscarMunicipio);
+selectDepartamentoResidencia.addEventListener('change', buscarMunicipioResidencia);
+selectDepartamentoNacimiento.addEventListener('change', buscarMunicipioNacimiento);
+selectDepartamentoBen.addEventListener('change', buscarMunicipioBen);
 
-BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas)
-BtnSearchCatalogo.addEventListener('click', generarCatalogo)
+datatable.on('click', '.baja', ObtenerDatosBajas);
+datatable.on('click', '.correcciones', obtenerDatosCorrecciones);
+
+BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas);
+BtnSearchCatalogo.addEventListener('click', generarCatalogo);
 BtnLimpiarAlta.addEventListener('click', function () {
     
     formVerificar.reset();

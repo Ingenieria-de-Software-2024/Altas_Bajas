@@ -28,10 +28,74 @@ class TropaController
     public static function buscarMunicipios()
     {
         $codigo_municipio = $_GET['municipio'];
+
         $dep_mun = substr($codigo_municipio, 0, 2);
 
         try {
             $municipios = Tropa::buscarMunicipios($dep_mun);
+            http_response_code(200);
+            echo json_encode($municipios);
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al buscar',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function buscarMunicipiosResidencia()
+    {
+        $codigo_municipio = $_GET['municipio'];
+
+        $dep_mun = substr($codigo_municipio, 0, 2);
+
+        try {
+            $municipios = Tropa::buscarMunicipiosResidencia($dep_mun);
+            http_response_code(200);
+            echo json_encode($municipios);
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al buscar',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function buscarMunicipiosNacimiento()
+    {
+        $codigo_municipio = $_GET['municipio'];
+
+        $dep_mun = substr($codigo_municipio, 0, 2);
+
+        try {
+            $municipios = Tropa::buscarMunicipiosNacimiento($dep_mun);
+            http_response_code(200);
+            echo json_encode($municipios);
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al buscar',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function buscarMunicipiosBen()
+    {
+        $codigo_municipio = $_GET['municipio'];
+
+        $dep_mun = substr($codigo_municipio, 0, 2);
+
+        try {
+            $municipios = Tropa::buscarMunicipiosBen($dep_mun);
             http_response_code(200);
             echo json_encode($municipios);
         } catch (Exception $e) {

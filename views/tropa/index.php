@@ -183,8 +183,8 @@
 
                         <div class="row justify-content-center">
                             <div class="col-4 justify-content-center">
-                                <label for="per_departamento2"><b>Depto. de Residencia</b></label>
-                                <select class="form-select" name="per_departamento2" id="per_departamento2" class="form-control" require>
+                                <label for="per_departamento_resi"><b>Depto. de Residencia</b></label>
+                                <select class="form-select" name="per_departamento_resi" id="per_departamento_resi" class="form-control" require>
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -217,8 +217,8 @@
                                 <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" require>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_departamento4"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="per_departamento4" id="per_departamento4" class="form-control" require>
+                                <label for="per_departamento_nac"><b>Depto. de Nacimiento</b></label>
+                                <select class="form-select" name="per_departamento_nac" id="per_departamento_nac" class="form-control" require>
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -322,8 +322,8 @@
                                 <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control" require>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_departamento3"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="per_departamento3" id="per_departamento3" class="form-control" require>
+                                <label for="per_departamento_nac_ben"><b>Depto. de Nacimiento</b></label>
+                                <select class="form-select" name="per_departamento_nac_ben" id="per_departamento_nac_ben" class="form-control" require>
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
