@@ -23,15 +23,16 @@ const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 const inputCatalogo = document.getElementById('per_catalogo');
 const dpiTropa = document.getElementById('per_dpi');
 const dpiBeneficiario = document.getElementById('ben_dpi');
+const nitTropa = document.getElementById('oper_nit');
 
 //VERIFICACIÓN DPI
 const inputDpi = document.getElementById('ver_dpi');
 
 //DATOS BAJAS
-const inputCatalogoBajas = document.getElementById('catalogo')
-const inputNombreCompletoBajas = document.getElementById('nombre_completo')
-const inputPlazaBajas = document.getElementById('plaza')
-const inputEmpleoBajas = document.getElementById('empleo')
+const inputCatalogoBajas = document.getElementById('catalogo');
+const inputNombreCompletoBajas = document.getElementById('nombre_completo');
+const inputPlazaBajas = document.getElementById('plaza');
+const inputEmpleoBajas = document.getElementById('empleo');
 
 //DATOS PERSONALES
 const inputcatalogo_correcciones = document.getElementById('catalogo_correcciones')
@@ -425,7 +426,44 @@ function cuiIsValid(cui) {
     var modulo = (total % 11);
 
     return modulo === verificador;
-}
+};
+
+function nitIsValid(nit) {
+    if (!nit) {
+        return true; // Permitir campo vacío como válido
+    }
+
+    // Eliminar caracteres no numéricos, excepto guion y letras 'k' o 'K'
+    nit = nit.replace(/[^0-9kK-]/g, '');
+
+    const nitRegExp = /^[0-9]+(-?[0-9kK])?$/;
+
+    if (!nitRegExp.test(nit)) {
+        return false; // Si el NIT no cumple con el formato, es inválido
+    }
+
+    nit = nit.replace(/-/, ''); // Eliminar guion
+    const lastChar = nit.length - 1;
+    const number = nit.substring(0, lastChar);
+    const expectedChecker = nit.substring(lastChar).toLowerCase();
+
+    let factor = number.length + 1;
+    let total = 0;
+
+    for (let i = 0; i < number.length; i++) {
+        const digit = parseInt(number.charAt(i), 10);
+        total += digit * factor;
+        factor -= 1;
+    }
+
+    const modulus = (11 - (total % 11)) % 11;
+    const computedChecker = (modulus === 10 ? 'k' : modulus.toString());
+
+    return expectedChecker === computedChecker;
+};
+
+// Escuchar eventos en el campo de entrada oper_nit
+const operNit = document.querySelector('#oper_nit');
 
 
 // BAJAS //
@@ -660,61 +698,106 @@ const obtenerDatosCorrecciones = async (e) => {
 
 inputDpi.addEventListener('change', mostrarFormularioAltas);
 dpiTropa.addEventListener('change', function () {
-    const inputValue = this.value;
+    const inputValue = this.value.trim();
 
-    // Limpiar el valor eliminando caracteres no permitidos
+    if (inputValue == ""){
+
+        dpiTropa.classList.remove('is-valid');
+        dpiTropa.classList.remove('is-invalid');
+        return;
+    }
+
     const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
 
-    // Actualizar el valor del input con el valor limpio
     this.value = cleanedValue;
 
     if (cuiIsValid(cleanedValue)) {
-        // Mostrar SweetAlert indicando que el DPI es válido
-        Swal.fire({
-            icon: 'success',
-            title: 'DPI válido',
-            text: 'El DPI ingresado es válido.',
-        });
+
+        dpiTropa.classList.add('is-valid');
+        dpiTropa.classList.remove('is-invalid');
+
     } else {
-        // Mostrar SweetAlert indicando que el DPI no es válido
+
         Swal.fire({
             icon: 'error',
             title: 'DPI no válido',
             text: 'El DPI ingresado no cumple con los requisitos.',
         });
-        this.value = ''; // Limpiar el campo si no es válido
+
+        dpiTropa.classList.remove('is-valid');
+        dpiTropa.classList.add('is-invalid');
     }
 });
 
 dpiBeneficiario.addEventListener('change', function () {
-    const inputValue = this.value;
+    const inputValue = this.value.trim();
 
-    // Limpiar el valor eliminando caracteres no permitidos
+    if (inputValue == ""){
+
+        dpiBeneficiario.classList.remove('is-valid');
+        dpiBeneficiario.classList.remove('is-invalid');
+        return;
+    }
+
     const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
 
-    // Actualizar el valor del input con el valor limpio
     this.value = cleanedValue;
 
     if (cuiIsValid(cleanedValue)) {
-        // Mostrar SweetAlert indicando que el DPI es válido
-        Swal.fire({
-            icon: 'success',
-            title: 'DPI válido',
-            text: 'El DPI ingresado es válido.',
-        });
+
+        dpiBeneficiario.classList.add('is-valid');
+        dpiBeneficiario.classList.remove('is-invalid');
+
     } else {
-        // Mostrar SweetAlert indicando que el DPI no es válido
+
         Swal.fire({
             icon: 'error',
             title: 'DPI no válido',
             text: 'El DPI ingresado no cumple con los requisitos.',
         });
-        this.value = ''; // Limpiar el campo si no es válido
+        this.value = '';
+
+        dpiBeneficiario.classList.remove('is-valid');
+        dpiBeneficiario.classList.add('is-invalid');
+    }
+});
+
+nitTropa.addEventListener('change', function () {
+    const inputValue = this.value.trim();
+
+    // Si el campo está vacío, elimina las clases de validación y retorna
+    if (inputValue === "") {
+        nitTropa.classList.remove('is-valid');
+        nitTropa.classList.remove('is-invalid');
+        return;
+    }
+
+    // Limpiar el valor eliminando caracteres no válidos excepto números, guion, y 'k/K'
+    const cleanedValue = inputValue.replace(/[^0-9kK-]/g, '');
+
+    // Actualizar el valor del campo con el valor limpio
+    this.value = cleanedValue;
+
+    // Validar el NIT usando nitIsValid
+    if (nitIsValid(cleanedValue)) {
+        nitTropa.classList.add('is-valid');
+        nitTropa.classList.remove('is-invalid');
+    } else {
+        // Mostrar alerta con Swal en caso de NIT inválido
+        Swal.fire({
+            icon: 'error',
+            title: 'NIT no válido',
+            text: 'El NIT ingresado no cumple con los requisitos.',
+        });
+
+        // Limpiar el campo y aplicar clase de error
+        this.value = '';
+        nitTropa.classList.remove('is-valid');
+        nitTropa.classList.add('is-invalid');
     }
 });
 
 selectDepartamentoAltas.addEventListener('change', buscarMunicipio);
-
 datatable.on('click', '.baja', ObtenerDatosBajas)
 datatable.on('click', '.correcciones', obtenerDatosCorrecciones)
 
@@ -742,7 +825,6 @@ modalAltas.addEventListener('hidden.bs.modal', function () {
     BtnCancelarBaja.classList.remove('d-none');
 
 });
-
 
 modalBajas.addEventListener('hidden.bs.modal', function () {
 

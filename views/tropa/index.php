@@ -1,7 +1,7 @@
 <div class="row justify-content-center text-center">
     <div class="row justify-content-center">
         <h1 class="App">Tropa</h1>
-        
+
         <div class="col table-responsive col-lg-11 table-wrapper border shadow bg-light rounded">
             <div class="row justify-content-center text-center">
                 <div class="col-2 justify-content-center text-center">
@@ -234,6 +234,10 @@
                         </div>
 
                         <div class="row justify-content-center">
+                            <div class="col-3 justify-content-center">
+                                <label for="oper_nit"><b>Nit</b></label>
+                                <input type="numb" name="oper_nit" id="oper_nit" class="form-control">
+                            </div>
                             <div class="col justify-content-center">
                                 <label for="oper_correo_personal"><b>Correo Personal</b></label>
                                 <input type="text" name="oper_correo_personal" id="oper_correo_personal" class="form-control" readonly>
@@ -404,7 +408,7 @@
                                 required>
                                 <option value="">Seleccione...</option>
                                 <?php foreach ($motivos as $opcion) : ?>
-                                <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
+                                    <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -656,7 +660,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="parentesco_correcciones"><b>Parentesco</b></label>
-                                <select class="form-select form-control" name="parentesco_correcciones" id="parentesco_correcciones"  require>
+                                <select class="form-select form-control" name="parentesco_correcciones" id="parentesco_correcciones" require>
                                     <option Selected>Seleccione...</option>
                                     <?php foreach ($parentescos as $opciones) : ?>
                                         <option value="<?= $opciones['par_codigo'] ?>"><?= $opciones['par_desc_md'] ?></option>
