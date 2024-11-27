@@ -16,14 +16,17 @@ const formVerificar = document.getElementById('formVerificar');
 const formBaja = document.getElementById('formBaja');
 const formCorrrecciones = document.getElementById('formCorrecciones');
 
-const selectDepartamentoAltas = document.getElementById('per_departamento');
-const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 
 //MODAL ALTA
 const inputCatalogo = document.getElementById('per_catalogo');
 const dpiTropa = document.getElementById('per_dpi');
 const dpiBeneficiario = document.getElementById('ben_dpi');
 const nitTropa = document.getElementById('oper_nit');
+const teltropa = document.getElementById('per_telefono');
+const telBeneficiario = document.getElementById('ben_celular');
+
+const selectDepartamentoAltas = document.getElementById('per_departamento');
+const selectMunicipioAltas = document.getElementById('per_ext_ced_lugar');
 
 //VERIFICACIÓN DPI
 const inputDpi = document.getElementById('ver_dpi');
@@ -430,19 +433,18 @@ function cuiIsValid(cui) {
 
 function nitIsValid(nit) {
     if (!nit) {
-        return true; // Permitir campo vacío como válido
+        return true;
     }
 
-    // Eliminar caracteres no numéricos, excepto guion y letras 'k' o 'K'
     nit = nit.replace(/[^0-9kK-]/g, '');
 
     const nitRegExp = /^[0-9]+(-?[0-9kK])?$/;
 
     if (!nitRegExp.test(nit)) {
-        return false; // Si el NIT no cumple con el formato, es inválido
+        return false;
     }
 
-    nit = nit.replace(/-/, ''); // Eliminar guion
+    nit = nit.replace(/-/, '');
     const lastChar = nit.length - 1;
     const number = nit.substring(0, lastChar);
     const expectedChecker = nit.substring(lastChar).toLowerCase();
@@ -462,8 +464,42 @@ function nitIsValid(nit) {
     return expectedChecker === computedChecker;
 };
 
-// Escuchar eventos en el campo de entrada oper_nit
-const operNit = document.querySelector('#oper_nit');
+function establecerPrimerDiaMes() {
+    try {
+
+        const fechaActual = new Date();
+
+        const primerDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+
+        const anio = primerDiaMes.getFullYear();
+        const mes = String(primerDiaMes.getMonth() + 1).padStart(2, '0');
+        const dia = String(primerDiaMes.getDate()).padStart(2, '0');
+        const fechaFormateada = `${anio}-${mes}-${dia}`;
+
+        const campoFecha = document.getElementById('per_fec_nomb');
+        if (campoFecha) {
+            campoFecha.value = fechaFormateada;
+            // console.log(campoFecha)
+            // return;
+        } else {
+
+        }
+    } catch (error) {
+        console.error(error.message);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al establecer la fecha',
+            text: error.message,
+            confirmButtonText: 'Aceptar'
+        });
+    }
+};
+
+function validarTelefono(telefono) {
+    const regexTelefono = /^[0-9][0-9]{7}$/;
+    return regexTelefono.test(telefono);
+}
 
 
 // BAJAS //
@@ -765,35 +801,93 @@ dpiBeneficiario.addEventListener('change', function () {
 nitTropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
 
-    // Si el campo está vacío, elimina las clases de validación y retorna
     if (inputValue === "") {
         nitTropa.classList.remove('is-valid');
         nitTropa.classList.remove('is-invalid');
         return;
     }
 
-    // Limpiar el valor eliminando caracteres no válidos excepto números, guion, y 'k/K'
     const cleanedValue = inputValue.replace(/[^0-9kK-]/g, '');
 
-    // Actualizar el valor del campo con el valor limpio
     this.value = cleanedValue;
 
-    // Validar el NIT usando nitIsValid
     if (nitIsValid(cleanedValue)) {
         nitTropa.classList.add('is-valid');
         nitTropa.classList.remove('is-invalid');
     } else {
-        // Mostrar alerta con Swal en caso de NIT inválido
+
         Swal.fire({
             icon: 'error',
             title: 'NIT no válido',
             text: 'El NIT ingresado no cumple con los requisitos.',
         });
 
-        // Limpiar el campo y aplicar clase de error
         this.value = '';
         nitTropa.classList.remove('is-valid');
         nitTropa.classList.add('is-invalid');
+    }
+});
+
+teltropa.addEventListener('change', function () {
+    const inputValue = this.value.trim();
+
+    if (inputValue === "") {
+        teltropa.classList.remove('is-valid');
+        teltropa.classList.remove('is-invalid');
+        return;
+    }
+
+    const cleanedValue = inputValue.replace(/[^0-9]/g, '');
+    this.value = cleanedValue;
+
+    if (validarTelefono(cleanedValue)) {
+        
+        teltropa.classList.add('is-valid');
+        teltropa.classList.remove('is-invalid');
+
+    } else {
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Teléfono no válido',
+            text: 'El número ingresado no es válido.',
+        });
+
+        this.value = '';
+        teltropa.classList.remove('is-valid');
+        teltropa.classList.add('is-invalid');
+    }
+});
+
+telBeneficiario.addEventListener('change', function () {
+    const inputValue = this.value.trim();
+
+    if (inputValue === "") {
+        telBeneficiario.classList.remove('is-valid');
+        telBeneficiario.classList.remove('is-invalid');
+        return;
+    }
+
+    const cleanedValue = inputValue.replace(/[^0-9]/g, '');
+
+    this.value = cleanedValue;
+
+    if (validarTelefono(cleanedValue)) {
+
+        telBeneficiario.classList.add('is-valid');
+        telBeneficiario.classList.remove('is-invalid');
+
+    } else {
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Teléfono no válido',
+            text: 'El número ingresado no es válido.',
+        });
+
+        this.value = '';
+        telBeneficiario.classList.remove('is-valid');
+        telBeneficiario.classList.add('is-invalid');
     }
 });
 
@@ -824,6 +918,10 @@ modalAltas.addEventListener('hidden.bs.modal', function () {
     BtnLimpiarAlta.classList.add('d-none');
     BtnCancelarBaja.classList.remove('d-none');
 
+});
+
+modalAltas.addEventListener('shown.bs.modal', function () {
+    establecerPrimerDiaMes();
 });
 
 modalBajas.addEventListener('hidden.bs.modal', function () {

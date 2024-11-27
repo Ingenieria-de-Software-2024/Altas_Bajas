@@ -9,7 +9,7 @@
             <div class="row justify-content-center text-center">
                 <div class="row justify-content-center bg">
 
-                    <form id="formTraslados" >
+                    <form id="formTraslados">
                         <input type="hidden" name="traslados_id" id="traslados_id">
 
 
@@ -27,10 +27,8 @@
                                         <div class="col-6 justify-content-center">
                                             <label for="catalogo_1"><b>Cátalogo</b></label>
                                             <div class="input-group justify-content-center mb-4">
-                                                <input type="number" class="form-control text-center" id="catalogo_1"
-                                                    name="catalogo_1">
-                                                <button class="btn btn-primary" type="button" id="BtnSearch_1"
-                                                    name="BtnSearch_1" require><i class="bi bi-search"></i></button>
+                                                <input type="number" class="form-control text-center" id="catalogo_1" name="catalogo_1">
+                                                <button class="btn btn-primary" type="button" id="BtnSearch_1" name="BtnSearch_1" require><i class="bi bi-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -38,30 +36,26 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="nombre_completo_1"><b>Nombre</b></label>
-                                            <input type="text" name="nombre_completo_1" id="nombre_completo_1"
-                                                class="form-control" disabled>
+                                            <input type="text" name="nombre_completo_1" id="nombre_completo_1" class="form-control" disabled>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="grado_1"><b>Grado</b></label>
-                                            <input type="text" name="grado_1" id="grado_1" class="form-control"
-                                                disabled>
+                                            <input type="text" name="grado_1" id="grado_1" class="form-control" disabled>
                                         </div>
 
                                         <div class="col justify-content-center">
                                             <label for="plaza_1"><b>Plaza</b></label>
-                                            <input type="text" name="plaza_1" id="plaza_1" class="form-control"
-                                                readonly>
+                                            <input type="text" name="plaza_1" id="plaza_1" class="form-control" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="empleo_1"><b>Empleo</b></label>
-                                            <input type="text" name="empleo_1" id="empleo_1" class="form-control"
-                                                disabled>
+                                            <input type="text" name="empleo_1" id="empleo_1" class="form-control" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -90,8 +84,8 @@
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
+
                                 <div class="col justify-content-center bg">
                                     <div class="row justify-content-center text-center">
                                         <div class="col justify-content-center bg">
@@ -103,10 +97,8 @@
                                         <div class="col-6 justify-content-center">
                                             <label for="catalogo_2"><b>Cátalogo</b></label>
                                             <div class="input-group justify-content-center mb-4">
-                                                <input type="number" class="form-control text-center" id="catalogo_2"
-                                                    name="catalogo_2">
-                                                <button class="btn btn-primary" type="button" id="BtnSearch_2"
-                                                    name="BtnSearch_2" require><i class="bi bi-search"></i></button>
+                                                <input type="number" class="form-control text-center" id="catalogo_2" name="catalogo_2">
+                                                <button class="btn btn-primary" type="button" id="BtnSearch_2" name="BtnSearch_2" require><i class="bi bi-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -114,30 +106,26 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="nombre_completo_2"><b>Nombre</b></label>
-                                            <input type="text" name="nombre_completo_2" id="nombre_completo_2"
-                                                class="form-control" disabled>
+                                            <input type="text" name="nombre_completo_2" id="nombre_completo_2" class="form-control" disabled>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="grado_2"><b>Grado</b></label>
-                                            <input type="text" name="grado_2" id="grado_2" class="form-control"
-                                                disabled>
+                                            <input type="text" name="grado_2" id="grado_2" class="form-control" disabled>
                                         </div>
 
                                         <div class="col justify-content-center">
                                             <label for="plaza_2"><b>Plaza</b></label>
-                                            <input type="text" name="plaza_2" id="plaza_2" class="form-control"
-                                                readonly>
+                                            <input type="text" name="plaza_2" id="plaza_2" class="form-control" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="empleo_2"><b>Empleo</b></label>
-                                            <input type="text" name="empleo_2" id="empleo_2" class="form-control"
-                                                disabled>
+                                            <input type="text" name="empleo_2" id="empleo_2" class="form-control" disabled>
                                         </div>
                                     </div>
 
@@ -153,8 +141,7 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
 
-                                <button type="button" class="btn btn-warning btn-lg" name="btnCancelarTraslados"><i
-                                        class="bi bi-x-circle-fill"></i> Limpiar</button>
+                                <button type="button" class="btn btn-danger btn-lg" name="btnCancelarTraslados" ><i class="bi bi-stars"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

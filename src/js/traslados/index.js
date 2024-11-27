@@ -27,12 +27,11 @@ const ObtenerDatosTraslados_1 = async () => {
     const catalogo = inputCatalogo_1.value
 
     if (!/^\d{7}$/.test(catalogo)) {
-        catalogoValido = false;
 
         Swal.fire({
             icon: 'error',
             title: 'Catálogo inválido',
-            text: 'El catálogo ingresado debe de tener 7 dígitos',
+            text: 'El catálogo ingresado no es de Tropa',
         });
 
         return;
@@ -69,7 +68,7 @@ const ObtenerDatosTraslados_1 = async () => {
 
             // console.log(datos.situacion_1)
 
-            if (datos.situacion_1 == '11' || datos.situacion_1 == 'T0') {
+            if (datos.situacion_1 == '11' || datos.situacion_1 == 'T0' ) {
 
                 inputNombreCompleto_1.value = `${datos.nombre_completo_1}`;
                 inputGrado_1.value = `${datos.grado_1}`;
@@ -85,7 +84,6 @@ const ObtenerDatosTraslados_1 = async () => {
                 
                 return;
             }
-            formTraslados.reset();
 
         } else {
             console.log('Código inválido');
@@ -126,7 +124,7 @@ const ObtenerDatosTraslados_2 = async () => {
         Swal.fire({
             icon: 'error',
             title: 'Catálogo inválido',
-            text: 'El catálogo ingresado debe de tener 7 dígitos',
+            text: 'El catálogo ingresado no es de Tropa',
         });
 
         return;

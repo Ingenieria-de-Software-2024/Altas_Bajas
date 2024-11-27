@@ -134,7 +134,7 @@
                                 <input type="text" name="per_desc_empleo" id="per_desc_empleo" class="form-control" readonly>
                             </div>
                             <div class="col justify-content-center">
-                                <label for="per_fec_nomb"><b>Fecha de nombramiento</b></label>
+                                <label for="per_fec_nomb"><b>Fecha de Alta</b></label>
                                 <input type="date" name="per_fec_nomb" id="per_fec_nomb" class="form-control" readonly>
                             </div>
                         </div>
