@@ -16,15 +16,18 @@ const formVerificar = document.getElementById('formVerificar');
 const formBaja = document.getElementById('formBaja');
 const formCorrrecciones = document.getElementById('formCorrecciones');
 
-
 //MODAL ALTA
+//VERIFICACIÓN DPI
+const inputDpi = document.getElementById('ver_dpi');
+//VALIDACIONES DE IMPUTS
 const inputCatalogo = document.getElementById('per_catalogo');
 const dpiTropa = document.getElementById('per_dpi');
 const dpiBeneficiario = document.getElementById('ben_dpi');
 const nitTropa = document.getElementById('oper_nit');
 const teltropa = document.getElementById('per_telefono');
 const telBeneficiario = document.getElementById('ben_celular');
-
+const inputPlaza = document.getElementById('per_plaza');
+const inputEmpleo = document.getElementById('per_desc_empleo');
 //DEPARTAMENTOS Y MUNICIPIOS
 const selectDepartamentoTropa = document.getElementById('per_departamento');
 const selectMunicipioTropa = document.getElementById('per_ext_ced_lugar');
@@ -34,75 +37,73 @@ const selectDepartamentoNacimiento = document.getElementById('per_departamento_n
 const selectMunicipioNacimiento = document.getElementById('per_nac_lugar');
 const selectDepartamentoBen = document.getElementById('per_departamento_nac_ben');
 const selectMunicipioBen = document.getElementById('ben_nac_lugar');
-
-//VERIFICACIÓN DPI
-const inputDpi = document.getElementById('ver_dpi');
-
-//DATOS BAJAS
-const inputCatalogoBajas = document.getElementById('catalogo');
-const inputNombreCompletoBajas = document.getElementById('nombre_completo');
-const inputPlazaBajas = document.getElementById('plaza');
-const inputEmpleoBajas = document.getElementById('empleo');
-
-//DATOS PERSONALES
-const inputcatalogo_correcciones = document.getElementById('catalogo_correcciones')
-const inputprimer_nombre_correcciones = document.getElementById('primer_nombre_correcciones')
-const inputsegundo_nombre_correcciones = document.getElementById('segundo_nombre_correcciones')
-const inputtercer_nombre_correcciones = document.getElementById('tercer_nombre_correcciones')
-const inputprimer_apellido_correcciones = document.getElementById('primer_apellido_correcciones')
-const inputsegundo_apellido_correcciones = document.getElementById('segundo_apellido_correcciones')
-const inputtercer_apellido_correcciones = document.getElementById('tercer_apellido_correcciones')
-const inputdpi_correcciones = document.getElementById('dpi_correcciones')
-const inputfech_ext_dpi_tropa_correcciones = document.getElementById('fech_ext_dpi_tropa_correcciones')
-const inputdepto_dpi_correcciones = document.getElementById('depto_dpi_correcciones')
-const inputmunicipio_dpi_correcciones = document.getElementById('municipio_dpi_correcciones')
-const inputplaza_correcciones = document.getElementById('plaza_correcciones')
-const inputgrado_correcciones = document.getElementById('grado_correcciones')
-const inputempleo_correcciones = document.getElementById('empleo_correcciones')
-const inputfech_alta_correcciones = document.getElementById('fech_alta_correcciones')
-
-//DATOS GENERALES
-const inputestado_civil_correcciones = document.getElementById('estado_civil_correcciones')
-const inputtipo_sangre_correcciones = document.getElementById('tipo_sangre_correcciones')
-const inputdireccion_correcciones = document.getElementById('direccion_correcciones')
-const inputzona_correcciones = document.getElementById('zona_correcciones')
-const inputdepto_residencia_correcciones = document.getElementById('depto_residencia_correcciones')
-const inputmunicipio_residencia_correcciones = document.getElementById('municipio_residencia_correcciones')
-const inputtelefono_correcciones = document.getElementById('telefono_correcciones')
-const inputsexo_correcciones = document.getElementById('sexo_correcciones')
-const inputfech_nac_correcciones = document.getElementById('fech_nac_correcciones')
-const inputdepto_nacimiento_correcciones = document.getElementById('depto_nacimiento_correcciones')
-const inputmunicipio_nacimiento_correcciones = document.getElementById('municipio_nacimiento_correcciones')
-const inputnit_correcciones = document.getElementById('nit_correcciones')
-const inputcorreo_correcciones = document.getElementById('correo_correcciones')
-
-//DATOS BENEFICIARIO
-const inputben_nombre_correcciones = document.getElementById('ben_nombre_correcciones')
-const inputdpi_ben_correcciones = document.getElementById('dpi_ben_correcciones')
-const inputben_genero_correcciones = document.getElementById('ben_genero_correcciones')
-const inputtel_ben_correcciones = document.getElementById('tel_ben_correcciones')
-const inputparentesco_correcciones = document.getElementById('parentesco_correcciones')
-const inputben_est_civil_correcciones = document.getElementById('ben_est_civil_correcciones')
-const inputben_fech_nacimiento_correcciones = document.getElementById('ben_fech_nacimiento_correcciones')
-const inputben_depto_nacimiento_correcciones = document.getElementById('ben_depto_nacimiento_correcciones')
-const inputben_mun_nacimiento_correcciones = document.getElementById('ben_mun_nacimiento_correcciones')
-const inputdirecc_ben_correcciones = document.getElementById('direcc_ben_correcciones')
-
-//SITUACIONES CORRECCIONES
-const inputsituacion_correcciones = document.getElementById('situacion_correcciones')
-const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_correcciones')
-
+//BOTONES ALTAS
 const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnSearchCatalogo = document.getElementById('searchCatalogo');
 const BtnAlta = document.getElementById('btnDarAlta');
 const BtnLimpiarAlta = document.getElementById('btnLimpiarAlta');
 const BtnCancelarAlta = document.getElementById('btnCancelarAlta');
 
-const BtnBaja = document.getElementById('btnDarBaja');
-const BtnCancelarBaja = document.getElementById('btnCancelarBaja');
 
+//MODAL CORRECCIONES
+//DATOS PERSONALES
+const inputcatalogo_correcciones = document.getElementById('catalogo_correcciones');
+const inputprimer_nombre_correcciones = document.getElementById('primer_nombre_correcciones');
+const inputsegundo_nombre_correcciones = document.getElementById('segundo_nombre_correcciones');
+const inputtercer_nombre_correcciones = document.getElementById('tercer_nombre_correcciones');
+const inputprimer_apellido_correcciones = document.getElementById('primer_apellido_correcciones');
+const inputsegundo_apellido_correcciones = document.getElementById('segundo_apellido_correcciones');
+const inputtercer_apellido_correcciones = document.getElementById('tercer_apellido_correcciones');
+const inputdpi_correcciones = document.getElementById('dpi_correcciones');
+const inputfech_ext_dpi_tropa_correcciones = document.getElementById('fech_ext_dpi_tropa_correcciones');
+const inputdepto_dpi_correcciones = document.getElementById('depto_dpi_correcciones');
+const inputmunicipio_dpi_correcciones = document.getElementById('municipio_dpi_correcciones');
+const inputplaza_correcciones = document.getElementById('plaza_correcciones');
+const inputgrado_correcciones = document.getElementById('grado_correcciones');
+const inputempleo_correcciones = document.getElementById('empleo_correcciones');
+const inputfech_alta_correcciones = document.getElementById('fech_alta_correcciones');
+//DATOS GENERALES
+const inputestado_civil_correcciones = document.getElementById('estado_civil_correcciones');
+const inputtipo_sangre_correcciones = document.getElementById('tipo_sangre_correcciones');
+const inputdireccion_correcciones = document.getElementById('direccion_correcciones');
+const inputzona_correcciones = document.getElementById('zona_correcciones');
+const inputdepto_residencia_correcciones = document.getElementById('depto_residencia_correcciones');
+const inputmunicipio_residencia_correcciones = document.getElementById('municipio_residencia_correcciones');
+const inputtelefono_correcciones = document.getElementById('telefono_correcciones');
+const inputsexo_correcciones = document.getElementById('sexo_correcciones');
+const inputfech_nac_correcciones = document.getElementById('fech_nac_correcciones');
+const inputdepto_nacimiento_correcciones = document.getElementById('depto_nacimiento_correcciones');
+const inputmunicipio_nacimiento_correcciones = document.getElementById('municipio_nacimiento_correcciones');
+const inputnit_correcciones = document.getElementById('nit_correcciones');
+const inputcorreo_correcciones = document.getElementById('correo_correcciones');
+//DATOS BENEFICIARIO
+const inputben_nombre_correcciones = document.getElementById('ben_nombre_correcciones');
+const inputdpi_ben_correcciones = document.getElementById('dpi_ben_correcciones');
+const inputben_genero_correcciones = document.getElementById('ben_genero_correcciones');
+const inputtel_ben_correcciones = document.getElementById('tel_ben_correcciones');
+const inputparentesco_correcciones = document.getElementById('parentesco_correcciones');
+const inputben_est_civil_correcciones = document.getElementById('ben_est_civil_correcciones');
+const inputben_fech_nacimiento_correcciones = document.getElementById('ben_fech_nacimiento_correcciones');
+const inputben_depto_nacimiento_correcciones = document.getElementById('ben_depto_nacimiento_correcciones');
+const inputben_mun_nacimiento_correcciones = document.getElementById('ben_mun_nacimiento_correcciones');
+const inputdirecc_ben_correcciones = document.getElementById('direcc_ben_correcciones');
+//SITUACIONES CORRECCIONES
+const inputsituacion_correcciones = document.getElementById('situacion_correcciones');
+const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_correcciones');
+//BOTONES CORRECCIONES
 const BtnModificar = document.getElementById('btnCorregir');
 const BtnCancelarCorrecciones = document.getElementById('btnCancelarCorrecciones');
+
+
+//MODAL BAJAS
+//DATOS BAJAS
+const inputCatalogoBajas = document.getElementById('catalogo');
+const inputNombreCompletoBajas = document.getElementById('nombre_completo');
+const inputPlazaBajas = document.getElementById('plaza');
+const inputEmpleoBajas = document.getElementById('empleo');
+//BOTONES BAJAS
+const BtnBaja = document.getElementById('btnDarBaja');
+const BtnCancelarBaja = document.getElementById('btnCancelarBaja');
 
 
 TablaTropa.classList.add('d-none');
@@ -131,6 +132,8 @@ const buscar = async () => {
     const respuesta = await fetch(url, config);
     const data = await respuesta.json();
 
+    // console.log(data)
+
     datatable.clear().draw();
     if (data && data.length > 0) {
         TablaTropa.classList.remove('d-none');
@@ -142,7 +145,7 @@ let contador = 1;
 const datatable = new DataTable('#TablaTropa', {
     data: null,
     language: lenguaje,
-    pageLength: 5,
+    pageLength: 20,
     lengthMenu: [30, 40, 50, 100],
     columns: [
         {
@@ -210,16 +213,16 @@ const datatable = new DataTable('#TablaTropa', {
 
                     html =
                         `
-                    <button class='btn btn-danger baja' data-plaza=${row.plaza} data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
+                    <button class='btn btn-danger baja' data-plaza="${row.plaza}" data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
                     
-                    <button class='btn btn-primary correcciones' data-catalogo=${row.catalogo} data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-vcard-fill"></i></button>
+                    <button class='btn btn-primary correcciones' data-catalogo="${row.catalogo}" data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-vcard-fill"></i></button>
                     `;
 
                 } else {
                     html =
 
                         `
-                    <button class='btn btn-warning alta' data-plaza=${row.plaza} data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
 
                     `;
                 }
@@ -695,6 +698,17 @@ function validarTelefono(telefono) {
     return regexTelefono.test(telefono);
 }
 
+const ObtenerDatosPlaza = (e) => {
+    const plaza = e.currentTarget.dataset.plaza;
+    const empleo = e.currentTarget.dataset.empleo;
+
+    console.log(e)
+
+    inputPlaza.value = plaza
+    inputEmpleo.value = empleo
+    
+};
+
 
 // BAJAS //
 
@@ -925,6 +939,54 @@ const obtenerDatosCorrecciones = async (e) => {
 };
 
 
+//EVENTOS
+document.addEventListener('DOMContentLoaded', function() {
+    const formularioOriginal = document.querySelector('.formulario-clonable');
+    const contenedorFormularios = document.getElementById('formulario-container');
+    
+    // Función para agregar formulario
+    const botonAgregar = document.getElementById('agregar-form');
+    if (botonAgregar) {
+        botonAgregar.addEventListener('click', function() {
+            var formularioClon = formularioOriginal.cloneNode(true);
+
+            // Limpiar valores del formulario clonado
+            var inputs = formularioClon.querySelectorAll('input, select');
+            inputs.forEach(function(input) {
+                input.value = ''; // Limpiar los valores
+            });
+
+            // Agregar el formulario clonado al contenedor
+            contenedorFormularios.appendChild(formularioClon);
+
+            // Mostrar el botón para eliminar el formulario
+            const quitarBtn = formularioClon.querySelector('.quitar-btn');
+            quitarBtn.style.display = 'inline-block';
+
+            // Ocultar el botón de agregar en el primer formulario
+            const primerFormulario = document.querySelector('.formulario-clonable');
+            const primerBoton = primerFormulario.querySelector('#agregar-form');
+            primerBoton.style.display = 'none';
+        });
+    }
+
+    // Función para quitar el formulario sin importar si los campos están vacíos
+    contenedorFormularios.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('quitar-btn')) {
+            // Eliminar el formulario y sus botones
+            e.target.closest('.formulario-clonable').remove();
+
+            // Si no quedan formularios, mostrar el botón de agregar en el primer formulario
+            if (contenedorFormularios.children.length === 1) {
+                const primerFormulario = document.querySelector('.formulario-clonable');
+                const primerBoton = primerFormulario.querySelector('#agregar-form');
+                primerBoton.style.display = 'inline-block';
+            }
+        }
+    });
+});
+
+
 
 inputDpi.addEventListener('change', mostrarFormularioAltas);
 dpiTropa.addEventListener('change', function () {
@@ -1061,24 +1123,25 @@ telBeneficiario.addEventListener('change', function () {
         telBeneficiario.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9]/g, '');
-
+    
     this.value = cleanedValue;
-
+    
     if (validarTelefono(cleanedValue)) {
-
+        
         telBeneficiario.classList.add('is-valid');
         telBeneficiario.classList.remove('is-invalid');
-
+        
+        
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'Teléfono no válido',
             text: 'El número ingresado no es válido.',
         });
-
+        
         this.value = '';
         telBeneficiario.classList.remove('is-valid');
         telBeneficiario.classList.add('is-invalid');
@@ -1090,6 +1153,7 @@ selectDepartamentoResidencia.addEventListener('change', buscarMunicipioResidenci
 selectDepartamentoNacimiento.addEventListener('change', buscarMunicipioNacimiento);
 selectDepartamentoBen.addEventListener('change', buscarMunicipioBen);
 
+datatable.on('click', '.alta', ObtenerDatosPlaza);
 datatable.on('click', '.baja', ObtenerDatosBajas);
 datatable.on('click', '.correcciones', obtenerDatosCorrecciones);
 

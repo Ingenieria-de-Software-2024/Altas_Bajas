@@ -24,9 +24,10 @@ $router->get('/API/tropa/buscarMunicipioNacimiento', [TropaController::class,'bu
 $router->get('/API/tropa/buscarMunicipioBen', [TropaController::class,'buscarMunicipiosBen']);
 $router->get('/API/tropa/verificarDpi', [TropaController::class,'verificarDpi']);
 $router->get('/API/tropa/generarCatalogo', [TropaController::class,'generarCatalogo']);
+$router->get('/API/tropa/obtenerDatosPlaza', [TropaController::class,'obtenerDatosPlaza']);
 
 //BAJAS
-$router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
+$router->get('/API/tropa/obtenerDatosPlaza', [TropaController::class,'obtenerDatosPlaza']);
 
 //CORRECCIONES
 $router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obtenerDatosCorrecciones']);

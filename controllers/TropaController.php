@@ -176,7 +176,6 @@ class TropaController
         }
     }
 
-
 // BAJAS
 
     public static function obtenerDatosBajas()

@@ -8,7 +8,6 @@ use MVC\Router;
 class AppController {
     
     public static function index(Router $router){
-        hasPermission(['FIRMA_ADMIN', 'FIRMA_FINANZAS', 'FIRMA_COMANDO']);
 
         $user = $_SESSION['auth_user'];
         

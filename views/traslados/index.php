@@ -3,7 +3,7 @@
 
         <div class="col table-responsive col-lg-11 table-wrapper border shadow bg-light rounded p-5">
             <i class="bi bi-people-fill" style="font-size: 75px;"></i>
-            <h1 class="App">Cambios Personal de Tropa</h1>
+            <h1 class="App">Cambios Directos Personal de Tropa</h1>
             <hr>
 
             <div class="row justify-content-center text-center">

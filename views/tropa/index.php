@@ -139,7 +139,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content text-start">
+                        <div class="row justify-content text-start mt-5">
                             <div class="col justify-content text-start">
                                 <h3><u><b>DATOS PERSONALES</b></u></h3>
                             </div>
@@ -244,100 +244,89 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content text-start">
-                            <div class="col justify-content text-start">
-                                <h3><u><b>DATOS BENEFICIARIO</b></u></h3>
+                        <div id="formulario-container">
+                            <div class="formulario-clonable">
+
+                                <div class="row justify-content text-start mt-5">
+                                    <div class="col justify-content text-start d-flex align-items-center">
+                                        <h3><u><b>DATOS BENEFICIARIO</b></u></h3>
+                                        <button id="agregar-form" class="btn btn-success rounded-circle" style="width: 60px; height: 60px; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 30px; margin-left: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-plus-fill" style="font-size: 30px;"></i></button>
+                                        <button class="btn btn-danger rounded-circle quitar-btn" style="width: 50px; height: 50px; padding: 0; display: none; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-dash-fill" style="font-size: 30px;"></i></button>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row justify-content-center">
+                                    <div class="col justify-content-center">
+                                        <label for="ben_nombre"><b>Nombre completo</b></label>
+                                        <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" required>
+                                    </div>
+                                    <div class="col-3 justify-content-center">
+                                        <label for="ben_dpi"><b>Número de DPI</b></label>
+                                        <input type="number" name="ben_dpi" id="ben_dpi" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col justify-content-center">
+                                        <label for="per_sexo"><b>Sexo</b></label>
+                                        <select class="form-select" name="per_sexo" id="per_sexo" class="form-control" required>
+                                            <option selected>Seleccione...</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="col justify-content-center">
+                                        <label for="ben_celular"><b>Teléfono</b></label>
+                                        <input type="number" name="ben_celular" id="ben_celular" class="form-control" required>
+                                    </div>
+                                    <div class="col justify-content-center">
+                                        <label for="ben_parentezco"><b>Parentesco</b></label>
+                                        <select class="form-select" name="ben_parentezco" id="ben_parentezco" class="form-control" required>
+                                            <option selected>Seleccione...</option>
+                                            <option value="C">Casado</option>
+                                            <option value="S">Soltero</option>
+                                            <option value="D">Divorciado</option>
+                                            <option value="V">Viudo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col justify-content-center">
+                                        <label for="ben_est_civil"><b>Estado Civil</b></label>
+                                        <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control" required>
+                                            <option selected>Seleccione...</option>
+                                            <option value="C">Casado</option>
+                                            <option value="S">Soltero</option>
+                                            <option value="D">Divorciado</option>
+                                            <option value="V">Viudo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-2 justify-content-center">
+                                        <label for="ben_fec_nac"><b>Fecha de Nacimiento</b></label>
+                                        <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control" required>
+                                    </div>
+                                    <div class="col justify-content-center">
+                                        <label for="per_departamento_nac_ben"><b>Depto. de Nacimiento</b></label>
+                                        <select class="form-select" name="per_departamento_nac_ben" id="per_departamento_nac_ben" class="form-control" required>
+                                            <option value="">Seleccione...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col justify-content-center">
+                                        <label for="ben_nac_lugar"><b>Municipio de Nacimiento</b></label>
+                                        <select class="form-select" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" required>
+                                            <option value="">Seleccione...</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-2 justify-content-center">
+                                        <label for="ben_porcentaje"><b>Porcentaje</b></label>
+                                        <input type="number" name="ben_porcentaje" id="ben_porcentaje" class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <hr>
-
-                        <div class="row justify-content-center">
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre"><b>Primer Nombre</b></label>
-                                <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre"><b>Segundo Nombre</b></label>
-                                <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre"><b>Tercer Nombre</b></label>
-                                <input type="text" name="ben_nombre" id="ben_nombre" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre"><b>Primer Apellido</b></label>
-                                <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre"><b>Segundo Apellido</b></label>
-                                <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" require>
-                            </div>
-                            <div class="col-3 justify-content-center">
-                                <label for="ben_dpi"><b>Número de DPI</b></label>
-                                <input type="number" name="ben_dpi" id="ben_dpi" class="form-control" require>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col justify-content-center">
-                                <label for="per_sexo"><b>Sexo</b></label>
-                                <select class="form-select" name="per_sexo" id="per_sexo" class="form-control" require>
-                                    <option selected>Seleccione...</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">femenino</option>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_celular"><b>Telefono</b></label>
-                                <input type="number" name="ben_celular" id="ben_celular" class="form-control" require>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_parentezco"><b>Parentezco</b></label>
-                                <select class="form-select" name="ben_parentezco" id="ben_parentezco" class="form-control" require>
-                                    <option selected>Seleccione...</option>
-                                    <option value="C">Casado</option>
-                                    <option value="S">Soltero</option>
-                                    <option value="D">Divorciado</option>
-                                    <option value="V">Viudo</option>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_est_civil"><b>Estado Civil</b></label>
-                                <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control" require>
-                                    <option selected>Seleccione...</option>
-                                    <option value="C">Casado</option>
-                                    <option value="S">Soltero</option>
-                                    <option value="D">Divorciado</option>
-                                    <option value="V">Viudo</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-2 justify-content-center">
-                                <label for="ben_fec_nac"><b>Fecha de Nacimiento</b></label>
-                                <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control" require>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="per_departamento_nac_ben"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="per_departamento_nac_ben" id="per_departamento_nac_ben" class="form-control" require>
-                                    <option value="">Seleccione...</option>
-                                    <?php foreach ($departamentos as $opciones) : ?>
-                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                <select class="form-select" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" require>
-                                    <option value="">Seleccione...</option>
-                                </select>
-                            </div>
-                        </div>
-
                     </form>
 
                     <div class="row justify-content-center">
