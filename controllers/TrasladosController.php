@@ -9,7 +9,9 @@ use Model\Traslados;
 class TrasladosController
 {
     public static function index(Router $router){
-        $router->render('traslados/index', []);
+        $router->render('traslados/index', [
+            
+        ]);
     }
 
 

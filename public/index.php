@@ -6,7 +6,7 @@ use MVC\Router;
 use Controllers\AppController;
 use Controllers\TropaController;
 use Controllers\TrasladosController;
-use Model\Tropa;
+use Controllers\ReportesController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -35,5 +35,9 @@ $router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obt
 $router->get('/traslados', [TrasladosController::class,'index']);
 $router->get('/API/traslados/ObtenerDatosTraslados_1', [TrasladosController::class,'ObtenerDatosTraslados_1']);
 $router->get('/API/traslados/ObtenerDatosTraslados_2', [TrasladosController::class,'ObtenerDatosTraslados_2']);
+
+//REPORTES
+$router->get('/reportes', [ReportesController::class,'index']);
+
 
 $router->comprobarRutas();
