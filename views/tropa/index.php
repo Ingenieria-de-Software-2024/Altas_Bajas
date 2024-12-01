@@ -52,7 +52,7 @@
                     </form>
 
                     <form class="modal-body" id="formAlta" enctype="multipart/form-data">
-                        <input type="hidden" name="alta-id" id="alta-id">
+                        <input type="hidden" name="alta_id" id="alta_id">
 
                         <div class="row justify-content-center">
                             <div class="col-3 justify-content-center">
@@ -61,6 +61,7 @@
                                 <div class="input-group justify-content-center mb-4">
                                     <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise"></i></button>
                                     <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo" readonly>
+                                    <input type="hidden" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
                                 </div>
                             </div>
                         </div>
@@ -75,11 +76,11 @@
                         <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_nom1"><b>Primer Nombre</b></label>
-                                <input type="text" name="per_nom1" id="per_nom1" class="form-control" require>
+                                <input type="text" name="per_nom1" id="per_nom1" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_nom2"><b>Segundo Nombre</b></label>
-                                <input type="text" name="per_nom2" id="per_nom2" class="form-control" require>
+                                <input type="text" name="per_nom2" id="per_nom2" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_nom3"><b>Tercer Nombre</b></label>
@@ -90,26 +91,26 @@
                         <div class="row justify-content-center">
                             <div class="col justify-content-center">
                                 <label for="per_ape1"><b>Primer Apellido</b></label>
-                                <input type="text" name="per_ape1" id="per_ape1" class="form-control" require>
+                                <input type="text" name="per_ape1" id="per_ape1" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_ape2"><b>Segundo Apellido</b></label>
-                                <input type="text" name="per_ape2" id="per_ape2" class="form-control" require>
+                                <input type="text" name="per_ape2" id="per_ape2" class="form-control">
                             </div>
                             <div class="col-3 justify-content-center">
                                 <label for="per_dpi"><b>Número de DPI</b></label>
-                                <input type="number" name="per_dpi" id="per_dpi" class="form-control" require>
+                                <input type="number" name="per_dpi" id="per_dpi" class="form-control">
                             </div>
                         </div>
 
                         <div class="row justify-content-center">
                             <div class="col-3 justify-content-center">
                                 <label for="per_fec_ext_ced"><b>Fecha extensión DPI</b></label>
-                                <input type="date" name="per_fec_ext_ced" id="per_fec_ext_ced" class="form-control" require>
+                                <input type="date" name="per_fec_ext_ced" id="per_fec_ext_ced" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_departamento"><b>Depto. de extensión</b></label>
-                                <select class="form-select" name="per_departamento" id="per_departamento" class="form-control" require>
+                                <select class="form-select" name="per_departamento" id="per_departamento" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -118,7 +119,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_ext_ced_lugar"><b>Municipio de extensión</b></label>
-                                <select class="form-select" name="per_ext_ced_lugar" id="per_ext_ced_lugar" class="form-control" require>
+                                <select class="form-select" name="per_ext_ced_lugar" id="per_ext_ced_lugar" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
@@ -129,6 +130,7 @@
                                 <label for="per_plaza"><b>Plaza</b></label>
                                 <input type="text" name="per_plaza" id="per_plaza" class="form-control" readonly>
                             </div>
+                            <input type="hidden" name="per_grado" id="per_grado" class="form-control" readonly>
                             <div class="col justify-content-center">
                                 <label for="per_desc_empleo"><b>Empleo</b></label>
                                 <input type="text" name="per_desc_empleo" id="per_desc_empleo" class="form-control" readonly>
@@ -149,7 +151,7 @@
                         <div class="row justify-content-center">
                             <div class="col-2 justify-content-center">
                                 <label for="per_est_civil"><b>Estado Civil</b></label>
-                                <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control" require>
+                                <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="C">Casado</option>
                                     <option value="S">Soltero</option>
@@ -159,7 +161,7 @@
                             </div>
                             <div class="col-2 justify-content-center">
                                 <label for="tipo_sangre_correcciones"><b>Tipo de Sangre</b></label>
-                                <select class="form-select" name="per_sangre" id="per_sangre" class="form-control" require>
+                                <select class="form-select" name="per_sangre" id="per_sangre" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="A+">A+</option>
                                     <option value="B+">B+</option>
@@ -173,7 +175,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_direccion"><b>Dirección</b></label>
-                                <input type="text" name="per_direccion" id="per_direccion" class="form-control" require>
+                                <input type="text" name="per_direccion" id="per_direccion" class="form-control">
                             </div>
                             <div class="col-1 justify-content-center">
                                 <label for="per_zona"><b>zona</b></label>
@@ -184,7 +186,7 @@
                         <div class="row justify-content-center">
                             <div class="col-4 justify-content-center">
                                 <label for="per_departamento_resi"><b>Depto. de Residencia</b></label>
-                                <select class="form-select" name="per_departamento_resi" id="per_departamento_resi" class="form-control" require>
+                                <select class="form-select" name="per_departamento_resi" id="per_departamento_resi" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -193,17 +195,17 @@
                             </div>
                             <div class="col-4 justify-content-center">
                                 <label for="per_dir_lugar"><b>Municipio de Residencia</b></label>
-                                <select class="form-select" name="per_dir_lugar" id="per_dir_lugar" class="form-control" require>
+                                <select class="form-select" name="per_dir_lugar" id="per_dir_lugar" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_telefono"><b>Telefono</b></label>
-                                <input type="numb" name="per_telefono" id="per_telefono" class="form-control" require>
+                                <input type="numb" name="per_telefono" id="per_telefono" class="form-control">
                             </div>
                             <div class="col-2 justify-content-center">
                                 <label for="per_sexo"><b>Sexo</b></label>
-                                <select class="form-select" name="per_sexo" id="per_sexo" class="form-control" require>
+                                <select class="form-select" name="per_sexo" id="per_sexo" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">femenino</option>
@@ -214,11 +216,11 @@
                         <div class="row justify-content-center">
                             <div class="col-2 justify-content-center">
                                 <label for="per_fec_nac"><b>Fecha de Nacimiento</b></label>
-                                <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control" require>
+                                <input type="date" name="per_fec_nac" id="per_fec_nac" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_departamento_nac"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="per_departamento_nac" id="per_departamento_nac" class="form-control" require>
+                                <select class="form-select" name="per_departamento_nac" id="per_departamento_nac" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -227,7 +229,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                <select class="form-select" name="per_nac_lugar" id="per_nac_lugar" class="form-control" require>
+                                <select class="form-select" name="per_nac_lugar" id="per_nac_lugar" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
@@ -236,11 +238,11 @@
                         <div class="row justify-content-center">
                             <div class="col-3 justify-content-center">
                                 <label for="oper_nit"><b>Nit</b></label>
-                                <input type="numb" name="oper_nit" id="oper_nit" class="form-control">
+                                <input type="number" name="oper_nit" id="oper_nit" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="oper_correo_personal"><b>Correo Personal</b></label>
-                                <input type="text" name="oper_correo_personal" id="oper_correo_personal" class="form-control" readonly>
+                                <input type="mail" name="oper_correo_personal" id="oper_correo_personal" class="form-control">
                             </div>
                         </div>
 
@@ -250,8 +252,16 @@
                                 <div class="row justify-content text-start mt-5">
                                     <div class="col justify-content text-start d-flex align-items-center">
                                         <h3><u><b>DATOS BENEFICIARIO</b></u></h3>
-                                        <button id="agregar-form" class="btn btn-success rounded-circle" style="width: 60px; height: 60px; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 30px; margin-left: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-plus-fill" style="font-size: 30px;"></i></button>
-                                        <button class="btn btn-danger rounded-circle quitar-btn" style="width: 50px; height: 50px; padding: 0; display: none; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-dash-fill" style="font-size: 30px;"></i></button>
+                                        <div class="row justify-content-center">
+                                            <div class="col justify-content-center">
+                                                <button id="agregar-form" class="btn btn-success rounded-circle" style="width: 60px; height: 60px; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 30px; margin-left: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-plus-fill" style="font-size: 30px;"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col justify-content-center">
+                                                <button class="btn btn-danger rounded-circle quitar-btn" style="width: 50px; height: 50px; padding: 0; display: none; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); transition: all 0.3s ease;"><i class="bi bi-bookmark-dash-fill" style="font-size: 30px;"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
@@ -259,18 +269,29 @@
                                 <div class="row justify-content-center">
                                     <div class="col justify-content-center">
                                         <label for="ben_nombre"><b>Nombre completo</b></label>
-                                        <input type="text" name="ben_nombre" id="ben_nombre" class="form-control" required>
+                                        <input type="text" name="ben_nombre" id="ben_nombre" class="form-control">
                                     </div>
                                     <div class="col-3 justify-content-center">
                                         <label for="ben_dpi"><b>Número de DPI</b></label>
-                                        <input type="number" name="ben_dpi" id="ben_dpi" class="form-control" required>
+                                        <input type="number" name="ben_dpi" id="ben_dpi" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row justify-content-center">
                                     <div class="col justify-content-center">
-                                        <label for="per_sexo"><b>Sexo</b></label>
-                                        <select class="form-select" name="per_sexo" id="per_sexo" class="form-control" required>
+                                        <label for="ben_direccion"><b>Direccion</b></label>
+                                        <input type="text" name="ben_direccion" id="ben_direccion" class="form-control">
+                                    </div>
+                                    <div class="col-2 justify-content-center">
+                                        <label for="ben_porcentaje"><b>Porcentaje</b></label>
+                                        <input type="number" name="ben_porcentaje" id="ben_porcentaje" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col justify-content-center">
+                                        <label for="ben_sexo"><b>Sexo</b></label>
+                                        <select class="form-select" name="ben_sexo" id="ben_sexo" class="form-control">
                                             <option selected>Seleccione...</option>
                                             <option value="M">Masculino</option>
                                             <option value="F">Femenino</option>
@@ -278,21 +299,20 @@
                                     </div>
                                     <div class="col justify-content-center">
                                         <label for="ben_celular"><b>Teléfono</b></label>
-                                        <input type="number" name="ben_celular" id="ben_celular" class="form-control" required>
+                                        <input type="number" name="ben_celular" id="ben_celular" class="form-control">
                                     </div>
                                     <div class="col justify-content-center">
                                         <label for="ben_parentezco"><b>Parentesco</b></label>
-                                        <select class="form-select" name="ben_parentezco" id="ben_parentezco" class="form-control" required>
-                                            <option selected>Seleccione...</option>
-                                            <option value="C">Casado</option>
-                                            <option value="S">Soltero</option>
-                                            <option value="D">Divorciado</option>
-                                            <option value="V">Viudo</option>
+                                        <select class="form-select" name="ben_parentezco" id="ben_parentezco" class="form-control">
+                                            <option value="">Seleccione...</option>
+                                            <?php foreach ($parentescos as $opciones) : ?>
+                                                <option value="<?= $opciones['par_codigo'] ?>"><?= $opciones['par_desc_md'] ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </div>
                                     <div class="col justify-content-center">
                                         <label for="ben_est_civil"><b>Estado Civil</b></label>
-                                        <select class="form-select" name="per_est_civil" id="per_est_civil" class="form-control" required>
+                                        <select class="form-select" name="ben_est_civil" id="ben_est_civil" class="form-control">
                                             <option selected>Seleccione...</option>
                                             <option value="C">Casado</option>
                                             <option value="S">Soltero</option>
@@ -305,24 +325,22 @@
                                 <div class="row justify-content-center">
                                     <div class="col-2 justify-content-center">
                                         <label for="ben_fec_nac"><b>Fecha de Nacimiento</b></label>
-                                        <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control" required>
+                                        <input type="date" name="ben_fec_nac" id="ben_fec_nac" class="form-control">
                                     </div>
                                     <div class="col justify-content-center">
-                                        <label for="per_departamento_nac_ben"><b>Depto. de Nacimiento</b></label>
-                                        <select class="form-select" name="per_departamento_nac_ben" id="per_departamento_nac_ben" class="form-control" required>
+                                        <label for="ben_depto_nacimiento"><b>Depto. de Nacimiento</b></label>
+                                        <select class="form-select" name="ben_depto_nacimiento" id="ben_depto_nacimiento" class="form-control">
                                             <option value="">Seleccione...</option>
+                                            <?php foreach ($departamentos as $opciones) : ?>
+                                                <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </div>
                                     <div class="col justify-content-center">
-                                        <label for="ben_nac_lugar"><b>Municipio de Nacimiento</b></label>
-                                        <select class="form-select" name="ben_nac_lugar" id="ben_nac_lugar" class="form-control" required>
+                                        <label for="ben_mun_nacimiento"><b>Municipio de Nacimiento</b></label>
+                                        <select class="form-select" name="ben_mun_nacimiento" id="ben_mun_nacimiento" class="form-control">
                                             <option value="">Seleccione...</option>
                                         </select>
-                                    </div>
-
-                                    <div class="col-2 justify-content-center">
-                                        <label for="ben_porcentaje"><b>Porcentaje</b></label>
-                                        <input type="number" name="ben_porcentaje" id="ben_porcentaje" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +350,7 @@
                     <div class="row justify-content-center">
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
+                                <button type="submit" form="formAlta" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
                                 <button type="button" class="btn btn-primary btn-lg" id="btnLimpiarAlta" name="btnLimpiarAlta"><i class="bi bi-stars"></i> Limpiar</button>
                                 <button type="button" class="btn btn-danger btn-lg" id="btnCancelarAlta" name="btnCancelarAlta" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
@@ -387,14 +405,14 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="mov_fecha"><b>Fecha de Baja</b></label>
-                                <input type="date" name="mov_fecha" id="mov_fecha" class="form-control" require>
+                                <input type="date" name="mov_fecha" id="mov_fecha" class="form-control">
                             </div>
                         </div>
 
                         <div class="col justify-content-center">
                             <label for="motivo_baja"><b>Motivo</b></label>
                             <select class="form-select form-control" name="motivo_baja" id="motivo_baja"
-                                required>
+                                d>
                                 <option value="">Seleccione...</option>
                                 <?php foreach ($motivos as $opcion) : ?>
                                     <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
@@ -486,11 +504,11 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-3 justify-content-center">
                                 <label for="fech_ext_dpi_tropa_correcciones"><b>Fecha extensión DPI</b></label>
-                                <input type="date" name="fech_ext_dpi_tropa_correcciones" id="fech_ext_dpi_tropa_correcciones" class="form-control" require>
+                                <input type="date" name="fech_ext_dpi_tropa_correcciones" id="fech_ext_dpi_tropa_correcciones" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="depto_dpi_correcciones"><b>Depto. de extensión</b></label>
-                                <select class="form-select" name="depto_dpi_correcciones" id="depto_dpi_correcciones" class="form-control" require>
+                                <select class="form-select" name="depto_dpi_correcciones" id="depto_dpi_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -499,7 +517,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="municipio_dpi_correcciones"><b>Municipio de extensión</b></label>
-                                <select class="form-select" name="municipio_dpi_correcciones" id="municipio_dpi_correcciones" class="form-control" require>
+                                <select class="form-select" name="municipio_dpi_correcciones" id="municipio_dpi_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
@@ -534,7 +552,7 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-2 justify-content-center">
                                 <label for="estado_civil_correcciones"><b>Estado Civil</b></label>
-                                <select class="form-select" name="estado_civil_correcciones" id="estado_civil_correcciones" class="form-control" require>
+                                <select class="form-select" name="estado_civil_correcciones" id="estado_civil_correcciones" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="C">Casado</option>
                                     <option value="S">Soltero</option>
@@ -548,7 +566,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="direccion_correcciones"><b>Dirección</b></label>
-                                <input type="text" name="direccion_correcciones" id="direccion_correcciones" class="form-control" require>
+                                <input type="text" name="direccion_correcciones" id="direccion_correcciones" class="form-control">
                             </div>
                             <div class="col-1 justify-content-center">
                                 <label for="zona_correcciones"><b>Zona</b></label>
@@ -559,7 +577,7 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-4 justify-content-center">
                                 <label for="depto_residencia_correcciones"><b>Depto. de Residencia</b></label>
-                                <select class="form-select" name="depto_residencia_correcciones" id="depto_residencia_correcciones" class="form-control" require>
+                                <select class="form-select" name="depto_residencia_correcciones" id="depto_residencia_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -568,13 +586,13 @@
                             </div>
                             <div class="col-4 justify-content-center">
                                 <label for="municipio_residencia_correcciones"><b>Municipio de Residencia</b></label>
-                                <select class="form-select" name="municipio_residencia_correcciones" id="municipio_residencia_correcciones" class="form-control" require>
+                                <select class="form-select" name="municipio_residencia_correcciones" id="municipio_residencia_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="telefono_correcciones"><b>Telefono</b></label>
-                                <input type="numb" name="telefono_correcciones" id="telefono_correcciones" class="form-control" require>
+                                <input type="numb" name="telefono_correcciones" id="telefono_correcciones" class="form-control">
                             </div>
                             <div class="col-2 justify-content-center">
                                 <label for="sexo_correcciones"><b>Sexo</b></label>
@@ -605,7 +623,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="correo_correcciones"><b>Correo Personal</b></label>
-                                <input type="text" name="correo_correcciones" id="correo_correcciones" class="form-control" require>
+                                <input type="text" name="correo_correcciones" id="correo_correcciones" class="form-control">
                             </div>
                         </div>
 
@@ -619,25 +637,25 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
                                 <label for="ben_nombre_correcciones"><b>Nombre Completo</b></label>
-                                <input type="text" name="ben_nombre_correcciones" id="ben_nombre_correcciones" class="form-control" require>
+                                <input type="text" name="ben_nombre_correcciones" id="ben_nombre_correcciones" class="form-control">
                             </div>
                             <div class="col-3 justify-content-center">
                                 <label for="dpi_ben_correcciones"><b>DPI Beneficiario</b></label>
-                                <input type="text" name="dpi_ben_correcciones" id="dpi_ben_correcciones" class="form-control" require>
+                                <input type="text" name="dpi_ben_correcciones" id="dpi_ben_correcciones" class="form-control">
                             </div>
                         </div>
 
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
                                 <label for="direcc_ben_correcciones"><b>Dirección</b></label>
-                                <input type="text" name="direcc_ben_correcciones" id="direcc_ben_correcciones" class="form-control" require>
+                                <input type="text" name="direcc_ben_correcciones" id="direcc_ben_correcciones" class="form-control">
                             </div>
                         </div>
 
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
                                 <label for="ben_genero_correcciones"><b>Sexo</b></label>
-                                <select class="form-select" name="ben_genero_correcciones" id="ben_genero_correcciones" class="form-control" require>
+                                <select class="form-select" name="ben_genero_correcciones" id="ben_genero_correcciones" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Femenino</option>
@@ -645,11 +663,11 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="tel_ben_correcciones"><b>Telefono</b></label>
-                                <input type="text" name="tel_ben_correcciones" id="tel_ben_correcciones" class="form-control" require>
+                                <input type="text" name="tel_ben_correcciones" id="tel_ben_correcciones" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="parentesco_correcciones"><b>Parentesco</b></label>
-                                <select class="form-select form-control" name="parentesco_correcciones" id="parentesco_correcciones" require>
+                                <select class="form-select form-control" name="parentesco_correcciones" id="parentesco_correcciones">
                                     <option Selected>Seleccione...</option>
                                     <?php foreach ($parentescos as $opciones) : ?>
                                         <option value="<?= $opciones['par_codigo'] ?>"><?= $opciones['par_desc_md'] ?></option>
@@ -658,7 +676,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="ben_est_civil_correcciones"><b>Estado Civil</b></label>
-                                <select class="form-select" name="ben_est_civil_correcciones" id="ben_est_civil_correcciones" class="form-control" require>
+                                <select class="form-select" name="ben_est_civil_correcciones" id="ben_est_civil_correcciones" class="form-control">
                                     <option selected>Seleccione...</option>
                                     <option value="C">Casado</option>
                                     <option value="S">Soltero</option>
@@ -671,11 +689,11 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col-2 justify-content-center">
                                 <label for="ben_fech_nacimiento_correcciones"><b>Fecha de Nacimiento</b></label>
-                                <input type="date" name="ben_fech_nacimiento_correcciones" id="ben_fech_nacimiento_correcciones" class="form-control" require>
+                                <input type="date" name="ben_fech_nacimiento_correcciones" id="ben_fech_nacimiento_correcciones" class="form-control">
                             </div>
                             <div class="col justify-content-center">
                                 <label for="ben_depto_nacimiento_correcciones"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="ben_depto_nacimiento_correcciones" id="ben_depto_nacimiento_correcciones" class="form-control" require>
+                                <select class="form-select" name="ben_depto_nacimiento_correcciones" id="ben_depto_nacimiento_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                     <?php foreach ($departamentos as $opciones) : ?>
                                         <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
@@ -684,7 +702,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="ben_mun_nacimiento_correcciones"><b>Municipio de Nacimiento</b></label>
-                                <select class="form-select" name="ben_mun_nacimiento_correcciones" id="ben_mun_nacimiento_correcciones" class="form-control" require>
+                                <select class="form-select" name="ben_mun_nacimiento_correcciones" id="ben_mun_nacimiento_correcciones" class="form-control">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
@@ -692,10 +710,10 @@
 
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
-                                <input type="hidden" name="situacion_correcciones" id="situacion_correcciones" class="form-control" require>
+                                <input type="hidden" name="situacion_correcciones" id="situacion_correcciones" class="form-control">
                             </div>
                             <div class="col-3 justify-content-center">
-                                <input type="hidden" name="situacion_ben_correcciones" id="situacion_ben_correcciones" class="form-control" require>
+                                <input type="hidden" name="situacion_ben_correcciones" id="situacion_ben_correcciones" class="form-control">
                             </div>
                         </div>
 

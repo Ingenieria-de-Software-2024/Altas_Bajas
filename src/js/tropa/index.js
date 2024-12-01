@@ -8,6 +8,8 @@ import { config } from "fullcalendar";
 const TablaTropa = document.getElementById('TablaTropa');
 
 const modalAltas = document.getElementById('modalAltas');
+const modalElementAltas = document.querySelector('#modalAltas');
+const modalBSAltas = new Modal(modalElementAltas)
 const modalBajas = document.getElementById('modalBajas');
 const modalCorrecciones = document.getElementById('modalCorrecciones');
 
@@ -28,6 +30,9 @@ const teltropa = document.getElementById('per_telefono');
 const telBeneficiario = document.getElementById('ben_celular');
 const inputPlaza = document.getElementById('per_plaza');
 const inputEmpleo = document.getElementById('per_desc_empleo');
+const inputGrado = document.getElementById('per_grado')
+const Catalogo_insertar = document.getElementById('catalogo_insertar');
+
 //DEPARTAMENTOS Y MUNICIPIOS
 const selectDepartamentoTropa = document.getElementById('per_departamento');
 const selectMunicipioTropa = document.getElementById('per_ext_ced_lugar');
@@ -35,8 +40,8 @@ const selectDepartamentoResidencia = document.getElementById('per_departamento_r
 const selectMunicipioResidencia = document.getElementById('per_dir_lugar');
 const selectDepartamentoNacimiento = document.getElementById('per_departamento_nac');
 const selectMunicipioNacimiento = document.getElementById('per_nac_lugar');
-const selectDepartamentoBen = document.getElementById('per_departamento_nac_ben');
-const selectMunicipioBen = document.getElementById('ben_nac_lugar');
+const selectDepartamentoBen = document.getElementById('ben_depto_nacimiento');
+const selectMunicipioBen = document.getElementById('ben_mun_nacimiento');
 //BOTONES ALTAS
 const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnSearchCatalogo = document.getElementById('searchCatalogo');
@@ -222,7 +227,7 @@ const datatable = new DataTable('#TablaTropa', {
                     html =
 
                         `
-                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-org_grado="${row.org_grado}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
 
                     `;
                 }
@@ -420,7 +425,7 @@ const buscarMunicipioResidencia = async () => {
     }
 };
 
-const buscarMunicipioNacimiento= async () => {
+const buscarMunicipioNacimiento = async () => {
 
     const DepartamentoNacimiento = selectDepartamentoNacimiento.value.trim();
 
@@ -476,7 +481,7 @@ const buscarMunicipioNacimiento= async () => {
     }
 };
 
-const buscarMunicipioBen= async () => {
+const buscarMunicipioBen = async () => {
 
     const DepartamentoBen = selectDepartamentoBen.value.trim();
 
@@ -534,7 +539,7 @@ const buscarMunicipioBen= async () => {
 
 const generarCatalogo = async () => {
 
-    const catalogo = inputCatalogo.value;
+
 
     Swal.fire({
         title: 'Cargando',
@@ -546,7 +551,7 @@ const generarCatalogo = async () => {
     });
 
     try {
-        const url = `/Altas_Bajas/API/tropa/generarCatalogo?catalogo=${catalogo}`;
+        const url = '/Altas_Bajas/API/tropa/generarCatalogo';
         const headers = new Headers();
         headers.append('X-Requested-With', 'fetch');
         const config = {
@@ -556,14 +561,15 @@ const generarCatalogo = async () => {
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-
+        // console.log(data)
         Swal.close();
 
-        const { codigo, mensaje } = data;
+        const { codigo, mensaje, catalogo_nuevo, catalogo_insertar } = data;
 
-        if (data.codigo === 1 && data.datos && data.datos.nuevo_catalogo) {
+        if (codigo === 1) {
 
-            inputCatalogo.value = data.datos.nuevo_catalogo;
+            Catalogo_insertar.value = catalogo_insertar;
+            inputCatalogo.value = catalogo_nuevo;
 
             Swal.fire({
                 icon: 'success',
@@ -701,21 +707,130 @@ function validarTelefono(telefono) {
 const ObtenerDatosPlaza = (e) => {
     const plaza = e.currentTarget.dataset.plaza;
     const empleo = e.currentTarget.dataset.empleo;
+    const org_grado = e.currentTarget.dataset.org_grado;
 
-    console.log(e)
+    // console.log(e)
 
     inputPlaza.value = plaza
     inputEmpleo.value = empleo
+    inputGrado.value = org_grado
+
+};
+
+const darAlta = async (e) => {
+    e.preventDefault();
+
     
+    BtnAlta.disabled = true;
+    
+    if (!validarFormulario(formAlta, ['alta_id', 'per_nom3', 'per_ape3', 'per_zona'])) {
+        Swal.fire({
+            title: "Campos vacíos",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        });
+        
+        BtnAlta.disabled = false;
+        
+        return;
+    }
+    
+    Swal.fire({
+        title: 'Cargando',
+        text: 'Espere un momento mientras registra al usuario',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    
+    const formData = new FormData(formAlta);
+
+    const beneficiarios = [];
+
+    const beneficiariosForms = document.querySelectorAll('.formulario-clonable');
+
+    beneficiariosForms.forEach(form => {
+
+        const beneficiario = {
+            nombre: form.querySelector('[name="ben_nombre"]').value,
+            dpi: form.querySelector('[name="ben_dpi"]').value,
+            sexo: form.querySelector('[name="ben_sexo"]').value,
+            celular: form.querySelector('[name="ben_celular"]').value,
+            parentesco: form.querySelector('[name="ben_parentezco"]').value,
+            direccion: form.querySelector('[name="ben_direccion"]').value,
+            estadoCivil: form.querySelector('[name="ben_est_civil"]').value,
+            fechaNacimiento: form.querySelector('[name="ben_fec_nac"]').value,
+            departamentoNacimiento: form.querySelector('[name="ben_depto_nacimiento"]').value,
+            municipioNacimiento: form.querySelector('[name="ben_mun_nacimiento"]').value,
+            porcentaje: form.querySelector('[name="ben_porcentaje"]').value
+        };
+
+        beneficiarios.push(beneficiario);
+    });
+
+    formData.append('beneficiarios', JSON.stringify(beneficiarios));
+
+    try {
+        const url = "/Altas_Bajas/API/tropa/darAlta";
+        const config = {
+            method: 'POST',
+            body: formData
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info';
+
+        if (codigo == 1) {
+
+            Swal.close();
+
+            Swal.fire({
+                title: "Éxito",
+                text: mensaje,
+                icon: "success"
+            });
+
+            modalBSAltas.hide();
+            formAlta.reset();
+            BtnAlta.disabled = false;
+            buscar();
+
+        } else {
+
+            Swal.close();
+            
+            Swal.fire({
+                title: "Error",
+                text: mensaje,
+                icon: "error"
+            });
+            console.log(detalle);
+        }
+
+        Toast.fire({
+            icon: icon,
+            title: mensaje
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    modalBSAltas.hide();
+    formAlta.reset();
+    BtnAlta.disabled = false;
+    buscar();
 };
 
 
 // BAJAS //
-
 const ObtenerDatosBajas = async (e) => {
-    
+
     const plaza = e.currentTarget.dataset.plaza;
-    
+
     Swal.fire({
         title: 'Cargando',
         text: 'Buscando...',
@@ -724,7 +839,7 @@ const ObtenerDatosBajas = async (e) => {
             Swal.showLoading();
         }
     });
-    
+
     try {
         const url = `/Altas_Bajas/API/tropa/obtenerDatosBajas?plaza=${plaza}`;
         const headers = new Headers();
@@ -733,50 +848,50 @@ const ObtenerDatosBajas = async (e) => {
             method: 'GET',
             headers,
         };
-        
+
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { mensaje, codigo, datos } = data;
-        
+
         Swal.close();
-        
+
         if (codigo == '1') {
-            
+
             inputCatalogoBajas.value = `${datos.catalogo_baja}`;
             inputNombreCompletoBajas.value = `${datos.grado_baja} ${datos.nombre_completo_baja}`;
             inputEmpleoBajas.value = `${datos.empleo_baja}`;
             inputPlazaBajas.value = `${datos.plaza_baja}`;
-            
+
             formBaja.classList.remove('d-none');
-            
+
         } else {
 
             console.log('Código inválido');
-            
+
             inputCatalogoBajas.value = '';
             inputNombreCompletoBajas.value = '';
             inputPlazaBajas.value = '';
             inputEmpleoBajas.value = '';
-            
+
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
             });
         }
-        
+
         BtnBaja.classList.remove('d-none');
-        
+
     } catch (error) {
-        
+
         Swal.close();
-        
+
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'Ocurrió un problema al obtener los datos. Por favor, intenta nuevamente.',
         });
-        
+
         console.log(error);
     }
 };
@@ -785,9 +900,9 @@ const ObtenerDatosBajas = async (e) => {
 //CORRECCIONES
 
 const obtenerDatosCorrecciones = async (e) => {
-    
+
     const correcciones = e.currentTarget.dataset.catalogo;
-    
+
     Swal.fire({
         title: 'Cargando',
         text: 'Buscando...',
@@ -796,7 +911,7 @@ const obtenerDatosCorrecciones = async (e) => {
             Swal.showLoading();
         }
     });
-    
+
     try {
         const url = `/Altas_Bajas/API/tropa/obtenerDatosCorrecciones?catalogo=${correcciones}`;
         const headers = new Headers();
@@ -805,17 +920,17 @@ const obtenerDatosCorrecciones = async (e) => {
             method: 'GET',
             headers,
         };
-        
+
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { mensaje, codigo, datos } = data;
-        
+
         // console.log(data);
-        
+
         Swal.close();
-        
+
         if (codigo === 1) {
-            
+
             //DATOS PERSONALES
             inputcatalogo_correcciones.value = `${datos.catalogo_correcciones}`;
             inputprimer_nombre_correcciones.value = `${datos.primer_nombre_correcciones}`;
@@ -832,7 +947,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputgrado_correcciones.value = `${datos.grado_correcciones}`;
             inputempleo_correcciones.value = `${datos.empleo_correcciones}`;
             inputfech_alta_correcciones.value = `${datos.fech_alta_correcciones}`;
-            
+
             //DATOS GENERALES
             inputestado_civil_correcciones.value = `${datos.estado_civil_correcciones}`;
             inputtipo_sangre_correcciones.value = `${datos.tipo_sangre_correcciones}`;
@@ -847,7 +962,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputmunicipio_nacimiento_correcciones.value = `${datos.municipio_nacimiento_correcciones}`;
             inputnit_correcciones.value = `${datos.nit_correcciones}`;
             inputcorreo_correcciones.value = `${datos.correo_correcciones}`;
-            
+
             //DATOS BENEFICIARIO
             inputben_nombre_correcciones.value = `${datos.ben_nombre_correcciones}`;
             inputdpi_ben_correcciones.value = `${datos.dpi_ben_correcciones}`;
@@ -859,16 +974,16 @@ const obtenerDatosCorrecciones = async (e) => {
             inputben_depto_nacimiento_correcciones.value = `${datos.ben_depto_nacimiento_correcciones}`;
             inputben_mun_nacimiento_correcciones.value = `${datos.ben_mun_nacimiento_correcciones}`;
             inputdirecc_ben_correcciones.value = `${datos.direcc_ben_correcciones}`;
-            
+
             //SITUACIONES
             inputsituacion_correcciones.value = `${datos.situacion_correcciones}`;
             inputsituacion_ben_correcciones.value = `${datos.situacion_ben_correcciones}`;
-            
+
             formCorrrecciones.classList.remove('d-none');
-            
+
         } else {
             console.log('Código inválido');
-            
+
             //DATOS PERSONALES
             inputcatalogo_correcciones.value = '';
             inputprimer_nombre_correcciones.value = '';
@@ -885,7 +1000,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputgrado_correcciones.value = '';
             inputempleo_correcciones.value = '';
             inputfech_alta_correcciones.value = '';
-            
+
             //DATOS GENERALES
             inputestado_civil_correcciones.value = '';
             inputtipo_sangre_correcciones.value = '';
@@ -900,7 +1015,7 @@ const obtenerDatosCorrecciones = async (e) => {
             inputmunicipio_nacimiento_correcciones
             inputnit_correcciones.value = '';
             inputcorreo_correcciones.value = '';
-            
+
             //DATOS BENEFICIARIO
             inputben_nombre_correcciones.value = '';
             inputdpi_ben_correcciones.value = '';
@@ -912,87 +1027,172 @@ const obtenerDatosCorrecciones = async (e) => {
             inputben_depto_nacimiento_correcciones.value = '';
             inputben_mun_nacimiento_correcciones.value = '';
             inputdirecc_ben_correcciones.value = '';
-            
+
             //SITUAICONES
             inputsituacion_correcciones.value = '';
             inputsituacion_ben_correcciones.value = '';
-            
+
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: mensaje || 'No se encontraron datos para la plaza proporcionada.',
             });
         }
-        
+
     } catch (error) {
-        
+
         Swal.close();
-        
+
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'Ocurrió un problema al obtener los datos. Por favor, intenta nuevamente.',
         });
-        
+
         console.log(error);
     }
 };
 
 
 //EVENTOS
-document.addEventListener('DOMContentLoaded', function() {
-    const formularioOriginal = document.querySelector('.formulario-clonable');
-    const contenedorFormularios = document.getElementById('formulario-container');
-    
-    // Función para agregar formulario
-    const botonAgregar = document.getElementById('agregar-form');
-    if (botonAgregar) {
-        botonAgregar.addEventListener('click', function() {
-            var formularioClon = formularioOriginal.cloneNode(true);
+formAlta.addEventListener('submit', darAlta)
 
-            // Limpiar valores del formulario clonado
-            var inputs = formularioClon.querySelectorAll('input, select');
-            inputs.forEach(function(input) {
-                input.value = ''; // Limpiar los valores
+document.addEventListener('DOMContentLoaded', function () {
+    const formularioContainer = document.getElementById('formulario-container');
+
+    const buscarMunicipioBen = async (selectDepartamentoBen) => {
+
+        const selectMunicipioBen = selectDepartamentoBen.closest('.formulario-clonable')
+            .querySelector('[id^=ben_mun_nacimiento]');
+
+        const DepartamentoBen = selectDepartamentoBen.value.trim();
+
+        if (!DepartamentoBen) {
+            selectMunicipioBen.innerHTML = '<option value="">Seleccione...</option>';
+            return;
+        }
+
+        try {
+            Swal.fire({
+                title: 'Cargando...',
+                text: 'Por favor, espera mientras se cargan los municipios.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
             });
 
-            // Agregar el formulario clonado al contenedor
-            contenedorFormularios.appendChild(formularioClon);
+            const url = `/Altas_Bajas/API/tropa/buscarMunicipioBen?municipio=${DepartamentoBen}`;
 
-            // Mostrar el botón para eliminar el formulario
-            const quitarBtn = formularioClon.querySelector('.quitar-btn');
-            quitarBtn.style.display = 'inline-block';
+            const respuesta = await fetch(url);
+            const data = await respuesta.json();
 
-            // Ocultar el botón de agregar en el primer formulario
-            const primerFormulario = document.querySelector('.formulario-clonable');
-            const primerBoton = primerFormulario.querySelector('#agregar-form');
-            primerBoton.style.display = 'none';
+            selectMunicipioBen.innerHTML = '';
+
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione...';
+            selectMunicipioBen.appendChild(defaultOption);
+
+            if (Array.isArray(data)) {
+                data.slice(1).forEach((municipio) => {
+                    const option = document.createElement('option');
+                    option.value = municipio.dm_codigo;
+                    option.textContent = municipio.dm_desc_lg.trim();
+                    selectMunicipioBen.appendChild(option);
+                });
+            } else {
+                console.error('La respuesta no es válida:', data);
+                selectMunicipioBen.innerHTML = '<option value="">Sin municipios</option>';
+            }
+
+            Swal.close();
+
+        } catch (error) {
+            console.error(error);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+            });
+
+            // Restaurar el select de municipios a su estado inicial
+            selectMunicipioBen.innerHTML = '<option value="">Seleccione...</option>';
+        }
+    };
+
+    // Añadir event listener para manejar cambios en departamentos de todos los formularios
+    formularioContainer.addEventListener('change', function (event) {
+        // Verificar si el cambio ocurrió en un select de departamento de beneficiario
+        const selectDepartamentoBen = event.target;
+        if (selectDepartamentoBen.id.startsWith('ben_depto_nacimiento')) {
+            buscarMunicipioBen(selectDepartamentoBen);
+        }
+    });
+
+    // Función para manejar la clonación de formularios
+    function clonarFormularioBeneficiario(event) {
+        // Prevenir cualquier comportamiento predeterminado
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Seleccionar el primer formulario cloneable
+        const formularioOriginal = document.querySelector('.formulario-clonable');
+
+        // Clonar el formulario
+        const nuevoFormulario = formularioOriginal.cloneNode(true);
+
+        // Limpiar los valores de los inputs
+        const inputs = nuevoFormulario.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            // Limpiar valores
+            if (input.type === 'text' || input.type === 'number' || input.type === 'date') {
+                input.value = '';
+            }
+            if (input.tagName === 'SELECT') {
+                input.selectedIndex = 0;
+            }
+
+            // Generar nuevos IDs únicos
+            const originalId = input.id;
+            const baseId = originalId.replace(/_\d+$/, '');
+            const newId = `${baseId}_${Date.now()}`;
+            input.id = newId;
+            input.name = newId;
         });
+
+        // Actualizar los labels
+        const labels = nuevoFormulario.querySelectorAll('label');
+        labels.forEach(label => {
+            const forAttribute = label.getAttribute('for');
+            if (forAttribute) {
+                const baseFor = forAttribute.replace(/_\d+$/, '');
+                label.setAttribute('for', `${baseFor}_${Date.now()}`);
+            }
+        });
+
+        // Mostrar el botón de eliminar
+        const quitarBtn = nuevoFormulario.querySelector('.quitar-btn');
+        quitarBtn.style.display = 'flex';
+
+        // Añadir el nuevo formulario al contenedor
+        formularioContainer.appendChild(nuevoFormulario);
     }
 
-    // Función para quitar el formulario sin importar si los campos están vacíos
-    contenedorFormularios.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('quitar-btn')) {
-            // Eliminar el formulario y sus botones
-            e.target.closest('.formulario-clonable').remove();
-
-            // Si no quedan formularios, mostrar el botón de agregar en el primer formulario
-            if (contenedorFormularios.children.length === 1) {
-                const primerFormulario = document.querySelector('.formulario-clonable');
-                const primerBoton = primerFormulario.querySelector('#agregar-form');
-                primerBoton.style.display = 'inline-block';
-            }
+    // Añadir evento al botón de agregar formulario usando delegación de eventos
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('#agregar-form')) {
+            clonarFormularioBeneficiario(event);
         }
     });
 });
-
-
 
 inputDpi.addEventListener('change', mostrarFormularioAltas);
 dpiTropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
 
-    if (inputValue == ""){
+    if (inputValue == "") {
 
         dpiTropa.classList.remove('is-valid');
         dpiTropa.classList.remove('is-invalid');
@@ -1024,7 +1224,7 @@ dpiTropa.addEventListener('change', function () {
 dpiBeneficiario.addEventListener('change', function () {
     const inputValue = this.value.trim();
 
-    if (inputValue == ""){
+    if (inputValue == "") {
 
         dpiBeneficiario.classList.remove('is-valid');
         dpiBeneficiario.classList.remove('is-invalid');
@@ -1097,7 +1297,7 @@ teltropa.addEventListener('change', function () {
     this.value = cleanedValue;
 
     if (validarTelefono(cleanedValue)) {
-        
+
         teltropa.classList.add('is-valid');
         teltropa.classList.remove('is-invalid');
 
@@ -1123,25 +1323,25 @@ telBeneficiario.addEventListener('change', function () {
         telBeneficiario.classList.remove('is-invalid');
         return;
     }
-    
+
     const cleanedValue = inputValue.replace(/[^0-9]/g, '');
-    
+
     this.value = cleanedValue;
-    
+
     if (validarTelefono(cleanedValue)) {
-        
+
         telBeneficiario.classList.add('is-valid');
         telBeneficiario.classList.remove('is-invalid');
-        
-        
+
+
     } else {
-        
+
         Swal.fire({
             icon: 'error',
             title: 'Teléfono no válido',
             text: 'El número ingresado no es válido.',
         });
-        
+
         this.value = '';
         telBeneficiario.classList.remove('is-valid');
         telBeneficiario.classList.add('is-invalid');
@@ -1160,7 +1360,7 @@ datatable.on('click', '.correcciones', obtenerDatosCorrecciones);
 BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas);
 BtnSearchCatalogo.addEventListener('click', generarCatalogo);
 BtnLimpiarAlta.addEventListener('click', function () {
-    
+
     formVerificar.reset();
     formAlta.reset();
     formVerificar.classList.add('d-none');

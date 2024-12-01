@@ -6,7 +6,7 @@ class Reportes extends ActiveRecord
     protected static $tabla = 'mper';
     protected static $idTabla = 'per_catalogo';
 
-    protected static $columnasDB = ['per_codigo', 'per_cod_arm', 'per_cod_gra', 'per_nom1', 'per_nom2', 'per_ape1', 'per_ape2', 'per_dpi', 'per_plaza', 'per_foto', 'per_dep_dpi', 'per_est_civil', 'per_direccion', 'per_departamento', 'per_municipio', 'per_telefono', 'per_sexo', 'per_fecha_nacimiento', 'per_dep_nacimiento', 'per_sangre', 'per_hijos', 'per_tipo', 'per_plaza_anterior', 'per_desc_empleo', 'per_fecha_nom', 'per_exp', 'per_puesto', 'per_situacion', 'per_grado', 'per_codigo_sup', 'per_observaciones'];
+    protected static $columnasDB = ['per_catalogo','per_codigo', 'per_cod_arm', 'per_cod_gra', 'per_nom1', 'per_nom2', 'per_ape1', 'per_ape2', 'per_dpi', 'per_plaza', 'per_foto', 'per_dep_dpi', 'per_est_civil', 'per_direccion', 'per_departamento', 'per_municipio', 'per_telefono', 'per_sexo', 'per_fecha_nacimiento', 'per_dep_nacimiento', 'per_sangre', 'per_hijos', 'per_tipo', 'per_plaza_anterior', 'per_desc_empleo', 'per_fecha_nom', 'per_exp', 'per_puesto', 'per_situacion', 'per_grado', 'per_codigo_sup', 'per_observaciones'];
 
     public $per_catalogo;
     public $per_codigo;
