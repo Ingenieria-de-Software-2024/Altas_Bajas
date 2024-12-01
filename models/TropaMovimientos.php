@@ -3,10 +3,10 @@ namespace Model;
 
 class TropaMovimientos extends ActiveRecord
 {
-    protected static $tabla = 'tropa_movimientos';
-    protected static $idTabla = 'mov_id';
+    public static $tabla = 'tropa_movimientos';
+    public static $idTabla = 'mov_id';
 
-    protected static $columnasDB = [ 'mov_catalogo', 'mov_dependencia','mov_accion', 'mov_fecha', 'mov_situacion'];
+    public static $columnasDB = [ 'mov_catalogo', 'mov_dependencia','mov_accion', 'mov_fecha', 'mov_situacion'];
 
     public $mov_id;
     public $mov_catalogo;

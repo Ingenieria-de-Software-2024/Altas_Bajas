@@ -62,6 +62,8 @@
                                     <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise"></i></button>
                                     <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo" readonly>
                                     <input type="hidden" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
+                                    <input type="hidden" class="form-control text-center" id="org_jerarquia" name="org_jerarquia" readonly>
+                                    <input type="hidden" class="form-control text-center" id="org_ceom" name="org_ceom" readonly>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@
                             </div>
                             <div class="col justify-content-center">
                                 <label for="per_telefono"><b>Telefono</b></label>
-                                <input type="numb" name="per_telefono" id="per_telefono" class="form-control">
+                                <input type="number" name="per_telefono" id="per_telefono" class="form-control">
                             </div>
                             <div class="col-2 justify-content-center">
                                 <label for="per_sexo"><b>Sexo</b></label>

@@ -6,6 +6,7 @@ use Exception;
 use MVC\Router;
 use Model\ActiveRecord;
 use Model\AsigCat;
+use Model\Dpue;
 use Model\MperOtros;
 use Model\Trasalados;
 use Model\Traslados;
@@ -228,6 +229,9 @@ class TropaController
 
         $catalogo_insertar = filter_var($_POST['catalogo_insertar'], FILTER_SANITIZE_NUMBER_INT);
 
+        $org_jerarquia = filter_var($_POST['org_jerarquia'], FILTER_SANITIZE_NUMBER_INT);
+        $org_ceom = filter_var($_POST['org_ceom'], FILTER_SANITIZE_NUMBER_INT);
+
         try {
 
             $conexion = Tropa::getDB();
@@ -244,7 +248,7 @@ class TropaController
                 'per_plaza' => $per_plaza,
                 'per_dep_dpi' => $per_dpi,
                 'per_grado' => $per_grado,
-                'per_grado' => 0,
+                'per_arma' => 0,
                 'per_fec_ext_ced' => $per_fec_ext_ced,
                 'per_ext_ced_lugar' => $per_ext_ced_lugar,
                 'per_est_civil' => $per_est_civil,
@@ -262,9 +266,6 @@ class TropaController
                 'per_bienal' => 0
             ]);
 
-
-
-
             $insertar_mper = $datos_mper->crear();
 
             if ($insertar_mper) {
@@ -279,7 +280,7 @@ class TropaController
                 ]);
           
 
-                $insertar_oper = $datos_oper->crear();
+                $insertar_oper = $datos_oper -> crear();
 
                 if ($insertar_oper) {
 
@@ -309,7 +310,50 @@ class TropaController
                         $catalogo = (int)$catalogo_insertar;
 
                         $update_asignacion_catalogo = AsigCat::UpdateAsignacionCatalogo($catalogo);
+
+                        $per_dependnecia = $_SESSION ['dep_llave'];
+                       
+                        if($update_asignacion_catalogo){
+                            
+                            $datos_dpue = new Dpue ([
+                                
+                                'pue_catalogo' => $per_catalogo,
+                                'pue_grado' => $per_grado,
+                                'pue_arma' => 0,
+                                'pue_jerarquia' => $org_jerarquia,
+                                'pue_dependencia' => $per_dependnecia,
+                                'pue_plaza' => $per_plaza,
+                                'pue_ceom' => $org_ceom,
+                                'pue_desc' => $per_desc_empleo,
+                                'pue_situacion' => 'T0',
+                                'pue_fec_nomb' => $per_fec_nomb,
+                                'pue_ord_gral' => 0,
+                                'pue_punto_og' => 0,
+                                'pue_fec_cese' => ''
+                                
+                            ]);
+                            
+                            $insertar_dpue = $datos_dpue -> crear();
+
+                            if($insertar_dpue){
+
+                                $fecha_actual = date('Y-m-d');
+                                
+                                $datos_tropa_movimientos = new TropaMovimientos([
+
+                                    'mov_catalogo' => $per_catalogo,
+                                    'mov_dependencia' => $per_dependnecia,
+                                    'mov_accion' => 'ASIG',
+                                    'mov_fecha' => $fecha_actual,
+                                    'mov_situacion' => 1
+                                ]);
+
+                                $insertar_tropa_movimientos = $datos_tropa_movimientos -> crear();
+                                
+                            }
+                        }
                     }
+                    
                 }
             }
             $conexion->commit();

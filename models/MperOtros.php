@@ -3,10 +3,10 @@ namespace Model;
 
 class MperOtros extends ActiveRecord
 {
-    protected static $tabla = 'mper_otros';
-    protected static $idTabla = 'oper_catalogo';
+    public static $tabla = 'mper_otros';
+    public static $idTabla = 'oper_catalogo';
 
-    protected static $columnasDB = ['oper_catalogo','oper_nit', 'oper_celular_personal','oper_celular_servicio', 'oper_correo_institucional', 'oper_correo_personal', 'oper_obs', 'oper_desc1', 'oper_desc2', 'oper_desc3'];
+    public static $columnasDB = ['oper_catalogo','oper_nit', 'oper_celular_personal','oper_celular_servicio', 'oper_correo_institucional', 'oper_correo_personal', 'oper_obs', 'oper_desc1', 'oper_desc2', 'oper_desc3'];
 
     public $oper_catalogo;
     public $oper_nit;

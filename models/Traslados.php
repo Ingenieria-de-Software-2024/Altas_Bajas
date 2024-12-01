@@ -3,10 +3,10 @@ namespace Model;
 
 class Traslados extends ActiveRecord
 {
-    protected static $tabla = 'morg';
-    protected static $idTabla = 'org_plaza';
+    public static $tabla = 'morg';
+    public static $idTabla = 'org_plaza';
 
-    protected static $columnasDB = ['org_ceom', 'org_dependencia', 'org_jerarquia', 'org_grado', 'org_plaza_desc', 'org_situacion', 'org_cod_pago', 'org_hrs_trab', 'org_fec_ult_mod', 'org_ord_gral', 'org_nominas', 'org_categoria'];
+    public static $columnasDB = ['org_ceom', 'org_dependencia', 'org_jerarquia', 'org_grado', 'org_plaza_desc', 'org_situacion', 'org_cod_pago', 'org_hrs_trab', 'org_fec_ult_mod', 'org_ord_gral', 'org_nominas', 'org_categoria'];
 
     public $org_plaza;
     public $org_ceom;

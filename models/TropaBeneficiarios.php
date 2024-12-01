@@ -3,10 +3,10 @@ namespace Model;
 
 class TropaBeneficiarios extends ActiveRecord
 {
-    protected static $tabla = 'tropa_beneficiarios';
-    protected static $idTabla = 'ben_id';
+    public static $tabla = 'tropa_beneficiarios';
+    public static $idTabla = 'ben_id';
 
-    protected static $columnasDB = ['ben_catalogo', 'ben_nombre','ben_direccion', 'ben_celular', 'ben_parentesco', 'ben_porcentaje', 'ben_situacion', 'ben_sexo', 'ben_estado_civil', 'ben_fecha_nacimiento', 'ben_depto_nacimiento', 'ben_mun_nacimiento', 'ben_dpi'];
+    public static $columnasDB = ['ben_catalogo', 'ben_nombre','ben_direccion', 'ben_celular', 'ben_parentesco', 'ben_porcentaje', 'ben_situacion', 'ben_sexo', 'ben_estado_civil', 'ben_fecha_nacimiento', 'ben_depto_nacimiento', 'ben_mun_nacimiento', 'ben_dpi'];
 
     public $ben_id;
     public $ben_catalogo;

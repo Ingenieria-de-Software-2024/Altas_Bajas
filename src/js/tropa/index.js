@@ -32,6 +32,8 @@ const inputPlaza = document.getElementById('per_plaza');
 const inputEmpleo = document.getElementById('per_desc_empleo');
 const inputGrado = document.getElementById('per_grado')
 const Catalogo_insertar = document.getElementById('catalogo_insertar');
+const imputJerarquia = document.getElementById('org_jerarquia');
+const inputCeom = document.getElementById('org_ceom');
 
 //DEPARTAMENTOS Y MUNICIPIOS
 const selectDepartamentoTropa = document.getElementById('per_departamento');
@@ -217,7 +219,7 @@ const datatable = new DataTable('#TablaTropa', {
                 if (row.situacion === 'T0') {
 
                     html =
-                        `
+                    `
                     <button class='btn btn-danger baja' data-plaza="${row.plaza}" data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
                     
                     <button class='btn btn-primary correcciones' data-catalogo="${row.catalogo}" data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-vcard-fill"></i></button>
@@ -226,8 +228,8 @@ const datatable = new DataTable('#TablaTropa', {
                 } else {
                     html =
 
-                        `
-                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-org_grado="${row.org_grado}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                    `
+                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-org_grado="${row.org_grado}" data-org_jerarquia="${row.org_jerarquia}" data-org_ceom="${row.org_ceom}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
 
                     `;
                 }
@@ -708,12 +710,16 @@ const ObtenerDatosPlaza = (e) => {
     const plaza = e.currentTarget.dataset.plaza;
     const empleo = e.currentTarget.dataset.empleo;
     const org_grado = e.currentTarget.dataset.org_grado;
+    const org_jerarquia = e.currentTarget.dataset.org_jerarquia;
+    const org_ceom = e.currentTarget.dataset.org_ceom;
 
     // console.log(e)
 
     inputPlaza.value = plaza
     inputEmpleo.value = empleo
     inputGrado.value = org_grado
+    inputCeom.value = org_ceom
+    imputJerarquia.value = org_jerarquia
 
 };
 

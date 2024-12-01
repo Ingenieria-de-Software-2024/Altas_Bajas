@@ -3,10 +3,10 @@ namespace Model;
 
 class AsigCat extends ActiveRecord
 {
-    protected static $tabla = 'asc_cat';
-    protected static $idTabla = 'asc_tipo';
+    public static $tabla = 'asc_cat';
+    public static $idTabla = 'asc_tipo';
 
-    protected static $columnasDB = [ 'asc_catalogo'];
+    public static $columnasDB = [ 'asc_catalogo'];
 
     public $asc_tipo;
     public $asc_catalogo;
