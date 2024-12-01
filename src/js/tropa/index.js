@@ -743,7 +743,7 @@ const darAlta = async (e) => {
     
     Swal.fire({
         title: 'Cargando',
-        text: 'Espere un momento mientras registra al usuario',
+        text: 'Espere un momento mientras se registra al usuario',
         allowOutsideClick: false,
         didOpen: () => {
             Swal.showLoading();
@@ -787,7 +787,6 @@ const darAlta = async (e) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle } = data;
-        let icon = 'info';
 
         if (codigo == 1) {
 

@@ -312,9 +312,10 @@ class TropaController
                         $update_asignacion_catalogo = AsigCat::UpdateAsignacionCatalogo($catalogo);
 
                         $per_dependnecia = $_SESSION ['dep_llave'];
-                       
+                        
                         if($update_asignacion_catalogo){
                             
+                            $fecha_actual = date('Y-m-d');
                             $datos_dpue = new Dpue ([
                                 
                                 'pue_catalogo' => $per_catalogo,
@@ -329,7 +330,7 @@ class TropaController
                                 'pue_fec_nomb' => $per_fec_nomb,
                                 'pue_ord_gral' => 0,
                                 'pue_punto_og' => 0,
-                                'pue_fec_cese' => ''
+                                'pue_fec_cese' => $fecha_actual
                                 
                             ]);
                             
@@ -337,7 +338,6 @@ class TropaController
 
                             if($insertar_dpue){
 
-                                $fecha_actual = date('Y-m-d');
                                 
                                 $datos_tropa_movimientos = new TropaMovimientos([
 
