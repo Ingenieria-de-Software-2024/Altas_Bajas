@@ -133,7 +133,27 @@ class Tropa extends ActiveRecord
 
     public static function verificarDpi($dpi)
     {
-        $sql = "SELECT PER_NOM1 || ' ' || PER_NOM2 || ' ' || PER_APE1 || ' ' || PER_APE2 AS NOMBRE_COMPLETO, SIT_DESC_LG AS SITUACION, PER_SITUACION FROM MPER INNER JOIN SITUACIONES ON SIT_CODIGO = PER_SITUACION WHERE REPLACE(PER_DPI, ' ', '') = '$dpi' AND PER_SITUACION IN (11, 'T0')";
+        $sql = "SELECT 
+                    PER_CATALOGO AS PER_CATALOGO,
+                    TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO,
+                    SIT_DESC_LG AS SITUACION,
+                    PER_SITUACION,
+                    TRIM(PER_NOM1) AS PER_NOM1,
+                    TRIM(PER_NOM2) AS PER_NOM2,
+                    TRIM(PER_NOM3) AS PER_NOM3,
+                    TRIM(PER_APE1) AS PER_APE1,
+                    TRIM(PER_APE2) AS PER_APE2,
+                    TRIM(PER_DPI) AS PER_DPI,
+                    TRIM(PER_SANGRE) AS PER_SANGRE,
+                    TRIM(PER_DIRECCION) AS PER_DIRECCION,
+                    PER_ZONA AS PER_ZONA,
+                    TRIM(PER_SEXO) AS PER_SEXO,
+                    PER_FEC_NAC
+                FROM MPER 
+                INNER JOIN SITUACIONES 
+                    ON SIT_CODIGO = PER_SITUACION
+                WHERE REPLACE(PER_DPI, ' ', '') = '$dpi';
+";
 
         return self::fetchFirst($sql);
     }
@@ -179,4 +199,25 @@ class Tropa extends ActiveRecord
 
         return self::fetchArray($sql);
     }
+
+    public static function BuscarDatosMperOtros($catalogo){
+        $sql = "select * from mper_otros where oper_catalogo = $catalogo";
+
+        $resultado = self::fetchFirst($sql);
+
+        return $resultado ? true : false;
+    }
+
+    public static function ObtenerMotivoBaja($motivo){
+        $sql = "SELECT SIT_DESC_lG AS MOTIVO_BAJA FROM SITUACIONES WHERE SIT_CODIGO = '$motivo'";
+
+        return self::fetchFirst($sql);
+    }
+
+    public static function DatosBajaUsuario($catalogo){
+        $sql ="SELECT PER_GRADO, PER_ARMA, PER_FEC_NOMB FROM MPER WHERE PER_CATALOGO = $catalogo";
+
+        return self::fetchFirst($sql);
+    }
+
 }

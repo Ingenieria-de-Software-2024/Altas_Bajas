@@ -169,10 +169,10 @@ class TropaController
 
             if ($data && isset($data['asc_catalogo'])) {
 
-                $catalogo = (int)$data['asc_catalogo']; 
-                $numero_aleatorio = rand(0, 9); 
-                $catalogo_nuevo = (int)($catalogo . $numero_aleatorio); 
-                $catalogo_tabla_asig = $catalogo + 10; 
+                $catalogo = (int)$data['asc_catalogo'];
+                $numero_aleatorio = rand(0, 9);
+                $catalogo_nuevo = (int)($catalogo . $numero_aleatorio);
+                $catalogo_tabla_asig = $catalogo + 10;
 
                 // Devolver la respuesta como JSON
                 echo json_encode([
@@ -203,15 +203,15 @@ class TropaController
 
         $per_catalogo = htmlspecialchars($_POST['per_catalogo'], FILTER_SANITIZE_NUMBER_INT);
         $per_grado = htmlspecialchars($_POST['per_grado']) ?? '';
-        $per_nom1 = htmlspecialchars($_POST['per_nom1']);
-        $per_nom2 = htmlspecialchars($_POST['per_nom2']) ?? '';
-        $per_nom3 = htmlspecialchars($_POST['per_nom3']) ?? '';
-        $per_ape1 = htmlspecialchars($_POST['per_ape1']);
-        $per_ape2 = htmlspecialchars($_POST['per_ape2']);
+        $per_nom1 = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_nom1'], 'UTF-8'))));
+        $per_nom2 = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_nom2'], 'UTF-8'))));
+        $per_nom3 = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_nom3'], 'UTF-8')))) ?? '';
+        $per_ape1 = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_ape1'], 'UTF-8'))));
+        $per_ape2 = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_ape2'], 'UTF-8'))));
         $per_fec_ext_ced = date('Y-m-d', strtotime(($_POST['per_fec_ext_ced'])));
         $per_ext_ced_lugar = htmlspecialchars($_POST['per_ext_ced_lugar']);
         $per_est_civil = htmlspecialchars($_POST['per_est_civil']);
-        $per_direccion = htmlspecialchars($_POST['per_direccion']);
+        $per_direccion = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_direccion'], 'UTF-8'))));
         $per_zona = htmlspecialchars($_POST['per_zona']) ?? '';
         $per_dir_lugar = htmlspecialchars($_POST['per_dir_lugar']);
         $per_telefono = htmlspecialchars($_POST['per_telefono'], FILTER_SANITIZE_NUMBER_INT);
@@ -223,7 +223,6 @@ class TropaController
         $per_desc_empleo = htmlspecialchars($_POST['per_desc_empleo']);
         $per_fec_nomb = date('Y-m-d', strtotime(($_POST['per_fec_nomb'])));
         $per_dpi = filter_var($_POST['per_dpi'], FILTER_SANITIZE_NUMBER_INT);
-
         $oper_nit = htmlspecialchars($_POST['oper_nit'], FILTER_SANITIZE_NUMBER_INT);
         $oper_correo_personal = filter_var($_POST['oper_correo_personal'], FILTER_SANITIZE_EMAIL);
 
@@ -246,7 +245,6 @@ class TropaController
                 'per_ape2' => $per_ape2,
                 'per_dpi' => $per_dpi,
                 'per_plaza' => $per_plaza,
-                'per_dep_dpi' => $per_dpi,
                 'per_grado' => $per_grado,
                 'per_arma' => 0,
                 'per_fec_ext_ced' => $per_fec_ext_ced,
@@ -278,9 +276,9 @@ class TropaController
                     'oper_desc2' => '',
                     'oper_desc3' => ''
                 ]);
-          
 
-                $insertar_oper = $datos_oper -> crear();
+
+                $insertar_oper = $datos_oper->crear();
 
                 if ($insertar_oper) {
 
@@ -301,7 +299,7 @@ class TropaController
                             'ben_mun_nacimiento' => $datos['municipioNacimiento'],
                             'ben_dpi' => $datos['dpi']
                         ]);
-                     
+
 
                         $insertar_tropa_beneficiarios = $datos_beneficiario->crear();
                     }
@@ -311,13 +309,13 @@ class TropaController
 
                         $update_asignacion_catalogo = AsigCat::UpdateAsignacionCatalogo($catalogo);
 
-                        $per_dependnecia = $_SESSION ['dep_llave'];
-                        
-                        if($update_asignacion_catalogo){
-                            
+                        $per_dependnecia = $_SESSION['dep_llave'];
+
+                        if ($update_asignacion_catalogo) {
+
                             $fecha_actual = date('Y-m-d');
-                            $datos_dpue = new Dpue ([
-                                
+                            $datos_dpue = new Dpue([
+
                                 'pue_catalogo' => $per_catalogo,
                                 'pue_grado' => $per_grado,
                                 'pue_arma' => 0,
@@ -331,14 +329,14 @@ class TropaController
                                 'pue_ord_gral' => 0,
                                 'pue_punto_og' => 0,
                                 'pue_fec_cese' => $fecha_actual
-                                
+
                             ]);
-                            
-                            $insertar_dpue = $datos_dpue -> crear();
 
-                            if($insertar_dpue){
+                            $insertar_dpue = $datos_dpue->crear();
 
-                                
+                            if ($insertar_dpue) {
+
+
                                 $datos_tropa_movimientos = new TropaMovimientos([
 
                                     'mov_catalogo' => $per_catalogo,
@@ -348,12 +346,10 @@ class TropaController
                                     'mov_situacion' => 1
                                 ]);
 
-                                $insertar_tropa_movimientos = $datos_tropa_movimientos -> crear();
-                                
+                                $insertar_tropa_movimientos = $datos_tropa_movimientos->crear();
                             }
                         }
                     }
-                    
                 }
             }
             $conexion->commit();
@@ -422,6 +418,265 @@ class TropaController
                 "detalle" => $e->getMessage(),
                 "mensaje" => "Error en la Base de Datos",
                 "codigo" => 0,
+            ]);
+        }
+    }
+
+
+    public static function AltaReenganchado()
+    {
+        if (isset($_POST['beneficiarios'])) {
+            $beneficiarios = json_decode($_POST['beneficiarios'], true);
+        }
+
+        $per_catalogo = htmlspecialchars($_POST['per_catalogo'], FILTER_SANITIZE_NUMBER_INT);
+        $per_grado = htmlspecialchars($_POST['per_grado']) ?? '';
+        $per_fec_ext_ced = date('Y-m-d', strtotime(($_POST['per_fec_ext_ced'])));
+        $per_ext_ced_lugar = htmlspecialchars($_POST['per_ext_ced_lugar']);
+        $per_est_civil = htmlspecialchars($_POST['per_est_civil']);
+        $per_direccion = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['per_direccion'], 'UTF-8'))));
+        $per_zona = htmlspecialchars($_POST['per_zona']) ?? '';
+        $per_dir_lugar = htmlspecialchars($_POST['per_dir_lugar']);
+        $per_telefono = htmlspecialchars($_POST['per_telefono'], FILTER_SANITIZE_NUMBER_INT);
+        $per_plaza = filter_var($_POST['per_plaza'], FILTER_SANITIZE_NUMBER_INT);
+        $per_desc_empleo = htmlspecialchars($_POST['per_desc_empleo']);
+        $per_fec_nomb = date('Y-m-d', strtotime(($_POST['per_fec_nomb'])));
+        $oper_nit = htmlspecialchars($_POST['oper_nit'], FILTER_SANITIZE_NUMBER_INT);
+        $oper_correo_personal = filter_var($_POST['oper_correo_personal'], FILTER_SANITIZE_EMAIL);
+
+        $org_jerarquia = filter_var($_POST['org_jerarquia'], FILTER_SANITIZE_NUMBER_INT);
+        $org_ceom = filter_var($_POST['org_ceom'], FILTER_SANITIZE_NUMBER_INT);
+
+        try {
+
+            $conexion = Tropa::getDB();
+            $conexion->beginTransaction();
+
+            $datos_mper = Tropa::find($per_catalogo);
+            $datos_mper->sincronizar([
+                'per_plaza' => $per_plaza,
+                'per_grado' => $per_grado,
+                'per_arma' => 0,
+                'per_fec_ext_ced' => $per_fec_ext_ced,
+                'per_ext_ced_lugar' => $per_ext_ced_lugar,
+                'per_est_civil' => $per_est_civil,
+                'per_direccion' => $per_direccion,
+                'per_zona' => $per_zona,
+                'per_dir_lugar' => $per_dir_lugar,
+                'per_telefono' => $per_telefono,
+                'per_desc_empleo' => $per_desc_empleo,
+                'per_situacion' => 'T0',
+                'per_bienal' => 0
+            ]);
+            $datos_mper->actualizar();
+
+
+            if ($datos_mper) {
+
+                $Existe_oper = Tropa::BuscarDatosMperOtros($per_catalogo);
+
+                if ($Existe_oper) {
+
+                    $datos_oper = Tropa::find($per_catalogo);
+                    $datos_oper->sincronizar([
+                        'oper_catalogo' => $per_catalogo,
+                        'oper_nit' => $oper_nit,
+                        'oper_correo_personal' => $oper_correo_personal,
+                        'oper_desc1' => '',
+                        'oper_desc2' => '',
+                        'oper_desc3' => ''
+                    ]);
+                    $datos_oper->actualizar();
+                } else {
+                    $datos_oper_crear = new MperOtros([
+                        'oper_catalogo' => $per_catalogo,
+                        'oper_nit' => $oper_nit,
+                        'oper_correo_personal' => $oper_correo_personal,
+                        'oper_desc1' => '',
+                        'oper_desc2' => '',
+                        'oper_desc3' => ''
+                    ]);
+                    $datos_oper = $datos_oper_crear->crear();
+                }
+
+
+
+                if ($datos_oper) {
+
+                    foreach ($beneficiarios as $datos) {
+
+                        $datos_beneficiario = new TropaBeneficiarios([
+                            'ben_catalogo' => $per_catalogo,
+                            'ben_nombre' => $datos['nombre'],
+                            'ben_direccion' => $datos['direccion'],
+                            'ben_celular' => $datos['celular'],
+                            'ben_parentesco' => $datos['parentesco'],
+                            'ben_porcentaje' => $datos['porcentaje'],
+                            'ben_situacion' => 1,
+                            'ben_sexo' => $datos['sexo'],
+                            'ben_estado_civil' => $datos['estadoCivil'],
+                            'ben_fecha_nacimiento' => $datos['fechaNacimiento'],
+                            'ben_depto_nacimiento' => $datos['departamentoNacimiento'],
+                            'ben_mun_nacimiento' => $datos['municipioNacimiento'],
+                            'ben_dpi' => $datos['dpi']
+                        ]);
+
+
+                        $insertar_tropa_beneficiarios = $datos_beneficiario->crear();
+                    }
+
+                    if ($insertar_tropa_beneficiarios) {
+
+                        $fecha_actual = date('Y-m-d');
+                        $per_dependencia = $_SESSION['dep_llave'];
+                        $datos_dpue = new Dpue([
+
+                            'pue_catalogo' => $per_catalogo,
+                            'pue_grado' => $per_grado,
+                            'pue_arma' => 0,
+                            'pue_jerarquia' => $org_jerarquia,
+                            'pue_dependencia' => $per_dependencia,
+                            'pue_plaza' => $per_plaza,
+                            'pue_ceom' => $org_ceom,
+                            'pue_desc' => $per_desc_empleo,
+                            'pue_situacion' => 'T0',
+                            'pue_fec_nomb' => $per_fec_nomb,
+                            'pue_ord_gral' => 0,
+                            'pue_punto_og' => 0,
+                            'pue_fec_cese' => $fecha_actual
+
+                        ]);
+
+                        $insertar_dpue = $datos_dpue->crear();
+
+                        if ($insertar_dpue) {
+
+                            $datos_tropa_movimientos = new TropaMovimientos([
+
+                                'mov_catalogo' => $per_catalogo,
+                                'mov_dependencia' => $per_dependencia,
+                                'mov_accion' => 'ASIG',
+                                'mov_fecha' => $fecha_actual,
+                                'mov_situacion' => 1
+                            ]);
+
+                            $insertar_tropa_movimientos = $datos_tropa_movimientos->crear();
+                        }
+                    }
+                }
+            };
+            $conexion->commit();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Alta exitosa',
+            ]);
+        } catch (Exception $e) {
+
+            $conexion->rollBack();
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al guardar al Soldado',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function DarBajaAPI()
+    {
+        $catalogo = filter_var($_POST['catalogo'], FILTER_SANITIZE_NUMBER_INT);
+        $motivo_baja = htmlspecialchars($_POST['motivo_baja']);
+        $fecha_baja = date('Y-m-d', strtotime($_POST['mov_fecha']));
+
+        try {
+
+            $conexion = Tropa::getDB();
+            $conexion->beginTransaction();
+
+            $baja_descripcion = Tropa::ObtenerMotivoBaja($motivo_baja);
+            $descripcion_baja = $baja_descripcion['motivo_baja'];
+
+            $datos_mper = Tropa::find($catalogo);
+            $datos_mper->sincronizar([
+                'per_plaza' => '9999',
+                'per_desc_empleo' => $descripcion_baja,
+                'per_situacion' => $motivo_baja
+            ]);
+            $datos_mper->actualizar();
+
+
+            if ($datos_mper) {
+
+                if ($datos_mper) {
+
+
+                    $beneficiarios = Tropa::find($catalogo);
+                    $beneficiarios->sincronizar([
+                        'ben_situacion' => 0
+                    ]);
+                    $beneficiarios->actualizar();
+
+
+                    if ($beneficiarios) {
+
+                        $datos_baja = Tropa::DatosBajaUsuario($catalogo);
+                        $per_grado = $datos_baja['per_grado'];
+                        $per_arma = $datos_baja['per_arma'];
+                        $per_fec_nomb = $datos_baja['per_fec_nomb'];
+
+                        $datos_dpue = new Dpue([
+                            'pue_catalogo' => $catalogo,
+                            'pue_grado' => $per_grado,
+                            'pue_arma' => $per_arma,
+                            'pue_dependencia' => 999,
+                            'pue_jerarquia' => 999,
+                            'pue_plaza' => 9999,
+                            'pue_ceom' => 'O99999',
+                            'pue_desc' => $descripcion_baja,
+                            'pue_situacion' => $motivo_baja,
+                            'pue_fec_nomb' => $per_fec_nomb,
+                            'pue_ord_gral' => 0,
+                            'pue_punto_og' => 0,
+                            'pue_fec_cese' => $fecha_baja
+                        ]);
+
+                        $insertar_dpue = $datos_dpue->crear();
+
+                        if ($insertar_dpue) {
+
+                            $dependencia = $_SESSION['dep_llave'];
+
+                            $datos_tropa_movimientos = new TropaMovimientos([
+
+                                'mov_catalogo' => $catalogo,
+                                'mov_dependencia' => $dependencia,
+                                'mov_accion' => $motivo_baja,
+                                'mov_fecha' => $fecha_baja,
+                                'mov_situacion' => 1
+                            ]);
+
+                            $insertar_tropa_movimientos = $datos_tropa_movimientos->crear();
+                        }
+                    }
+                }
+            };
+            $conexion->commit();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Baja Exitosa',
+            ]);
+        } catch (Exception $e) {
+
+            $conexion->rollBack();
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al guardar al Soldado',
+                'detalle' => $e->getMessage(),
             ]);
         }
     }

@@ -10,6 +10,9 @@ const TablaTropa = document.getElementById('TablaTropa');
 const modalAltas = document.getElementById('modalAltas');
 const modalElementAltas = document.querySelector('#modalAltas');
 const modalBSAltas = new Modal(modalElementAltas)
+
+const modalElementosBaja = document.querySelector('#modalBajas');
+const modalBSBajas = new Modal(modalElementosBaja);
 const modalBajas = document.getElementById('modalBajas');
 const modalCorrecciones = document.getElementById('modalCorrecciones');
 
@@ -100,6 +103,7 @@ const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_c
 //BOTONES CORRECCIONES
 const BtnModificar = document.getElementById('btnCorregir');
 const BtnCancelarCorrecciones = document.getElementById('btnCancelarCorrecciones');
+const BtnReenganchar = document.getElementById('BtnReenganchar');
 
 
 //MODAL BAJAS
@@ -130,6 +134,9 @@ formAlta.classList.add('d-none');
 formBaja.classList.add('d-none');
 formCorrrecciones.classList.add('d-none');
 
+//Btn Reenganchar
+BtnReenganchar.classList.add('d-none');
+
 const buscar = async () => {
     const url = '/Altas_Bajas/API/tropa/buscarTropa';
     const config = {
@@ -148,7 +155,6 @@ const buscar = async () => {
     }
 }
 
-let contador = 1;
 const datatable = new DataTable('#TablaTropa', {
     data: null,
     language: lenguaje,
@@ -219,7 +225,7 @@ const datatable = new DataTable('#TablaTropa', {
                 if (row.situacion === 'T0') {
 
                     html =
-                    `
+                        `
                     <button class='btn btn-danger baja' data-plaza="${row.plaza}" data-bs-toggle="modal" data-bs-target="#modalBajas"><i class="bi bi-person-fill-dash"></i></button>
                     
                     <button class='btn btn-primary correcciones' data-catalogo="${row.catalogo}" data-bs-toggle="modal" data-bs-target="#modalCorrecciones"><i class="bi bi-person-vcard-fill"></i></button>
@@ -228,8 +234,8 @@ const datatable = new DataTable('#TablaTropa', {
                 } else {
                     html =
 
-                    `
-                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-org_grado="${row.org_grado}" data-org_jerarquia="${row.org_jerarquia}" data-org_ceom="${row.org_ceom}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
+                        `
+                    <button class='btn btn-warning alta' data-empleo="${row.empleo}" data-plaza="${row.plaza}" data-org_grado="${row.org_grado}" data-org_jerarquia="${row.org_jerarquia}" data-org_ceom="${row.ceom}" data-bs-toggle="modal" data-bs-target="#modalAltas"><i class="bi bi-person-fill-add"></i></button>
 
                     `;
                 }
@@ -243,11 +249,9 @@ const datatable = new DataTable('#TablaTropa', {
 // ALTAS //
 
 const mostrarFormularioAltas = async () => {
-
     const dpi = inputDpi.value;
 
     if (dpi.length == 13) {
-
         try {
             Swal.fire({
                 title: 'Cargando',
@@ -265,27 +269,64 @@ const mostrarFormularioAltas = async () => {
 
             const respuesta = await fetch(url, config);
             const data = await respuesta.json();
-            // console.log(data)
+
+            const Motivos_No_Alta = ['TV', 'TM', 'TF', 'TB', 'TA', 'TP', 'TR', '1C', '1A', '1E', '14', '21', '22', '23', '25', 'OD'];
 
             Swal.close();
 
+
             if (data.existe && Object.keys(data.existe).length > 0) {
+                const situacion = data.existe.per_situacion;
+                const tieneMotivoNoAlta = Motivos_No_Alta.some(motivo => situacion.includes(motivo));
 
-                Swal.fire({
-                    title: 'Alerta',
-                    html: `La situación de <strong>${data.existe.nombre_completo}</strong> es: <strong>${data.existe.situacion}</strong>, por lo tanto no puede causar alta.`,
-                    icon: 'error',
-                    showConfirmButton: true,
-                    timerProgressBar: false
-                });
+                // Si existe un motivo para no causar alta
+                if (tieneMotivoNoAlta) {
+                    Swal.fire({
+                        title: 'Alerta',
+                        html: `La situación de <strong>${data.existe.nombre_completo}</strong> es: <strong>${data.existe.situacion}</strong>, por lo tanto no puede causar alta.`,
+                        icon: 'error',
+                        showConfirmButton: true,
+                        timerProgressBar: false
+                    });
 
-                formVerificar.classList.add('none');
-                formVerificar.reset();
+                    formVerificar.classList.add('none');
+                    formVerificar.reset();
+                } else {
 
+                    Swal.fire({
+                        title: 'Verificado',
+                        text: 'El usuario puede causar alta como reenganchado',
+                        icon: 'success',
+                        showConfirmButton: true
+                    });
+
+                    const datos_persona = data.existe
+                    inputCatalogo.value = datos_persona.per_catalogo
+                    document.getElementById('per_nom1').value = datos_persona.per_nom1
+                    document.getElementById('per_nom2').value = datos_persona.per_nom2
+                    document.getElementById('per_nom3').value = datos_persona.per_nom3
+                    document.getElementById('per_ape1').value = datos_persona.per_ape1
+                    document.getElementById('per_ape2').value = datos_persona.per_ape2
+                    document.getElementById('per_dpi').value = datos_persona.per_dpi
+                    document.getElementById('per_sangre').value = datos_persona.per_sangre
+                    document.getElementById('per_direccion').value = datos_persona.per_direccion
+                    document.getElementById('per_zona').value = datos_persona.per_zona
+                    document.getElementById('per_sexo').value = datos_persona.per_sexo
+                    document.getElementById('per_fec_nac').value = datos_persona.per_fec_nac
+
+                    BtnAlta.classList.add('d-none');
+                    BtnReenganchar.classList.remove('d-none');
+                    BtnSearchCatalogo.disabled = true;
+
+                    formVerificar.classList.add('d-none');
+                    formAlta.classList.remove('d-none');
+                    BtnLimpiarAlta.classList.remove('d-none');
+                }
             } else {
+                // Caso: el usuario no existe
                 Swal.fire({
                     title: 'Verificado',
-                    text: 'El usuario consultado si puede causar alta',
+                    text: 'El DPI ingresado no está registrado. El usuario puede causar alta.',
                     icon: 'success',
                     showConfirmButton: true
                 });
@@ -294,27 +335,27 @@ const mostrarFormularioAltas = async () => {
                 formAlta.classList.remove('d-none');
                 BtnAlta.classList.remove('d-none');
                 BtnLimpiarAlta.classList.remove('d-none');
-
             }
-
         } catch (error) {
+            console.error(error);
 
-            console.log(error)
-
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al verificar el DPI. Intente de nuevo más tarde.',
+                icon: 'error',
+                showConfirmButton: true
+            });
         }
-
     } else {
-
         Swal.fire({
             title: 'Error',
-            text: 'DPI INVALIDO',
+            text: 'DPI INVÁLIDO',
             icon: 'error',
             showConfirmButton: true
         });
-
     }
-
 };
+
 
 const buscarMunicipio = async () => {
     const departamento = selectDepartamentoTropa.value.trim();
@@ -707,6 +748,7 @@ function validarTelefono(telefono) {
 }
 
 const ObtenerDatosPlaza = (e) => {
+
     const plaza = e.currentTarget.dataset.plaza;
     const empleo = e.currentTarget.dataset.empleo;
     const org_grado = e.currentTarget.dataset.org_grado;
@@ -726,21 +768,21 @@ const ObtenerDatosPlaza = (e) => {
 const darAlta = async (e) => {
     e.preventDefault();
 
-    
+
     BtnAlta.disabled = true;
-    
+
     if (!validarFormulario(formAlta, ['alta_id', 'per_nom3', 'per_ape3', 'per_zona'])) {
         Swal.fire({
             title: "Campos vacíos",
             text: "Debe llenar todos los campos",
             icon: "info"
         });
-        
+
         BtnAlta.disabled = false;
-        
+
         return;
     }
-    
+
     Swal.fire({
         title: 'Cargando',
         text: 'Espere un momento mientras se registra al usuario',
@@ -749,7 +791,7 @@ const darAlta = async (e) => {
             Swal.showLoading();
         }
     });
-    
+
     const formData = new FormData(formAlta);
 
     const beneficiarios = [];
@@ -806,7 +848,7 @@ const darAlta = async (e) => {
         } else {
 
             Swal.close();
-            
+
             Swal.fire({
                 title: "Error",
                 text: mensaje,
@@ -1062,14 +1104,13 @@ const obtenerDatosCorrecciones = async (e) => {
 //EVENTOS
 formAlta.addEventListener('submit', darAlta)
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const formularioContainer = document.getElementById('formulario-container');
 
     const buscarMunicipioBen = async (selectDepartamentoBen) => {
-
         const selectMunicipioBen = selectDepartamentoBen.closest('.formulario-clonable')
             .querySelector('[id^=ben_mun_nacimiento]');
-
         const DepartamentoBen = selectDepartamentoBen.value.trim();
 
         if (!DepartamentoBen) {
@@ -1088,12 +1129,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const url = `/Altas_Bajas/API/tropa/buscarMunicipioBen?municipio=${DepartamentoBen}`;
-
             const respuesta = await fetch(url);
             const data = await respuesta.json();
 
             selectMunicipioBen.innerHTML = '';
-
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
             defaultOption.textContent = 'Seleccione...';
@@ -1115,43 +1154,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         } catch (error) {
             console.error(error);
-
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
             });
-
-            // Restaurar el select de municipios a su estado inicial
             selectMunicipioBen.innerHTML = '<option value="">Seleccione...</option>';
         }
     };
 
-    // Añadir event listener para manejar cambios en departamentos de todos los formularios
     formularioContainer.addEventListener('change', function (event) {
-        // Verificar si el cambio ocurrió en un select de departamento de beneficiario
         const selectDepartamentoBen = event.target;
         if (selectDepartamentoBen.id.startsWith('ben_depto_nacimiento')) {
             buscarMunicipioBen(selectDepartamentoBen);
         }
     });
 
-    // Función para manejar la clonación de formularios
     function clonarFormularioBeneficiario(event) {
-        // Prevenir cualquier comportamiento predeterminado
         event.preventDefault();
         event.stopPropagation();
 
-        // Seleccionar el primer formulario cloneable
         const formularioOriginal = document.querySelector('.formulario-clonable');
-
-        // Clonar el formulario
         const nuevoFormulario = formularioOriginal.cloneNode(true);
 
-        // Limpiar los valores de los inputs
         const inputs = nuevoFormulario.querySelectorAll('input, select');
         inputs.forEach(input => {
-            // Limpiar valores
             if (input.type === 'text' || input.type === 'number' || input.type === 'date') {
                 input.value = '';
             }
@@ -1159,15 +1186,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.selectedIndex = 0;
             }
 
-            // Generar nuevos IDs únicos
             const originalId = input.id;
             const baseId = originalId.replace(/_\d+$/, '');
             const newId = `${baseId}_${Date.now()}`;
             input.id = newId;
-            input.name = newId;
+            input.name = baseId;
         });
 
-        // Actualizar los labels
         const labels = nuevoFormulario.querySelectorAll('label');
         labels.forEach(label => {
             const forAttribute = label.getAttribute('for');
@@ -1177,11 +1202,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Mostrar el botón de eliminar
         const quitarBtn = nuevoFormulario.querySelector('.quitar-btn');
         quitarBtn.style.display = 'flex';
 
-        // Añadir el nuevo formulario al contenedor
         formularioContainer.appendChild(nuevoFormulario);
     }
 
@@ -1191,9 +1214,18 @@ document.addEventListener('DOMContentLoaded', function () {
             clonarFormularioBeneficiario(event);
         }
     });
+
+
+    formularioContainer.addEventListener('click', function (event) {
+        if (event.target.closest('.quitar-btn')) {
+            const formulario = event.target.closest('.formulario-clonable');
+            formulario.remove();
+        }
+    });
 });
 
 inputDpi.addEventListener('change', mostrarFormularioAltas);
+
 dpiTropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
 
@@ -1353,6 +1385,178 @@ telBeneficiario.addEventListener('change', function () {
     }
 });
 
+
+const Alta_Reenganchado = async (e) => {
+
+    e.preventDefault();
+    BtnReenganchar.disabled = true;
+
+    if (!validarFormulario(formAlta, ['alta_id', 'per_nom3', 'per_ape3', 'per_zona', 'catalogo_insertar'])) {
+        Swal.fire({
+            title: "Campos vacíos",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        });
+
+        BtnReenganchar.disabled = false;
+
+        return;
+    }
+
+    Swal.fire({
+        title: 'Cargando',
+        text: 'Espere un momento mientras se registra al usuario',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    const formData = new FormData(formAlta);
+
+    const beneficiarios = [];
+
+    const beneficiariosForms = document.querySelectorAll('.formulario-clonable');
+
+    beneficiariosForms.forEach(form => {
+
+        const beneficiario = {
+            nombre: form.querySelector('[name="ben_nombre"]').value,
+            dpi: form.querySelector('[name="ben_dpi"]').value,
+            sexo: form.querySelector('[name="ben_sexo"]').value,
+            celular: form.querySelector('[name="ben_celular"]').value,
+            parentesco: form.querySelector('[name="ben_parentezco"]').value,
+            direccion: form.querySelector('[name="ben_direccion"]').value,
+            estadoCivil: form.querySelector('[name="ben_est_civil"]').value,
+            fechaNacimiento: form.querySelector('[name="ben_fec_nac"]').value,
+            departamentoNacimiento: form.querySelector('[name="ben_depto_nacimiento"]').value,
+            municipioNacimiento: form.querySelector('[name="ben_mun_nacimiento"]').value,
+            porcentaje: form.querySelector('[name="ben_porcentaje"]').value
+        };
+
+        beneficiarios.push(beneficiario);
+    });
+
+    formData.append('beneficiarios', JSON.stringify(beneficiarios));
+
+    try {
+        const url = "/Altas_Bajas/API/tropa/alta/reenganchado";
+        const config = {
+            method: 'POST',
+            body: formData
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { codigo, mensaje, detalle } = data;
+
+        if (codigo == 1) {
+
+            Swal.close();
+
+            Swal.fire({
+                title: "Éxito",
+                text: mensaje,
+                icon: "success"
+            });
+
+        } else {
+
+            Swal.close();
+
+            Swal.fire({
+                title: "Error",
+                text: mensaje,
+                icon: "error"
+            });
+            console.log(detalle);
+        }
+
+        Toast.fire({
+            icon: icon,
+            title: mensaje
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+    modalBSAltas.hide();
+    formAlta.reset();
+    BtnReenganchar.disabled = false;
+    buscar();
+
+};
+
+const DarBaja = async (e) => {
+    e.preventDefault();
+
+    BtnBaja.disabled = true
+
+    if (!validarFormulario(formBaja, [''])) {
+        Swal.fire({
+            title: "Campos vacíos",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        });
+        BtnBaja.disabled = false
+        return;
+    }
+
+    try {
+        const body = new FormData(formBaja);
+        const url = '/Altas_Bajas/API/tropa/baja';
+
+        const config = {
+            method: 'POST',
+            body
+        };
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+
+        const { codigo, mensaje } = data;
+
+        if (codigo === 1) {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: mensaje,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+
+        } else {
+            Swal.fire({
+                title: '¡Error!',
+                text: mensaje,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    modalBSBajas.hide();
+    BtnBaja.disabled = false
+    formBaja.reset();
+    buscar();
+
+}
+
 selectDepartamentoTropa.addEventListener('change', buscarMunicipio);
 selectDepartamentoResidencia.addEventListener('change', buscarMunicipioResidencia);
 selectDepartamentoNacimiento.addEventListener('change', buscarMunicipioNacimiento);
@@ -1384,11 +1588,14 @@ modalAltas.addEventListener('hidden.bs.modal', function () {
     BtnAlta.classList.add('d-none');
     BtnLimpiarAlta.classList.add('d-none');
     BtnCancelarBaja.classList.remove('d-none');
+    BtnSearchCatalogo.disabled = false;
+    document.querySelectorAll("input, select, textarea").classList.remove('is-valid', 'is-invalid');
 
 });
 
 modalAltas.addEventListener('shown.bs.modal', function () {
     establecerPrimerDiaMes();
+    BtnReenganchar.classList.add('d-none');
 });
 
 modalBajas.addEventListener('hidden.bs.modal', function () {
@@ -1408,3 +1615,8 @@ modalCorrecciones.addEventListener('hidden.bs.modal', function () {
 });
 
 buscar();
+
+
+//FUNCIONES DE BOTONES
+BtnReenganchar.addEventListener('click', Alta_Reenganchado);
+BtnBaja.addEventListener('click', DarBaja)

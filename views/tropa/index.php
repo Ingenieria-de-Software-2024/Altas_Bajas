@@ -55,15 +55,15 @@
                         <input type="hidden" name="alta_id" id="alta_id">
 
                         <div class="row justify-content-center">
-                            <div class="col-3 justify-content-center">
+                            <div class="col-lg-4 justify-content-center">
 
                                 <label for="per_catalogo"><b>Cátalogo</b></label>
                                 <div class="input-group justify-content-center mb-4">
-                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise"></i></button>
+                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise me-2"></i>Generar Catalogo</button>
                                     <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo" readonly>
-                                    <input type="hidden" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
-                                    <input type="hidden" class="form-control text-center" id="org_jerarquia" name="org_jerarquia" readonly>
-                                    <input type="hidden" class="form-control text-center" id="org_ceom" name="org_ceom" readonly>
+                                    <input type="text" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
+                                    <input type="text" class="form-control text-center" id="org_jerarquia" name="org_jerarquia" readonly>
+                                    <input type="text" class="form-control text-center" id="org_ceom" name="org_ceom" readonly>
                                 </div>
                             </div>
                         </div>
@@ -353,6 +353,7 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
                                 <button type="submit" form="formAlta" class="btn btn-warning btn-lg" id="btnDarAlta" name="btnDarAlta"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
+                                <button type="button" class="btn btn-success btn-lg" id="BtnReenganchar" name="BtnReenganchar"><i class="bi bi-person-check-fill"></i> Dar Alta</button>
                                 <button type="button" class="btn btn-primary btn-lg" id="btnLimpiarAlta" name="btnLimpiarAlta"><i class="bi bi-stars"></i> Limpiar</button>
                                 <button type="button" class="btn btn-danger btn-lg" id="btnCancelarAlta" name="btnCancelarAlta" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
                             </div>
@@ -379,13 +380,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form class="modal-body" id="formBaja" enctype="multipart/form-data">
-                        <input type="hidden" name="baja_id" id="baja_id">
 
                         <div class="row justify-content-center mb-3">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-3 justify-content-center">
                                     <label for="catalogo_baja"><b>Cátalogo</b></label>
-                                    <input type="number" name="catalogo" id="catalogo" class="form-control" readonly="">
+                                    <input type="number" name="catalogo" id="catalogo" class="form-control" readonly>
                                 </div>
                                 <div class="col justify-content-center">
                                     <label for="nombre_completo_baja"><b>Grado y Nombre</b></label>
@@ -398,7 +398,7 @@
                         <div class="row justify-content-center mb-3">
                             <div class="col justify-content-center">
                                 <label for="plaza_baja"><b>Plaza</b></label>
-                                <input type="text" name="plaza" id="plaza" class="form-control" disabled>
+                                <input type="text" name="plaza" id="plaza" class="form-control" readonly>
                             </div>
                             <div class="col justify-content-center">
                                 <label for="empleo_baja"><b>Empleo</b></label>
@@ -413,8 +413,7 @@
 
                         <div class="col justify-content-center">
                             <label for="motivo_baja"><b>Motivo</b></label>
-                            <select class="form-select form-control" name="motivo_baja" id="motivo_baja"
-                                d>
+                            <select class="form-select form-control" name="motivo_baja" id="motivo_baja">
                                 <option value="">Seleccione...</option>
                                 <?php foreach ($motivos as $opcion) : ?>
                                     <option value="<?= $opcion['sit_codigo'] ?>"><?= $opcion['sit_desc_lg'] ?></option>
