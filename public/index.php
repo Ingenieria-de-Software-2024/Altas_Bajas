@@ -34,11 +34,14 @@ $router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDat
 
 //CORRECCIONES
 $router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obtenerDatosCorrecciones']);
+$router->post('/API/tropa/modificar/datos', [TropaController::class,'ModificarDatosAPI']);
+
 
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);
 $router->get('/API/traslados/ObtenerDatosTraslados_1', [TrasladosController::class,'ObtenerDatosTraslados_1']);
 $router->get('/API/traslados/ObtenerDatosTraslados_2', [TrasladosController::class,'ObtenerDatosTraslados_2']);
+$router->post('/API/tropa/traslados', [TrasladosController::class,'TrasladoAPI']);
 
 //REPORTES
 $router->get('/reportes', [ReportesController::class,'index']);

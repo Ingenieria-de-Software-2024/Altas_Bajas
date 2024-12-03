@@ -404,7 +404,25 @@ class TropaController
         try {
             $correcciones = filter_var($_GET['catalogo'], FILTER_SANITIZE_NUMBER_INT);
 
-            $sql = "SELECT PER_CATALOGO AS CATALOGO_CORRECCIONES, PER_NOM1 AS PRIMER_NOMBRE_CORRECCIONES, PER_NOM2 AS SEGUNDO_NOMBRE_CORRECCIONES, PER_NOM3 AS TERCER_NOMBRE_CORRECCIONES, PER_APE1 AS PRIMER_APELLIDO_CORRECCIONES, PER_APE2 AS SEGUNDO_APELLIDO_CORRECCIONES, PER_APE3 AS TERCER_APELLIDO_CORRECCIONES, PER_FEC_EXT_CED AS FECH_EXT_DPI_TROPA_CORRECCIONES, DM_DESC_LG AS DEPTO_EXTENCION_DPI_CORRECCIONES, DM_DESC_LG AS MUNICIPIO_EXTENCION_DPI_CORRECCIONES, PER_DPI AS DPI_CORRECCIONES, PER_PLAZA AS PLAZA_CORRECCIONES, GRA_DESC_CT AS GRADO_CORRECCIONES, PER_DESC_EMPLEO AS EMPLEO_CORRECCIONES, PER_FEC_NOMB AS FECH_ALTA_CORRECCIONES, PER_EST_CIVIL AS ESTADO_CIVIL_CORRECCIONES, PER_SANGRE AS TIPO_SANGRE_CORRECCIONES, PER_DIRECCION AS DIRECCION_CORRECCIONES, PER_ZONA AS ZONA_CORRRECCION, DM_DESC_LG AS DEPTO_RESIDENCIA_CORRECCIONES, DM_DESC_LG AS MUNICIPIO_RESIDENCIA_CORRECCIONES, PER_TELEFONO AS TELEFONO_CORRECCIONES, PER_SEXO AS SEXO_CORRECCIONES, PER_FEC_NAC AS FECH_NAC_CORRECCIONES, DM_DESC_LG AS DEPTO_NACIMIENTO_CORRECCIONES, DM_DESC_LG AS MUNICIPIO_NACIMIENTO_CORRECCIONES, OPER_NIT AS NIT_CORRECCIONES, OPER_CORREO_PERSONAL AS CORREO_CORRECCIONES, BEN_NOMBRE AS BEN_NOMBRE_CORRECCIONES, BEN_DPI AS DPI_BEN_CORRECCIONES, BEN_SEXO AS BEN_GENERO_CORRECCIONES, BEN_CELULAR AS TEL_BEN_CORRECCIONES, BEN_PARENTESCO AS PARENTESCO_CORRECCIONES, BEN_ESTADO_CIVIL AS BEN_EST_CIVIL_CORRECCIONES, BEN_FECHA_NACIMIENTO AS BEN_FECH_NACIMIENTO_CORRECCIONES, BEN_DEPTO_NACIMIENTO AS BEN_DEPTO_NACIMIENTO_CORRECCIONES, BEN_MUN_NACIMIENTO AS BEN_MUN_NACIMIENTO_CORRECCIONES, BEN_DIRECCION AS DIRECC_BEN_CORRECCIONES, SIT_DESC_CT AS SITUACION_CORRECCIONES, BEN_SITUACION AS SITUACION_BEN_CORRECCIONES FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO INNER JOIN DEPMUN ON PER_EXT_CED_LUGAR = DM_CODIGO INNER JOIN MPER_OTROS ON PER_CATALOGO = OPER_CATALOGO INNER JOIN TROPA_BENEFICIARIOS ON PER_CATALOGO = ben_nombre WHERE PER_CATALOGO = $correcciones";
+            $sql = "SELECT PER_CATALOGO AS CATALOGO_CORRECCIONES, TRIM(PER_NOM1) AS PRIMER_NOMBRE_CORRECCIONES, TRIM(PER_NOM2) AS SEGUNDO_NOMBRE_CORRECCIONES, 
+                    TRIM(PER_NOM3) AS TERCER_NOMBRE_CORRECCIONES, TRIM(PER_APE1) AS PRIMER_APELLIDO_CORRECCIONES, TRIM(PER_APE2) AS SEGUNDO_APELLIDO_CORRECCIONES, 
+                    TRIM(PER_APE3) AS TERCER_APELLIDO_CORRECCIONES, PER_FEC_EXT_CED AS FECH_EXT_DPI_TROPA_CORRECCIONES, DM_DESC_LG AS DEPTO_EXTENCION_DPI_CORRECCIONES, 
+                    DM_DESC_LG AS MUNICIPIO_EXTENCION_DPI_CORRECCIONES, TRIM(PER_DPI) AS DPI_CORRECCIONES, PER_PLAZA AS PLAZA_CORRECCIONES, GRA_DESC_CT AS GRADO_CORRECCIONES, 
+                    TRIM(PER_DESC_EMPLEO) AS EMPLEO_CORRECCIONES, PER_FEC_NOMB AS FECH_ALTA_CORRECCIONES, TRIM(PER_EST_CIVIL) AS ESTADO_CIVIL_CORRECCIONES, 
+                    TRIM(PER_SANGRE) AS TIPO_SANGRE_CORRECCIONES, TRIM(PER_DIRECCION) AS DIRECCION_CORRECCIONES, PER_ZONA AS ZONA_CORRRECCION, 
+                    DM_DESC_LG AS DEPTO_RESIDENCIA_CORRECCIONES, DM_DESC_LG AS MUNICIPIO_RESIDENCIA_CORRECCIONES, PER_TELEFONO AS TELEFONO_CORRECCIONES, 
+                    TRIM(PER_SEXO) AS SEXO_CORRECCIONES, PER_FEC_NAC AS FECH_NAC_CORRECCIONES, DM_DESC_LG AS DEPTO_NACIMIENTO_CORRECCIONES, DM_DESC_LG AS MUNICIPIO_NACIMIENTO_CORRECCIONES, 
+                    OPER_NIT AS NIT_CORRECCIONES, TRIM(OPER_CORREO_PERSONAL) AS CORREO_CORRECCIONES, TRIM(BEN_NOMBRE) AS BEN_NOMBRE_CORRECCIONES, BEN_DPI AS DPI_BEN_CORRECCIONES, 
+                    TRIM(BEN_SEXO) AS BEN_GENERO_CORRECCIONES, BEN_CELULAR AS TEL_BEN_CORRECCIONES, BEN_PARENTESCO AS PARENTESCO_CORRECCIONES, TRIM(BEN_ESTADO_CIVIL) AS BEN_EST_CIVIL_CORRECCIONES, 
+                    BEN_FECHA_NACIMIENTO AS BEN_FECH_NACIMIENTO_CORRECCIONES, BEN_DEPTO_NACIMIENTO AS BEN_DEPTO_NACIMIENTO_CORRECCIONES, BEN_MUN_NACIMIENTO AS BEN_MUN_NACIMIENTO_CORRECCIONES, 
+                    TRIM(BEN_DIRECCION) AS DIRECC_BEN_CORRECCIONES, SIT_DESC_CT AS SITUACION_CORRECCIONES, BEN_SITUACION AS SITUACION_BEN_CORRECCIONES 
+                    FROM MPER 
+                    INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO 
+                    INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO 
+                    INNER JOIN DEPMUN ON PER_EXT_CED_LUGAR = DM_CODIGO 
+                    INNER JOIN MPER_OTROS ON PER_CATALOGO = OPER_CATALOGO 
+                    LEFT JOIN TROPA_BENEFICIARIOS ON PER_CATALOGO = BEN_CATALOGO 
+                    WHERE PER_CATALOGO = $correcciones";
 
             $data = ActiveRecord::fetchFirst($sql);
             echo json_encode([
@@ -479,7 +497,6 @@ class TropaController
 
                     $datos_oper = Tropa::find($per_catalogo);
                     $datos_oper->sincronizar([
-                        'oper_catalogo' => $per_catalogo,
                         'oper_nit' => $oper_nit,
                         'oper_correo_personal' => $oper_correo_personal,
                         'oper_desc1' => '',
@@ -548,7 +565,6 @@ class TropaController
                         ]);
 
                         $insertar_dpue = $datos_dpue->crear();
-
                         if ($insertar_dpue) {
 
                             $datos_tropa_movimientos = new TropaMovimientos([
@@ -676,6 +692,64 @@ class TropaController
             echo json_encode([
                 'codigo' => 0,
                 'mensaje' => 'Error al guardar al Soldado',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function ModificarDatosAPI()
+    {
+   
+        $catalogo = filter_var($_POST['catalogo_correcciones'], FILTER_SANITIZE_NUMBER_INT);
+        $fecha_ext_dpi = date('Y-m-d', strtotime($_POST['fech_ext_dpi_tropa_correcciones']));
+        $municipio_extension_dpi = filter_var($_POST['municipio_dpi_correcciones'], FILTER_SANITIZE_NUMBER_INT);
+        $estado_civil = htmlspecialchars($_POST['estado_civil_correcciones']);
+        $direccion = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['direccion_correcciones'], 'UTF-8'))));
+        $zona = filter_var($_POST['zona_correcciones'], FILTER_SANITIZE_NUMBER_INT);
+        $municipio_residencia = filter_var($_POST['municipio_residencia_correcciones'], FILTER_SANITIZE_NUMBER_INT);
+        $correo_electronico = filter_var($_POST['correo_correcciones'], FILTER_SANITIZE_EMAIL);
+        $telefono_correccion = filter_var($_POST['telefono_correcciones'], FILTER_SANITIZE_EMAIL);
+
+        try {
+
+            $conexion = Tropa::getDB();
+            $conexion->beginTransaction();
+
+            $datos_mper = Tropa::find($catalogo);
+            $datos_mper->sincronizar([
+                'per_fec_ext_ced' => $fecha_ext_dpi,
+                'per_ext_ced_lugar' => $municipio_extension_dpi,
+                'per_est_civil' => $estado_civil,
+                'per_direccion' => $direccion,
+                'per_zona' => $zona,
+                'per_dir_lugar' => $municipio_residencia,
+                'per_telefono' => $telefono_correccion
+            ]);
+            $datos_mper->actualizar();
+
+
+            if ($datos_mper) {
+                
+                $datos_oper = MperOtros::find($catalogo);
+                $datos_oper->sincronizar([
+                    'oper_correo_personal' => $correo_electronico,
+                ]);
+                $datos_oper->actualizar();
+            }
+            $conexion->commit();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Modificacion Exitosa',
+            ]);
+        } catch (Exception $e) {
+
+            $conexion->rollBack();
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al modificar datos',
                 'detalle' => $e->getMessage(),
             ]);
         }

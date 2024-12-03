@@ -55,15 +55,15 @@
                         <input type="hidden" name="alta_id" id="alta_id">
 
                         <div class="row justify-content-center">
-                            <div class="col-lg-4 justify-content-center">
+                            <div class="col justify-content-center">
 
-                                <label for="per_catalogo"><b>Cátalogo</b></label>
+                                <label for="per_catalogo"><b>Generar Cátalogo</b></label>
                                 <div class="input-group justify-content-center mb-4">
-                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise me-2"></i>Generar Catalogo</button>
+                                    <button class="btn btn-success" type="button" id="searchCatalogo" name="searchCatalogo"><i class="bi bi-arrow-clockwise me-2"></i></button>
                                     <input type="number" class="form-control text-center" id="per_catalogo" name="per_catalogo" readonly>
-                                    <input type="text" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
-                                    <input type="text" class="form-control text-center" id="org_jerarquia" name="org_jerarquia" readonly>
-                                    <input type="text" class="form-control text-center" id="org_ceom" name="org_ceom" readonly>
+                                    <input type="hidden" class="form-control text-center" id="catalogo_insertar" name="catalogo_insertar" readonly>
+                                    <input type="hidden" class="form-control text-center" id="org_jerarquia" name="org_jerarquia" readonly>
+                                    <input type="hidden" class="form-control text-center" id="org_ceom" name="org_ceom" readonly>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +172,6 @@
                                     <option value="A-">A-</option>
                                     <option value="B-">B-</option>
                                     <option value="O-">O-</option>
-                                    <option value="AB-">AB-</option>
                                 </select>
                             </div>
                             <div class="col justify-content-center">
@@ -452,12 +451,11 @@
                     </div>
 
                     <form class="modal-body" id="formCorrecciones" enctype="multipart/form-data">
-                        <input type="hidden" name="correcciones_id" id="correcciones_id">
 
                         <div class="row justify-content-center mb-3">
                             <div class="col-3 justify-content-center">
                                 <label for="catalogo_correcciones"><b>Cátalogo</b></label>
-                                <input type="number" name="catalogo_correcciones" id="catalogo_correcciones" class="form-control" disabled="">
+                                <input type="number" name="catalogo_correcciones" id="catalogo_correcciones" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="row justify-content mb-3 text-start">
@@ -625,96 +623,6 @@
                             <div class="col justify-content-center">
                                 <label for="correo_correcciones"><b>Correo Personal</b></label>
                                 <input type="text" name="correo_correcciones" id="correo_correcciones" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row justify-content mb-3 text-start">
-                            <div class="col justify-content text-start">
-                                <h3><u><b>DATOS BENEFICIARIO</b></u></h3>
-                            </div>
-                        </div>
-                        <hr>
-
-                        <div class="row justify-content-center mb-3">
-                            <div class="col justify-content-center">
-                                <label for="ben_nombre_correcciones"><b>Nombre Completo</b></label>
-                                <input type="text" name="ben_nombre_correcciones" id="ben_nombre_correcciones" class="form-control">
-                            </div>
-                            <div class="col-3 justify-content-center">
-                                <label for="dpi_ben_correcciones"><b>DPI Beneficiario</b></label>
-                                <input type="text" name="dpi_ben_correcciones" id="dpi_ben_correcciones" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center mb-3">
-                            <div class="col justify-content-center">
-                                <label for="direcc_ben_correcciones"><b>Dirección</b></label>
-                                <input type="text" name="direcc_ben_correcciones" id="direcc_ben_correcciones" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center mb-3">
-                            <div class="col justify-content-center">
-                                <label for="ben_genero_correcciones"><b>Sexo</b></label>
-                                <select class="form-select" name="ben_genero_correcciones" id="ben_genero_correcciones" class="form-control">
-                                    <option selected>Seleccione...</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="tel_ben_correcciones"><b>Telefono</b></label>
-                                <input type="text" name="tel_ben_correcciones" id="tel_ben_correcciones" class="form-control">
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="parentesco_correcciones"><b>Parentesco</b></label>
-                                <select class="form-select form-control" name="parentesco_correcciones" id="parentesco_correcciones">
-                                    <option Selected>Seleccione...</option>
-                                    <?php foreach ($parentescos as $opciones) : ?>
-                                        <option value="<?= $opciones['par_codigo'] ?>"><?= $opciones['par_desc_md'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_est_civil_correcciones"><b>Estado Civil</b></label>
-                                <select class="form-select" name="ben_est_civil_correcciones" id="ben_est_civil_correcciones" class="form-control">
-                                    <option selected>Seleccione...</option>
-                                    <option value="C">Casado</option>
-                                    <option value="S">Soltero</option>
-                                    <option value="D">Divorciado</option>
-                                    <option value="V">Viudo</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center mb-3">
-                            <div class="col-2 justify-content-center">
-                                <label for="ben_fech_nacimiento_correcciones"><b>Fecha de Nacimiento</b></label>
-                                <input type="date" name="ben_fech_nacimiento_correcciones" id="ben_fech_nacimiento_correcciones" class="form-control">
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_depto_nacimiento_correcciones"><b>Depto. de Nacimiento</b></label>
-                                <select class="form-select" name="ben_depto_nacimiento_correcciones" id="ben_depto_nacimiento_correcciones" class="form-control">
-                                    <option value="">Seleccione...</option>
-                                    <?php foreach ($departamentos as $opciones) : ?>
-                                        <option value="<?= $opciones['dm_codigo'] ?>"><?= $opciones['departamentos'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <div class="col justify-content-center">
-                                <label for="ben_mun_nacimiento_correcciones"><b>Municipio de Nacimiento</b></label>
-                                <select class="form-select" name="ben_mun_nacimiento_correcciones" id="ben_mun_nacimiento_correcciones" class="form-control">
-                                    <option value="">Seleccione...</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center mb-3">
-                            <div class="col justify-content-center">
-                                <input type="hidden" name="situacion_correcciones" id="situacion_correcciones" class="form-control">
-                            </div>
-                            <div class="col-3 justify-content-center">
-                                <input type="hidden" name="situacion_ben_correcciones" id="situacion_ben_correcciones" class="form-control">
                             </div>
                         </div>
 

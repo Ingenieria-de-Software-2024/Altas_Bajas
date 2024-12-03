@@ -10,8 +10,6 @@
                 <div class="row justify-content-center bg">
 
                     <form id="formTraslados">
-                        <input type="hidden" name="traslados_id" id="traslados_id">
-
 
                         <div class="row justify-content-center text-center">
                             <div class="row justify-content-center bg">
@@ -25,7 +23,7 @@
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
-                                            <label for="catalogo_1"><b>Cátalogo</b></label>
+                                            <label for="catalogo_1"><b>Cátalogo Usuario 1</b></label>
                                             <div class="input-group justify-content-center mb-4">
                                                 <input type="number" class="form-control text-center" id="catalogo_1" name="catalogo_1">
                                                 <button class="btn btn-primary" type="button" id="BtnSearch_1" name="BtnSearch_1" require><i class="bi bi-search"></i></button>
@@ -43,7 +41,9 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="grado_1"><b>Grado</b></label>
-                                            <input type="text" name="grado_1" id="grado_1" class="form-control" disabled>
+                                            <input type="text" name="grado_1" id="grado_1" class="form-control" readonly>
+                                            <input type="hidden" name="per_grado_1" id="per_grado_1" class="form-control" readonly>
+
                                         </div>
 
                                         <div class="col justify-content-center">
@@ -79,6 +79,7 @@
                                     <div class="row justify-content-center mt-5">
                                         <div class="col justify-content-center">
                                             <button type="button" class="btn btn-success btn-lg p-3"
+                                                id="BtnTrasladar"
                                                 name="btnTrasladar"><i class="bi bi-arrow-left-right"></i>
                                                 <p>Trasladar</p>
                                             </button>
@@ -95,7 +96,7 @@
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
-                                            <label for="catalogo_2"><b>Cátalogo</b></label>
+                                            <label for="catalogo_2"><b>Cátalogo Usuario 2</b></label>
                                             <div class="input-group justify-content-center mb-4">
                                                 <input type="number" class="form-control text-center" id="catalogo_2" name="catalogo_2">
                                                 <button class="btn btn-primary" type="button" id="BtnSearch_2" name="BtnSearch_2" require><i class="bi bi-search"></i></button>
@@ -113,7 +114,8 @@
                                     <div class="row justify-content-center mb-3">
                                         <div class="col justify-content-center">
                                             <label for="grado_2"><b>Grado</b></label>
-                                            <input type="text" name="grado_2" id="grado_2" class="form-control" disabled>
+                                            <input type="text" name="grado_2" id="grado_2" class="form-control" readonly>
+                                            <input type="hidden" name="per_grado_2" id="per_grado_2" class="form-control" readonly>
                                         </div>
 
                                         <div class="col justify-content-center">
@@ -141,7 +143,7 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
 
-                                <button type="button" class="btn btn-danger btn-lg" name="btnCancelarTraslados" ><i class="bi bi-stars"></i> Cancelar</button>
+                                <button type="reset" form="formTraslados" class="btn btn-danger btn-lg" name="btnCancelarTraslados" ><i class="bi bi-stars"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

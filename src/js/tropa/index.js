@@ -14,6 +14,8 @@ const modalBSAltas = new Modal(modalElementAltas)
 const modalElementosBaja = document.querySelector('#modalBajas');
 const modalBSBajas = new Modal(modalElementosBaja);
 const modalBajas = document.getElementById('modalBajas');
+const ModalElementsModificar = document.querySelector('#modalCorrecciones');
+const modalBsModificar = new Modal(ModalElementsModificar);
 const modalCorrecciones = document.getElementById('modalCorrecciones');
 
 const formAlta = document.getElementById('formAlta');
@@ -47,6 +49,13 @@ const selectDepartamentoNacimiento = document.getElementById('per_departamento_n
 const selectMunicipioNacimiento = document.getElementById('per_nac_lugar');
 const selectDepartamentoBen = document.getElementById('ben_depto_nacimiento');
 const selectMunicipioBen = document.getElementById('ben_mun_nacimiento');
+
+const SelectDepartamentoDpiCorrecion = document.getElementById('depto_dpi_correcciones')
+const SelectMunicipioDpiCorrecion = document.getElementById('municipio_dpi_correcciones')
+const SelectDepartamentoRisidenciaCorreccion = document.getElementById('depto_residencia_correcciones')
+const SelectMunicipioResidenciaCorrecion = document.getElementById('municipio_residencia_correcciones')
+
+
 //BOTONES ALTAS
 const BtnSearchVerificar = document.getElementById('searchVerificar');
 const BtnSearchCatalogo = document.getElementById('searchCatalogo');
@@ -86,20 +95,8 @@ const inputdepto_nacimiento_correcciones = document.getElementById('depto_nacimi
 const inputmunicipio_nacimiento_correcciones = document.getElementById('municipio_nacimiento_correcciones');
 const inputnit_correcciones = document.getElementById('nit_correcciones');
 const inputcorreo_correcciones = document.getElementById('correo_correcciones');
-//DATOS BENEFICIARIO
-const inputben_nombre_correcciones = document.getElementById('ben_nombre_correcciones');
-const inputdpi_ben_correcciones = document.getElementById('dpi_ben_correcciones');
-const inputben_genero_correcciones = document.getElementById('ben_genero_correcciones');
-const inputtel_ben_correcciones = document.getElementById('tel_ben_correcciones');
-const inputparentesco_correcciones = document.getElementById('parentesco_correcciones');
-const inputben_est_civil_correcciones = document.getElementById('ben_est_civil_correcciones');
-const inputben_fech_nacimiento_correcciones = document.getElementById('ben_fech_nacimiento_correcciones');
-const inputben_depto_nacimiento_correcciones = document.getElementById('ben_depto_nacimiento_correcciones');
-const inputben_mun_nacimiento_correcciones = document.getElementById('ben_mun_nacimiento_correcciones');
-const inputdirecc_ben_correcciones = document.getElementById('direcc_ben_correcciones');
-//SITUACIONES CORRECCIONES
-const inputsituacion_correcciones = document.getElementById('situacion_correcciones');
-const inputsituacion_ben_correcciones = document.getElementById('situacion_ben_correcciones');
+
+
 //BOTONES CORRECCIONES
 const BtnModificar = document.getElementById('btnCorregir');
 const BtnCancelarCorrecciones = document.getElementById('btnCancelarCorrecciones');
@@ -580,6 +577,118 @@ const buscarMunicipioBen = async () => {
     }
 };
 
+const MunicipioDpiCoreccion = async () => {
+
+    const DepartamentoResidencia = SelectDepartamentoDpiCorrecion.value.trim();
+
+    try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipioResidencia?municipio=${DepartamentoResidencia}`;
+        const config = {
+            method: 'GET',
+        };
+
+        const respuesta = await fetch(url);
+
+        const data = await respuesta.json();
+
+        SelectMunicipioDpiCorrecion.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        SelectMunicipioDpiCorrecion.appendChild(defaultOption);
+
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
+                const option = document.createElement('option');
+                option.value = municipio.dm_codigo;
+                option.textContent = municipio.dm_desc_lg.trim();
+                SelectMunicipioDpiCorrecion.appendChild(option);
+            });
+        } else {
+            console.error('La respuesta no es válida:', data);
+        }
+
+        Swal.close();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
+    }
+};
+
+const MunicipioResidenciaCoreccion = async () => {
+
+    const DepartamentoResidencia = SelectDepartamentoRisidenciaCorreccion.value.trim();
+
+    try {
+
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Por favor, espera mientras se cargan los municipios.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const url = `/Altas_Bajas/API/tropa/buscarMunicipioResidencia?municipio=${DepartamentoResidencia}`;
+        const config = {
+            method: 'GET',
+        };
+
+        const respuesta = await fetch(url);
+
+        const data = await respuesta.json();
+
+        SelectMunicipioResidenciaCorrecion.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Seleccione...';
+        SelectMunicipioResidenciaCorrecion.appendChild(defaultOption);
+
+        if (Array.isArray(data)) {
+            data.slice(1).forEach((municipio) => {
+                const option = document.createElement('option');
+                option.value = municipio.dm_codigo;
+                option.textContent = municipio.dm_desc_lg.trim();
+                SelectMunicipioResidenciaCorrecion.appendChild(option);
+            });
+        } else {
+            console.error('La respuesta no es válida:', data);
+        }
+
+        Swal.close();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los municipios. Inténtalo nuevamente.',
+        });
+    }
+};
+
 const generarCatalogo = async () => {
 
 
@@ -949,6 +1058,7 @@ const ObtenerDatosBajas = async (e) => {
 const obtenerDatosCorrecciones = async (e) => {
 
     const correcciones = e.currentTarget.dataset.catalogo;
+    BtnModificar.classList.remove('d-none');
 
     Swal.fire({
         title: 'Cargando',
@@ -979,52 +1089,36 @@ const obtenerDatosCorrecciones = async (e) => {
         if (codigo === 1) {
 
             //DATOS PERSONALES
-            inputcatalogo_correcciones.value = `${datos.catalogo_correcciones}`;
-            inputprimer_nombre_correcciones.value = `${datos.primer_nombre_correcciones}`;
-            inputsegundo_nombre_correcciones.value = `${datos.segundo_nombre_correcciones}`;
-            inputtercer_nombre_correcciones.value = `${datos.tercer_nombre_correcciones}`;
-            inputprimer_apellido_correcciones.value = `${datos.primer_apellido_correcciones}`;
-            inputsegundo_apellido_correcciones.value = `${datos.segundo_apellido_correcciones}`;
-            inputtercer_apellido_correcciones.value = `${datos.tercer_apellido_correcciones}`;
-            inputdpi_correcciones.value = `${datos.dpi_correcciones}`;
-            inputfech_ext_dpi_tropa_correcciones.value = `${datos.fech_ext_dpi_tropa_correcciones}`;
-            inputdepto_dpi_correcciones.value = `${datos.depto_dpi_correcciones}`;
-            inputmunicipio_dpi_correcciones.value = `${datos.municipio_dpi_correcciones}`;
-            inputplaza_correcciones.value = `${datos.plaza_correcciones}`;
-            inputgrado_correcciones.value = `${datos.grado_correcciones}`;
-            inputempleo_correcciones.value = `${datos.empleo_correcciones}`;
-            inputfech_alta_correcciones.value = `${datos.fech_alta_correcciones}`;
+            inputcatalogo_correcciones.value = `${datos.catalogo_correcciones}` || '';
+            inputprimer_nombre_correcciones.value = `${datos.primer_nombre_correcciones}` || '';
+            inputsegundo_nombre_correcciones.value = `${datos.segundo_nombre_correcciones}` || '';
+            inputtercer_nombre_correcciones.value = `${datos.tercer_nombre_correcciones}` || '';
+            inputprimer_apellido_correcciones.value = `${datos.primer_apellido_correcciones}` || '';
+            inputsegundo_apellido_correcciones.value = `${datos.segundo_apellido_correcciones}` || '';
+            inputtercer_apellido_correcciones.value = `${datos.tercer_apellido_correcciones}` || '';
+            inputdpi_correcciones.value = `${datos.dpi_correcciones}` || '';
+            inputfech_ext_dpi_tropa_correcciones.value = `${datos.fech_ext_dpi_tropa_correcciones}` || '';
+            inputdepto_dpi_correcciones.value = `${datos.depto_dpi_correcciones}` || '';
+            inputmunicipio_dpi_correcciones.value = `${datos.municipio_dpi_correcciones}` || '';
+            inputplaza_correcciones.value = `${datos.plaza_correcciones}` || '';
+            inputgrado_correcciones.value = `${datos.grado_correcciones}` || '';
+            inputempleo_correcciones.value = `${datos.empleo_correcciones}` || '';
+            inputfech_alta_correcciones.value = `${datos.fech_alta_correcciones}` || '';
 
             //DATOS GENERALES
-            inputestado_civil_correcciones.value = `${datos.estado_civil_correcciones}`;
-            inputtipo_sangre_correcciones.value = `${datos.tipo_sangre_correcciones}`;
-            inputdireccion_correcciones.value = `${datos.direccion_correcciones}`;
-            inputzona_correcciones.value = `${datos.zona_correcciones}`;
-            inputdepto_residencia_correcciones.value = `${datos.depto_residencia_correcciones}`;
-            inputmunicipio_residencia_correcciones.value = `${datos.municipio_residencia_correcciones}`;
-            inputtelefono_correcciones.value = `${datos.telefono_correcciones}`;
-            inputsexo_correcciones.value = `${datos.sexo_correcciones}`;
-            inputfech_nac_correcciones.value = `${datos.fech_nac_correcciones}`;
-            inputdepto_nacimiento_correcciones.value = `${datos.depto_nacimiento_correcciones}`;
-            inputmunicipio_nacimiento_correcciones.value = `${datos.municipio_nacimiento_correcciones}`;
-            inputnit_correcciones.value = `${datos.nit_correcciones}`;
-            inputcorreo_correcciones.value = `${datos.correo_correcciones}`;
-
-            //DATOS BENEFICIARIO
-            inputben_nombre_correcciones.value = `${datos.ben_nombre_correcciones}`;
-            inputdpi_ben_correcciones.value = `${datos.dpi_ben_correcciones}`;
-            inputben_genero_correcciones.value = `${datos.ben_genero_correcciones}`;
-            inputtel_ben_correcciones.value = `${datos.tel_ben_correcciones}`;
-            inputparentesco_correcciones.value = `${datos.parentesco_correcciones}`;
-            inputben_est_civil_correcciones.value = `${datos.ben_est_civil_correcciones}`;
-            inputben_fech_nacimiento_correcciones.value = `${datos.ben_fech_nacimiento_correcciones}`;
-            inputben_depto_nacimiento_correcciones.value = `${datos.ben_depto_nacimiento_correcciones}`;
-            inputben_mun_nacimiento_correcciones.value = `${datos.ben_mun_nacimiento_correcciones}`;
-            inputdirecc_ben_correcciones.value = `${datos.direcc_ben_correcciones}`;
-
-            //SITUACIONES
-            inputsituacion_correcciones.value = `${datos.situacion_correcciones}`;
-            inputsituacion_ben_correcciones.value = `${datos.situacion_ben_correcciones}`;
+            inputestado_civil_correcciones.value = `${datos.estado_civil_correcciones}` || '';
+            inputtipo_sangre_correcciones.value = `${datos.tipo_sangre_correcciones}` || '';
+            inputdireccion_correcciones.value = `${datos.direccion_correcciones}` || '';
+            inputzona_correcciones.value = `${datos.zona_corrreccion}` || '';
+            inputdepto_residencia_correcciones.value = `${datos.depto_residencia_correcciones}` || '';
+            inputmunicipio_residencia_correcciones.value = `${datos.municipio_residencia_correcciones}` || '';
+            inputtelefono_correcciones.value = `${datos.telefono_correcciones}` || '';
+            inputsexo_correcciones.value = `${datos.sexo_correcciones}` || '';
+            inputfech_nac_correcciones.value = `${datos.fech_nac_correcciones}` || '';
+            inputdepto_nacimiento_correcciones.value = `${datos.depto_nacimiento_correcciones}` || '';
+            inputmunicipio_nacimiento_correcciones.value = `${datos.municipio_nacimiento_correcciones}` || '';
+            inputnit_correcciones.value = `${datos.nit_correcciones}` || '';
+            inputcorreo_correcciones.value = `${datos.correo_correcciones}` || '';
 
             formCorrrecciones.classList.remove('d-none');
 
@@ -1063,22 +1157,6 @@ const obtenerDatosCorrecciones = async (e) => {
             inputnit_correcciones.value = '';
             inputcorreo_correcciones.value = '';
 
-            //DATOS BENEFICIARIO
-            inputben_nombre_correcciones.value = '';
-            inputdpi_ben_correcciones.value = '';
-            inputben_genero_correcciones.value = '';
-            inputtel_ben_correcciones.value = '';
-            inputparentesco_correcciones.value = '';
-            inputben_est_civil_correcciones.value = '';
-            inputben_fech_nacimiento_correcciones.value = '';
-            inputben_depto_nacimiento_correcciones.value = '';
-            inputben_mun_nacimiento_correcciones.value = '';
-            inputdirecc_ben_correcciones.value = '';
-
-            //SITUAICONES
-            inputsituacion_correcciones.value = '';
-            inputsituacion_ben_correcciones.value = '';
-
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -1101,23 +1179,21 @@ const obtenerDatosCorrecciones = async (e) => {
 };
 
 
-//EVENTOS
-formAlta.addEventListener('submit', darAlta)
 
 
 document.addEventListener('DOMContentLoaded', function () {
     const formularioContainer = document.getElementById('formulario-container');
-
+    
     const buscarMunicipioBen = async (selectDepartamentoBen) => {
         const selectMunicipioBen = selectDepartamentoBen.closest('.formulario-clonable')
-            .querySelector('[id^=ben_mun_nacimiento]');
+        .querySelector('[id^=ben_mun_nacimiento]');
         const DepartamentoBen = selectDepartamentoBen.value.trim();
-
+        
         if (!DepartamentoBen) {
             selectMunicipioBen.innerHTML = '<option value="">Seleccione...</option>';
             return;
         }
-
+        
         try {
             Swal.fire({
                 title: 'Cargando...',
@@ -1127,17 +1203,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     Swal.showLoading();
                 }
             });
-
+            
             const url = `/Altas_Bajas/API/tropa/buscarMunicipioBen?municipio=${DepartamentoBen}`;
             const respuesta = await fetch(url);
             const data = await respuesta.json();
-
+            
             selectMunicipioBen.innerHTML = '';
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
             defaultOption.textContent = 'Seleccione...';
             selectMunicipioBen.appendChild(defaultOption);
-
+            
             if (Array.isArray(data)) {
                 data.slice(1).forEach((municipio) => {
                     const option = document.createElement('option');
@@ -1149,9 +1225,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('La respuesta no es válida:', data);
                 selectMunicipioBen.innerHTML = '<option value="">Sin municipios</option>';
             }
-
+            
             Swal.close();
-
+            
         } catch (error) {
             console.error(error);
             Swal.fire({
@@ -1169,14 +1245,14 @@ document.addEventListener('DOMContentLoaded', function () {
             buscarMunicipioBen(selectDepartamentoBen);
         }
     });
-
+    
     function clonarFormularioBeneficiario(event) {
         event.preventDefault();
         event.stopPropagation();
-
+        
         const formularioOriginal = document.querySelector('.formulario-clonable');
         const nuevoFormulario = formularioOriginal.cloneNode(true);
-
+        
         const inputs = nuevoFormulario.querySelectorAll('input, select');
         inputs.forEach(input => {
             if (input.type === 'text' || input.type === 'number' || input.type === 'date') {
@@ -1185,14 +1261,14 @@ document.addEventListener('DOMContentLoaded', function () {
             if (input.tagName === 'SELECT') {
                 input.selectedIndex = 0;
             }
-
+            
             const originalId = input.id;
             const baseId = originalId.replace(/_\d+$/, '');
             const newId = `${baseId}_${Date.now()}`;
             input.id = newId;
             input.name = baseId;
         });
-
+        
         const labels = nuevoFormulario.querySelectorAll('label');
         labels.forEach(label => {
             const forAttribute = label.getAttribute('for');
@@ -1201,21 +1277,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 label.setAttribute('for', `${baseFor}_${Date.now()}`);
             }
         });
-
+        
         const quitarBtn = nuevoFormulario.querySelector('.quitar-btn');
         quitarBtn.style.display = 'flex';
-
+        
         formularioContainer.appendChild(nuevoFormulario);
     }
-
+    
     // Añadir evento al botón de agregar formulario usando delegación de eventos
     document.addEventListener('click', function (event) {
         if (event.target.closest('#agregar-form')) {
             clonarFormularioBeneficiario(event);
         }
     });
-
-
+    
+    
     formularioContainer.addEventListener('click', function (event) {
         if (event.target.closest('.quitar-btn')) {
             const formulario = event.target.closest('.formulario-clonable');
@@ -1224,35 +1300,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-inputDpi.addEventListener('change', mostrarFormularioAltas);
 
 dpiTropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
-
+    
     if (inputValue == "") {
-
+        
         dpiTropa.classList.remove('is-valid');
         dpiTropa.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
-
+    
     this.value = cleanedValue;
-
+    
     if (cuiIsValid(cleanedValue)) {
-
+        
         dpiTropa.classList.add('is-valid');
         dpiTropa.classList.remove('is-invalid');
-
+        
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'DPI no válido',
             text: 'El DPI ingresado no cumple con los requisitos.',
         });
-
+        
         dpiTropa.classList.remove('is-valid');
         dpiTropa.classList.add('is-invalid');
     }
@@ -1260,32 +1335,32 @@ dpiTropa.addEventListener('change', function () {
 
 dpiBeneficiario.addEventListener('change', function () {
     const inputValue = this.value.trim();
-
+    
     if (inputValue == "") {
-
+        
         dpiBeneficiario.classList.remove('is-valid');
         dpiBeneficiario.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9\s]/g, '');
-
+    
     this.value = cleanedValue;
-
+    
     if (cuiIsValid(cleanedValue)) {
-
+        
         dpiBeneficiario.classList.add('is-valid');
         dpiBeneficiario.classList.remove('is-invalid');
-
+        
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'DPI no válido',
             text: 'El DPI ingresado no cumple con los requisitos.',
         });
         this.value = '';
-
+        
         dpiBeneficiario.classList.remove('is-valid');
         dpiBeneficiario.classList.add('is-invalid');
     }
@@ -1293,28 +1368,28 @@ dpiBeneficiario.addEventListener('change', function () {
 
 nitTropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
-
+    
     if (inputValue === "") {
         nitTropa.classList.remove('is-valid');
         nitTropa.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9kK-]/g, '');
-
+    
     this.value = cleanedValue;
-
+    
     if (nitIsValid(cleanedValue)) {
         nitTropa.classList.add('is-valid');
         nitTropa.classList.remove('is-invalid');
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'NIT no válido',
             text: 'El NIT ingresado no cumple con los requisitos.',
         });
-
+        
         this.value = '';
         nitTropa.classList.remove('is-valid');
         nitTropa.classList.add('is-invalid');
@@ -1323,29 +1398,29 @@ nitTropa.addEventListener('change', function () {
 
 teltropa.addEventListener('change', function () {
     const inputValue = this.value.trim();
-
+    
     if (inputValue === "") {
         teltropa.classList.remove('is-valid');
         teltropa.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9]/g, '');
     this.value = cleanedValue;
-
+    
     if (validarTelefono(cleanedValue)) {
-
+        
         teltropa.classList.add('is-valid');
         teltropa.classList.remove('is-invalid');
-
+        
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'Teléfono no válido',
             text: 'El número ingresado no es válido.',
         });
-
+        
         this.value = '';
         teltropa.classList.remove('is-valid');
         teltropa.classList.add('is-invalid');
@@ -1354,31 +1429,31 @@ teltropa.addEventListener('change', function () {
 
 telBeneficiario.addEventListener('change', function () {
     const inputValue = this.value.trim();
-
+    
     if (inputValue === "") {
         telBeneficiario.classList.remove('is-valid');
         telBeneficiario.classList.remove('is-invalid');
         return;
     }
-
+    
     const cleanedValue = inputValue.replace(/[^0-9]/g, '');
-
+    
     this.value = cleanedValue;
-
+    
     if (validarTelefono(cleanedValue)) {
-
+        
         telBeneficiario.classList.add('is-valid');
         telBeneficiario.classList.remove('is-invalid');
-
-
+        
+        
     } else {
-
+        
         Swal.fire({
             icon: 'error',
             title: 'Teléfono no válido',
             text: 'El número ingresado no es válido.',
         });
-
+        
         this.value = '';
         telBeneficiario.classList.remove('is-valid');
         telBeneficiario.classList.add('is-invalid');
@@ -1387,22 +1462,22 @@ telBeneficiario.addEventListener('change', function () {
 
 
 const Alta_Reenganchado = async (e) => {
-
+    
     e.preventDefault();
     BtnReenganchar.disabled = true;
-
+    
     if (!validarFormulario(formAlta, ['alta_id', 'per_nom3', 'per_ape3', 'per_zona', 'catalogo_insertar'])) {
         Swal.fire({
             title: "Campos vacíos",
             text: "Debe llenar todos los campos",
             icon: "info"
         });
-
+        
         BtnReenganchar.disabled = false;
-
+        
         return;
     }
-
+    
     Swal.fire({
         title: 'Cargando',
         text: 'Espere un momento mientras se registra al usuario',
@@ -1411,15 +1486,15 @@ const Alta_Reenganchado = async (e) => {
             Swal.showLoading();
         }
     });
-
+    
     const formData = new FormData(formAlta);
-
+    
     const beneficiarios = [];
-
+    
     const beneficiariosForms = document.querySelectorAll('.formulario-clonable');
-
+    
     beneficiariosForms.forEach(form => {
-
+        
         const beneficiario = {
             nombre: form.querySelector('[name="ben_nombre"]').value,
             dpi: form.querySelector('[name="ben_dpi"]').value,
@@ -1433,37 +1508,37 @@ const Alta_Reenganchado = async (e) => {
             municipioNacimiento: form.querySelector('[name="ben_mun_nacimiento"]').value,
             porcentaje: form.querySelector('[name="ben_porcentaje"]').value
         };
-
+        
         beneficiarios.push(beneficiario);
     });
-
+    
     formData.append('beneficiarios', JSON.stringify(beneficiarios));
-
+    
     try {
         const url = "/Altas_Bajas/API/tropa/alta/reenganchado";
         const config = {
             method: 'POST',
             body: formData
         };
-
+        
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle } = data;
-
+        
         if (codigo == 1) {
-
+            
             Swal.close();
-
+            
             Swal.fire({
                 title: "Éxito",
                 text: mensaje,
                 icon: "success"
             });
-
+            
         } else {
-
+            
             Swal.close();
-
+            
             Swal.fire({
                 title: "Error",
                 text: mensaje,
@@ -1471,28 +1546,28 @@ const Alta_Reenganchado = async (e) => {
             });
             console.log(detalle);
         }
-
+        
         Toast.fire({
             icon: icon,
             title: mensaje
         });
-
+        
     } catch (error) {
         console.log(error);
     }
-
+    
     modalBSAltas.hide();
     formAlta.reset();
     BtnReenganchar.disabled = false;
     buscar();
-
+    
 };
 
 const DarBaja = async (e) => {
     e.preventDefault();
-
+    
     BtnBaja.disabled = true
-
+    
     if (!validarFormulario(formBaja, [''])) {
         Swal.fire({
             title: "Campos vacíos",
@@ -1502,21 +1577,21 @@ const DarBaja = async (e) => {
         BtnBaja.disabled = false
         return;
     }
-
+    
     try {
         const body = new FormData(formBaja);
         const url = '/Altas_Bajas/API/tropa/baja';
-
+        
         const config = {
             method: 'POST',
             body
         };
-
+        
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-
+        
         const { codigo, mensaje } = data;
-
+        
         if (codigo === 1) {
             Swal.fire({
                 title: '¡Éxito!',
@@ -1531,7 +1606,7 @@ const DarBaja = async (e) => {
                     text: 'custom-text-class'
                 }
             });
-
+            
         } else {
             Swal.fire({
                 title: '¡Error!',
@@ -1554,33 +1629,91 @@ const DarBaja = async (e) => {
     BtnBaja.disabled = false
     formBaja.reset();
     buscar();
-
+    
 }
 
-selectDepartamentoTropa.addEventListener('change', buscarMunicipio);
-selectDepartamentoResidencia.addEventListener('change', buscarMunicipioResidencia);
-selectDepartamentoNacimiento.addEventListener('change', buscarMunicipioNacimiento);
-selectDepartamentoBen.addEventListener('change', buscarMunicipioBen);
+const ModificarDatos = async (e) => {
+    e.preventDefault();
+    
+    BtnModificar.disabled = true
+    
+    if (!validarFormulario(formCorrrecciones, ['tercer_apellido_correcciones', 'tercer_nombre_correcciones', 'zona_correcciones'])) {
+        Swal.fire({
+            title: "Campos vacíos",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        });
+        BtnModificar.disabled = false
+        return;
+    }
+    
+    try {
+        const body = new FormData(formCorrrecciones);
+        const url = '/Altas_Bajas/API/tropa/modificar/datos';
+        
+        const config = {
+            method: 'POST',
+            body
+        };
+        
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { codigo, mensaje } = data;
+        
+        if (codigo === 1) {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: mensaje,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+            
+        } else {
+            Swal.fire({
+                title: '¡Error!',
+                text: mensaje,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    modalBsModificar.hide();
+    BtnModificar.disabled = false
+    formCorrrecciones.reset();
+    buscar();
+    
+}
 
-datatable.on('click', '.alta', ObtenerDatosPlaza);
-datatable.on('click', '.baja', ObtenerDatosBajas);
-datatable.on('click', '.correcciones', obtenerDatosCorrecciones);
 
-BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas);
-BtnSearchCatalogo.addEventListener('click', generarCatalogo);
 BtnLimpiarAlta.addEventListener('click', function () {
-
+    
     formVerificar.reset();
     formAlta.reset();
     formVerificar.classList.add('d-none');
     BtnAlta.classList.remove('d-none');
     BtnLimpiarAlta.classList.remove('d-none');
     BtnCancelarAlta.classList.add('none');
-
+    
 });
 
 modalAltas.addEventListener('hidden.bs.modal', function () {
-
+    
     formVerificar.reset();
     formAlta.reset();
     formVerificar.classList.remove('d-none');
@@ -1590,7 +1723,7 @@ modalAltas.addEventListener('hidden.bs.modal', function () {
     BtnCancelarBaja.classList.remove('d-none');
     BtnSearchCatalogo.disabled = false;
     document.querySelectorAll("input, select, textarea").classList.remove('is-valid', 'is-invalid');
-
+    
 });
 
 modalAltas.addEventListener('shown.bs.modal', function () {
@@ -1599,24 +1732,43 @@ modalAltas.addEventListener('shown.bs.modal', function () {
 });
 
 modalBajas.addEventListener('hidden.bs.modal', function () {
-
+    
     formBaja.reset();
     BtnBaja.classList.add('d-none');
     BtnCancelarBaja.classList.remove('d-none');
-
+    
 });
 
 modalCorrecciones.addEventListener('hidden.bs.modal', function () {
-
+    
     formCorrrecciones.reset();
     BtnModificar.classList.add('d-none');
     BtnCancelarCorrecciones.classList.remove('d-none');
-
+    
 });
 
 buscar();
 
 
+
+selectDepartamentoTropa.addEventListener('change', buscarMunicipio);
+selectDepartamentoResidencia.addEventListener('change', buscarMunicipioResidencia);
+selectDepartamentoNacimiento.addEventListener('change', buscarMunicipioNacimiento);
+selectDepartamentoBen.addEventListener('change', buscarMunicipioBen);
+
+SelectDepartamentoDpiCorrecion.addEventListener('change',MunicipioDpiCoreccion);
+SelectDepartamentoRisidenciaCorreccion.addEventListener('change', MunicipioResidenciaCoreccion);
+
+datatable.on('click', '.alta', ObtenerDatosPlaza);
+datatable.on('click', '.baja', ObtenerDatosBajas);
+
+datatable.on('click', '.correcciones', obtenerDatosCorrecciones);
+BtnSearchVerificar.addEventListener('click', mostrarFormularioAltas);
 //FUNCIONES DE BOTONES
 BtnReenganchar.addEventListener('click', Alta_Reenganchado);
 BtnBaja.addEventListener('click', DarBaja)
+BtnModificar.addEventListener('click', ModificarDatos)
+BtnSearchCatalogo.addEventListener('click', generarCatalogo);
+inputDpi.addEventListener('change', mostrarFormularioAltas);
+//EVENTOS
+formAlta.addEventListener('submit', darAlta)

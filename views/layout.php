@@ -70,7 +70,15 @@
 
                 </ul>
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
-                    <a href="/menu/" class="btn btn-danger"><i class="bi bi-door-open-fill"></i> Salir</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="./documents/manual.pdf" class="text-light"><i class="bi bi-question-circle-fill" style="font-size: 45px;"></i></a>
+                        </div>
+                        <div class="col">
+                            <a href="/menu/" class="btn btn-danger"><i class="bi bi-door-open-fill"></i> Salir</a>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

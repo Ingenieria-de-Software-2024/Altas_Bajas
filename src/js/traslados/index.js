@@ -20,10 +20,16 @@ const inputEmpleo_2 = document.getElementById('empleo_2');
 const BtnSearch1 = document.getElementById('BtnSearch_1');
 const BtnSearch2 = document.getElementById('BtnSearch_2');
 
+const BtnTrasladar = document.getElementById('BtnTrasladar');
+
 formTraslados.classList.add('none');
 
 const ObtenerDatosTraslados_1 = async () => {
 
+    if(VerificarCatalogos()){
+        return
+    }
+    
     const catalogo = inputCatalogo_1.value
 
     if (!/^\d{7}$/.test(catalogo)) {
@@ -74,6 +80,7 @@ const ObtenerDatosTraslados_1 = async () => {
                 inputGrado_1.value = `${datos.grado_1}`;
                 inputEmpleo_1.value = `${datos.empleo_1}`;
                 inputPlaza_1.value = `${datos.plaza_1}`;
+                document.getElementById('per_grado_1').value = datos.per_grado_1
             } else {
 
                 Swal.fire({
@@ -115,7 +122,10 @@ const ObtenerDatosTraslados_1 = async () => {
 };
 
 const ObtenerDatosTraslados_2 = async () => {
-
+    
+    if(VerificarCatalogos()){
+        return
+    }
     const catalogo = inputCatalogo_2.value
 
     if (!/^\d{7}$/.test(catalogo)) {
@@ -167,6 +177,8 @@ const ObtenerDatosTraslados_2 = async () => {
                 inputGrado_2.value = `${datos.grado_2}`;
                 inputEmpleo_2.value = `${datos.empleo_2}`;
                 inputPlaza_2.value = `${datos.plaza_2}`;
+                document.getElementById('per_grado_2').value = datos.per_grado_2
+
             } else {
 
                 Swal.fire({
@@ -207,6 +219,88 @@ const ObtenerDatosTraslados_2 = async () => {
     }
 };
 
+const Traslado = async (e) =>{
+    e.preventDefault();
+    
+    BtnTrasladar.disabled = true
+    
+    if (!validarFormulario(formTraslados, [''])) {
+        Swal.fire({
+            title: "Campos vacíos",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        });
+        BtnTrasladar.disabled = false
+        return;
+    }
+    
+    try {
+        const body = new FormData(formTraslados);
+        const url = '/Altas_Bajas/API/tropa/traslados';
+        
+        const config = {
+            method: 'POST',
+            body
+        };
+        
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { codigo, mensaje } = data;
+        
+        if (codigo === 1) {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: mensaje,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+            
+        } else {
+            Swal.fire({
+                title: '¡Error!',
+                text: mensaje,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    BtnTrasladar.disabled = false
+    formTraslados.reset();
+ 
+}
+
+const VerificarCatalogos = () =>{
+
+    if(inputCatalogo_1.value === inputCatalogo_2.value){
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No puede ingresar dos catalogos iguales',
+            showConfirmButton: true
+        });
+
+        formTraslados.reset();
+    }
+}
 
 BtnSearch1.addEventListener('click', ObtenerDatosTraslados_1)
 BtnSearch2.addEventListener('click', ObtenerDatosTraslados_2)
+BtnTrasladar.addEventListener('click', Traslado);
