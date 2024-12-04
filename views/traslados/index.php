@@ -23,7 +23,7 @@
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
-                                            <label for="catalogo_1"><b>Cátalogo Usuario 1</b></label>
+                                            <label for="catalogo_1"><b>Cátalogo</b></label>
                                             <div class="input-group justify-content-center mb-4">
                                                 <input type="number" class="form-control text-center" id="catalogo_1" name="catalogo_1">
                                                 <button class="btn btn-primary" type="button" id="BtnSearch_1" name="BtnSearch_1" require><i class="bi bi-search"></i></button>
@@ -84,6 +84,13 @@
                                                 <p>Trasladar</p>
                                             </button>
                                         </div>
+                                        <div class="col justify-content-center">
+                                            <button type="button" class="btn btn-warning btn-lg p-3"
+                                                id="BtnTrasladoPlaza"
+                                                name="BtnTrasladoPlaza"><i class="bi bi-arrow-left-right"></i>
+                                                <p>Cambiar</p>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -96,10 +103,17 @@
 
                                     <div class="row justify-content-center mb-3">
                                         <div class="col-6 justify-content-center">
-                                            <label for="catalogo_2"><b>Cátalogo Usuario 2</b></label>
+                                            <label for="catalogo_2"><b>Cátalogo</b></label>
                                             <div class="input-group justify-content-center mb-4">
                                                 <input type="number" class="form-control text-center" id="catalogo_2" name="catalogo_2">
                                                 <button class="btn btn-primary" type="button" id="BtnSearch_2" name="BtnSearch_2" require><i class="bi bi-search"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 justify-content-center">
+                                            <label for="PLazaBuscar"><b>Plaza Vacante</b></label>
+                                            <div class="input-group justify-content-center mb-4">
+                                                <input type="number" class="form-control text-center" id="PLazaBuscar" name="PLazaBuscar">
+                                                <button class="btn btn-secondary" type="button" id="BtnBuscarPlaza" name="BtnBuscarPlaza" require><i class="bi bi-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +157,7 @@
                         <div class="row justify-content-center">
                             <div class="modal-footer justify-content-center">
 
-                                <button type="reset" form="formTraslados" class="btn btn-danger btn-lg" name="btnCancelarTraslados" ><i class="bi bi-stars"></i> Cancelar</button>
+                                <button type="reset" form="formTraslados" id="BtnCancelar" class="btn btn-danger btn-lg" name="btnCancelarTraslados"><i class="bi bi-stars"></i> Cancelar</button>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <?php 
-require_once __DIR__ . '/../includes/app.php';
+require_once `_DIR_ . '/../includes/app.php'`;
 
 
 use MVC\Router;
@@ -28,7 +28,6 @@ $router->post('/API/tropa/darAlta', [TropaController::class,'darAlta']);
 $router->post('/API/tropa/alta/reenganchado', [TropaController::class,'AltaReenganchado']);
 $router->post('/API/tropa/baja', [TropaController::class,'DarBajaAPI']);
 
-
 //BAJAS
 $router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDatosBajas']);
 
@@ -36,15 +35,15 @@ $router->get('/API/tropa/obtenerDatosBajas', [TropaController::class,'obtenerDat
 $router->get('/API/tropa/obtenerDatosCorrecciones', [TropaController::class,'obtenerDatosCorrecciones']);
 $router->post('/API/tropa/modificar/datos', [TropaController::class,'ModificarDatosAPI']);
 
-
 //TRASLADOS
 $router->get('/traslados', [TrasladosController::class,'index']);
 $router->get('/API/traslados/ObtenerDatosTraslados_1', [TrasladosController::class,'ObtenerDatosTraslados_1']);
 $router->get('/API/traslados/ObtenerDatosTraslados_2', [TrasladosController::class,'ObtenerDatosTraslados_2']);
 $router->post('/API/tropa/traslados', [TrasladosController::class,'TrasladoAPI']);
+$router->get('/API/buscar/plaza', [TrasladosController::class,'DatosPlazaAPI']);
+$router->post('/API/tropa/cambiarPuesto', [TrasladosController::class,'CambiarPlazaAPI']);
 
 //REPORTES
 $router->get('/reportes', [ReportesController::class,'index']);
-
 
 $router->comprobarRutas();

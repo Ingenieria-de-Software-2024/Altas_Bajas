@@ -65,7 +65,7 @@ class TrasladosController
 
     public static function TrasladoAPI()
     {
-       
+
         $catalogo_1 = filter_var($_POST['catalogo_1'], FILTER_SANITIZE_NUMBER_INT);
         $catalogo_2 = filter_var($_POST['catalogo_2'], FILTER_SANITIZE_NUMBER_INT);
         $plaza_1 = filter_var($_POST['plaza_1'], FILTER_SANITIZE_NUMBER_INT);
@@ -114,7 +114,7 @@ class TrasladosController
             $fecha_actual = date('Y-m-d');
 
             foreach ($usuarios as $usuario) {
-     
+
                 $datos_mper = Tropa::find($usuario['catalogo']);
                 $datos_mper->sincronizar([
                     'per_plaza' => $usuario['plaza'],
@@ -139,7 +139,7 @@ class TrasladosController
                 'codigo' => 1,
                 'mensaje' => 'Traslado efectuado exitosamente.',
             ]);
-        } catch (PDOException $e) { 
+        } catch (PDOException $e) {
 
             $conexion->rollBack();
             http_response_code(500);
@@ -148,13 +148,110 @@ class TrasladosController
                 'mensaje' => 'Error en la base de datos.',
                 'detalle' => $e->getMessage(),
             ]);
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
 
             $conexion->rollBack();
             http_response_code(500);
             echo json_encode([
                 'codigo' => 0,
                 'mensaje' => 'Error al efectuar el traslado.',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function DatosPlazaAPI()
+    {
+
+        $plaza = filter_var($_GET['plaza'], FILTER_VALIDATE_INT);
+
+        try {
+
+            $data = Traslados::BuscarPlaza($plaza);
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Plaza Obtenida Exitosamente.',
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al efectuar el encontrar datos.',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function CambiarPlazaAPI()
+    {
+
+        $catalogo = filter_var($_POST['catalogo_1'], FILTER_SANITIZE_NUMBER_INT);
+        $plaza = filter_var($_POST['plaza_2'], FILTER_SANITIZE_NUMBER_INT);
+        $grado = filter_var($_POST['per_grado_2'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (!$catalogo || !$plaza || !$grado) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Datos incompletos o inválidos para realizar el traslado.',
+            ]);
+            return;
+        }
+
+        try {
+
+            $conexion = Traslados::getDB();
+            $conexion->beginTransaction();
+
+
+            $datos_mper = Tropa::find($catalogo);
+            $datos_mper->sincronizar([
+                'per_plaza' => $plaza,
+                'per_grado' => $grado,
+            ]);
+            $datos_mper->actualizar();
+
+            if ($datos_mper) {
+
+                $dependencia = $_SESSION['dep_llave'];
+                $fecha_actual = date('Y-m-d');
+
+                $datos_tropa_movimientos = new TropaMovimientos([
+                    'mov_catalogo' => $catalogo,
+                    'mov_dependencia' => $dependencia,
+                    'mov_accion' => 'ASIG',
+                    'mov_fecha' => $fecha_actual,
+                    'mov_situacion' => 1
+                ]);
+                $datos_tropa_movimientos->crear();
+            }
+            $conexion->commit();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Cambio efectuado exitosamente.',
+            ]);
+        } catch (PDOException $e) {
+
+            $conexion->rollBack();
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error en la base de datos.',
+                'detalle' => $e->getMessage(),
+            ]);
+        } catch (Exception $e) {
+
+            $conexion->rollBack();
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al efectuar el cambio.',
                 'detalle' => $e->getMessage(),
             ]);
         }

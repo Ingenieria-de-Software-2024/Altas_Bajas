@@ -1,4 +1,5 @@
 <?php
+
 namespace Model;
 
 class Traslados extends ActiveRecord
@@ -22,7 +23,8 @@ class Traslados extends ActiveRecord
     public $org_nominas;
     public $org_categoria;
 
-    public function __construct($data = []) {
+    public function __construct($data = [])
+    {
         $this->org_plaza = $data['org_plaza'] ?? null;
         $this->org_ceom = $data['org_ceom'] ?? '';
         $this->org_dependencia = $data['org_dependencia'] ?? '';
@@ -36,27 +38,47 @@ class Traslados extends ActiveRecord
         $this->org_ord_gral = $data['org_ord_gral'] ?? '';
         $this->org_nominas = $data['org_nominas'] ?? '';
         $this->org_categoria = $data['org_categoria'] ?? '';
-
     }
 
-    public static function ObtenerDatosTraslados_1 ($catalogo)
+    public static function ObtenerDatosTraslados_1($catalogo)
     {
         $sql = "SELECT PER_CATALOGO AS CATALOGO_1, TRIM(GRA_DESC_CT) AS GRADO_1, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_1, PER_PLAZA AS PLAZA_1, PER_DESC_EMPLEO AS EMPLEO_1, PER_SITUACION AS  SITUACION_1, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
 
         return self::fetchFirst($sql);
     }
 
-    public static function ObtenerDatosTraslados_2 ($catalogo)
+    public static function ObtenerDatosTraslados_2($catalogo)
     {
         $sql = "SELECT PER_CATALOGO AS CATALOGO_2, TRIM(GRA_DESC_CT) AS GRADO_2, TRIM(PER_NOM1) || ' ' || TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS NOMBRE_COMPLETO_2, PER_PLAZA AS PLAZA_2, PER_DESC_EMPLEO AS EMPLEO_2, PER_SITUACION AS  SITUACION_2, SIT_DESC_LG AS SITUACION FROM MPER INNER JOIN GRADOS ON PER_GRADO = GRA_CODIGO INNER JOIN SITUACIONES ON PER_SITUACION = SIT_CODIGO WHERE PER_CATALOGO = '$catalogo'";
 
         return self::fetchFirst($sql);
     }
 
-    public static function llenarPlazaMorg($plaza){
+    public static function llenarPlazaMorg($plaza)
+    {
 
         $sql = "UPDATE MORG SET ORG_SITUACION = 'DEFINIR QUE SE COLOCARA AQUI' WHERE ORG_PLAZA = $plaza"; // DEFINIR QUE SE VA A COLOCAR EN ORG_SITUACION
 
         return self::SQL($sql);
+    }
+
+    public static function BuscarPlaza($plaza)
+    {
+        $sql = "SELECT 
+                    ORG_GRADO AS grado_org,
+                    TRIM(grado_org.GRA_DESC_LG) AS grado_morg,
+                    ORG_PLAZA_DESC AS descripcion_plaza,
+                    TRIM(grado_per.GRA_DESC_LG) || ' ' || TRIM(PER_NOM1) || ' ' || 
+                    TRIM(PER_NOM2) || ' ' || TRIM(PER_APE1) || ' ' || TRIM(PER_APE2) AS nombre_completo
+                FROM MORG
+                LEFT JOIN MPER 
+                    ON ORG_PLAZA = PER_PLAZA
+                LEFT JOIN GRADOS AS grado_per 
+                    ON grado_per.GRA_CODIGO = PER_GRADO
+                INNER JOIN GRADOS AS grado_org 
+                    ON grado_org.GRA_CODIGO = ORG_GRADO
+                WHERE ORG_PLAZA = $plaza";
+
+        return self::fetchFirst($sql);
     }
 }
